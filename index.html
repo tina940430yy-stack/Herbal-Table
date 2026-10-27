@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#f6f3e8" />
+<title>草本餐桌計畫｜讓一株植物，走上日常餐桌</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="paper-grain"></div>
+<header class="site-header">
+  <button class="brand" data-page="home" aria-label="回到首頁"><span class="brand-stamp">草</span><span><span class="brand-name">草本餐桌計畫</span><span class="brand-en">HERBAL TABLE PROJECT</span></span></button>
+  <nav class="desktop-nav" aria-label="主要導覽">
+    <button class="nav-link active" data-page="home">首頁</button><button class="nav-link" data-page="recipes">料理探索</button><button class="nav-link" data-page="plants">植物圖鑑</button><button class="nav-link" data-page="journal">料理實驗日誌</button><button class="nav-link" data-page="culture">飲食文化</button>
+  </nav>
+  <button class="header-cta" id="headerSpin">今天吃什麼？ ↗</button>
+  <button class="menu-toggle" id="menuToggle" aria-label="開啟選單">☰</button>
+  <nav class="mobile-nav" id="mobileNav" aria-label="手機導覽"><button class="nav-link active" data-page="home">首頁　↗</button><button class="nav-link" data-page="recipes">料理探索　↗</button><button class="nav-link" data-page="plants">植物圖鑑　↗</button><button class="nav-link" data-page="journal">料理實驗日誌　↗</button><button class="nav-link" data-page="culture">飲食文化　↗</button></nav>
+</header>
+<main>
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">A little plant, a little daily life</div>
+        <h1>讓一株植物，<br><span class="accent">走上日常餐桌</span></h1>
+        <p class="hero-description">從植物出發，重新認識餐桌上的風味與生活。轉一轉今天的草本餐桌，看看哪一道料理，能帶你遇見植物的另一種可能。</p>
+        <div class="hero-tags"><span class="tag">#植物 × 料理</span><span class="tag">#臺灣飲食文化</span><span class="tag">#日常草本</span></div>
+        <button class="primary-button" id="exploreButton">開始探索 <span>↗</span></button>
+        <button class="text-button" data-page="plants">先逛逛植物圖鑑</button>
+        <div class="hand-note"><span>✳</span> 每一次轉動，都是一場新的味覺提案。</div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-label">NO.01　YOUR DAILY HERBAL TABLE</div>
+        <div class="table-scene">
+          <div class="table-shadow"></div>
+          <div class="table-board" id="tableBoard">
+            <div class="table-deco top">隨機選一道，認識一株植物</div>
+            <div class="table-deco bottom">PLANTS · PARTS · DISHES</div>
+            <div class="spark one">✳</div><div class="spark two">✦</div>
+            <div class="wheel-rotator" id="wheelRotator" aria-label="料理轉盤"></div>
+            <div class="table-center">
+              <div class="center-flower">✿</div><div class="center-title">轉動餐桌</div><div class="center-copy" id="spinHint">發現今天的草本料理</div>
+              <div class="mobile-drag-note" aria-hidden="true">手指滑動餐桌</div>
+              <button class="spin-button" id="spinButton" aria-label="轉動餐桌">↻</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-caption"><span><i class="pulse-dot"></i><strong id="spinStatus">餐桌已準備好</strong></span><span class="desktop-spin-caption">點中央按鈕，抽一道料理靈感</span><span class="mobile-spin-caption">用手指轉動餐桌，抽一道料理靈感</span></div>
+      </div>
+    </div>
+    <div class="soft-section section-pad">
+      <div class="section-inner">
+        <div class="section-heading"><div><div class="eyebrow">Explore at your own pace</div><h2>從哪裡開始都可以</h2></div><p>料理、植物、實驗紀錄與文化故事，串起每一個部位和每一種日常想像。</p></div>
+        <div class="quick-grid">
+          <button class="quick-card" data-page="recipes"><span class="quick-number">01 / DISH</span><span class="quick-icon">◉</span><h3>料理探索</h3><p>從一道菜開始，看看使用了哪些植物、部位與風味。</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-page="plants"><span class="quick-number">02 / PLANT</span><span class="quick-icon">❧</span><h3>植物圖鑑</h3><p>從植物出發，整理不同部位的用途與料理連結。</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-page="journal"><span class="quick-number">03 / PROCESS</span><span class="quick-icon">✎</span><h3>料理實驗日誌</h3><p>把測試、比較、失敗與修正，都留下來。</p><span class="quick-arrow">↗</span></button>
+          <button class="quick-card" data-page="culture"><span class="quick-number">04 / CULTURE</span><span class="quick-icon">⌂</span><h3>飲食文化</h3><p>從文獻、訪談與生活觀察，認識植物和臺灣的關係。</p><span class="quick-arrow">↗</span></button>
+        </div>
+        <div class="quote-strip"><p>「一株植物，不只是一個名字；也可能是一道料理、一段記憶，或一種生活方法。」</p><span>草本餐桌計畫　／　設計概念</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-recipes">
+    <div class="page-hero"><div class="eyebrow">Dish first, then discover</div><h1>料理探索</h1><p>從料理出發，找到它使用的植物與部位，再往植物圖鑑延伸。以下菜色是網站測試用的概念提案，正式內容可在你們完成食材研究與料理測試後替換。</p></div>
+    <div class="page-content">
+      <div class="recipe-toolbar"><div class="filter-row" id="recipeFilters"><button class="filter-btn active" data-filter="全部">全部</button><button class="filter-btn" data-filter="沙拉">沙拉</button><button class="filter-btn" data-filter="湯品">湯品</button><button class="filter-btn" data-filter="飲品">飲品</button><button class="filter-btn" data-filter="主食">主食</button><button class="filter-btn" data-filter="點心">點心</button></div><label class="search-box"><span>⌕</span><input id="recipeSearch" type="search" placeholder="搜尋料理或植物名稱…" /></label></div>
+      <div class="recipe-grid" id="recipeGrid"></div>
+      <div class="notice">原型註記：菜色名稱、搭配與植物部位皆為示意。正式展示前，請確認植物品種、可食部位、料理方式及相關食安資訊；「全株可用」不等同「全株可食」。</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-plants">
+    <div class="page-hero"><div class="eyebrow">One plant, many connections</div><h1>植物圖鑑</h1><p>用植物作為索引，連結部位、用途、料理與生活文化。先以團隊目前討論過的七種植物建立資料骨架，往後可依研究來源持續補充。</p></div>
+    <div class="page-content"><div class="recipe-toolbar"><div class="filter-row" id="plantFilters"><button class="filter-btn active" data-filter="全部">全部</button><button class="filter-btn" data-filter="餐桌應用">餐桌應用</button><button class="filter-btn" data-filter="香氣與調味">香氣與調味</button><button class="filter-btn" data-filter="生活文化">生活文化</button></div><label class="search-box"><span>⌕</span><input id="plantSearch" type="search" placeholder="搜尋植物名稱…" /></label></div><div class="plant-grid" id="plantGrid"></div><div class="notice">部位與用途先作為資料整理欄位，不代表每個部位都可食用。後續建議在每筆資料中標示「資料來源、部位、用途、是否可食、查核狀態」，並將料理應用與非食用用途分開記錄。</div></div>
+  </section>
+
+  <section class="page" id="page-journal">
+    <div class="page-hero"><div class="eyebrow">Keep the process visible</div><h1>料理實驗日誌</h1><p>記錄從選材到測試的每一次觀察。這裡不只呈現成功成果，也保留問題、比較與修正，讓研究過程變成可以被理解的內容。</p></div>
+    <div class="page-content"><div class="journal-layout"><aside class="journal-intro"><div class="eyebrow">Field notes</div><h2>把試驗過程，<br>也端上餐桌。</h2><p>每篇日誌可以包含：研究問題、材料與部位、測試方式、觀察紀錄、團隊討論、修改方向，以及資料來源。以下為版型示例，日期和結果均待實際研究後更新。</p><div class="journal-stamp">草本<br>實驗紀錄</div></aside><div class="timeline" id="journalTimeline"></div></div></div>
+  </section>
+
+  <section class="page" id="page-culture">
+    <div class="page-hero"><div class="eyebrow">Food, memory and everyday life</div><h1>飲食文化</h1><p>整理植物、臺灣飲食與日常生活的關係。網站將文獻內容、訪談觀察與團隊的設計詮釋分開呈現，讓資料來源清楚，也讓創意發展有跡可循。</p></div>
+    <div class="page-content"><div class="culture-grid">
+      <article class="culture-card"><div class="culture-art"><svg class="market-illustration" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-label="臺灣傳統市場插畫"><rect width="600" height="240" fill="#e8e6d7"/><circle cx="75" cy="45" r="60" fill="#f3eddb"/><path d="M0 110 L600 110 L600 240 L0 240Z" fill="#d9c8aa"/><path d="M62 40 L520 40 L558 104 L24 104Z" fill="#e7a59b"/><path d="M62 40 L520 40 L500 52 L83 52Z" fill="#fff1d9"/><path d="M90 53 L117 53 L130 104 L77 104Z M171 53 L198 53 L211 104 L158 104Z M252 53 L279 53 L292 104 L239 104Z M333 53 L360 53 L373 104 L320 104Z M414 53 L441 53 L454 104 L401 104Z" fill="#f3d4c3"/><rect x="48" y="105" width="504" height="20" fill="#a7ad87"/><path d="M65 125 L535 125 L515 153 L85 153Z" fill="#c4a278"/><g fill="#74855c"><ellipse cx="133" cy="145" rx="26" ry="13"/><ellipse cx="207" cy="143" rx="26" ry="13"/><ellipse cx="290" cy="146" rx="26" ry="13"/><ellipse cx="378" cy="144" rx="26" ry="13"/><ellipse cx="460" cy="145" rx="26" ry="13"/></g><g fill="#df9a8a"><circle cx="128" cy="139" r="7"/><circle cx="143" cy="145" r="7"/><circle cx="202" cy="140" r="7"/><circle cx="216" cy="145" r="7"/><circle cx="286" cy="140" r="7"/><circle cx="300" cy="145" r="7"/><circle cx="374" cy="139" r="7"/><circle cx="390" cy="145" r="7"/><circle cx="455" cy="140" r="7"/><circle cx="468" cy="145" r="7"/></g><path d="M0 190 Q120 150 225 188 T600 180 L600 240 L0 240Z" fill="#c6c9ad"/><path d="M38 195 L146 195 L134 240 L50 240Z" fill="#f2e8d1"/><path d="M166 197 L273 197 L260 240 L180 240Z" fill="#d8a99e"/><path d="M300 198 L409 198 L399 240 L316 240Z" fill="#eee0bb"/><path d="M430 197 L548 197 L530 240 L448 240Z" fill="#a8b18e"/></svg></div><div class="culture-card-body"><div class="eyebrow">01 / Local memory</div><h3>臺灣的草本飲食日常</h3><p>從傳統市場、家庭料理到節氣飲食，植物可能是食材、調味、包裹材料，也可能承載家庭記憶。這一區可逐步整理團隊找到的在地案例。</p><div class="source-pills"><span class="source-pill research">文獻整理</span><span class="source-pill interview">訪談觀察</span></div></div></article>
+      <article class="culture-card"><div class="culture-art"><svg class="market-illustration" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-label="植物觀察手帳插畫"><rect width="600" height="240" fill="#e4e7d7"/><path d="M0 0 H600 V240 H0Z" fill="#e6e7d9"/><g transform="translate(95 30) rotate(-8)"><rect x="0" y="0" width="170" height="190" rx="4" fill="#fff9e9" stroke="#d5ccb7"/><path d="M22 28 H145 M22 43 H145 M22 58 H125 M22 120 H145 M22 135 H135 M22 150 H145" stroke="#d4d0bd" stroke-width="1"/><path d="M81 92 C53 75 47 58 63 56 C78 54 85 73 81 92 C84 64 103 45 113 54 C126 65 104 85 81 92Z" fill="#80966a"/><path d="M81 92 L81 114" stroke="#6b7954" stroke-width="2"/><circle cx="46" cy="174" r="5" fill="#e3aa9f"/><circle cx="62" cy="174" r="5" fill="#e3aa9f"/><circle cx="78" cy="174" r="5" fill="#e3aa9f"/></g><g transform="translate(300 25) rotate(7)"><rect x="0" y="0" width="185" height="205" rx="4" fill="#fffaf0" stroke="#d5ccb7"/><circle cx="90" cy="72" r="40" fill="#ece6ce"/><path d="M90 112 C62 88 55 68 71 56 C86 50 91 72 90 81 C98 48 121 46 128 59 C135 77 111 99 90 112Z" fill="#789064"/><path d="M90 112 L90 142" stroke="#6e7c55" stroke-width="2"/><path d="M23 150 H158 M23 165 H145 M23 180 H152" stroke="#d4d0bd" stroke-width="1"/></g><path d="M510 38 C470 60 465 112 505 121 C542 125 555 80 510 38Z" fill="#7d9065" opacity=".8"/><path d="M510 38 Q515 75 505 121" fill="none" stroke="#5e7550" stroke-width="2"/></svg></div><div class="culture-card-body"><div class="eyebrow">02 / Research notes</div><h3>植物知識如何傳下來？</h3><p>透過訪談與生活觀察，理解不同世代如何認識植物、使用植物，以及哪些經驗正在改變。設計詮釋會清楚標示為團隊觀點，而非研究事實。</p><div class="source-pills"><span class="source-pill interview">訪談觀察</span><span class="source-pill interpret">設計詮釋</span></div></div></article>
+      </div><div class="notice">內容原則：文獻資料需附來源；訪談內容需標示受訪者角色與訪談日期；團隊的創意延伸則標示為「設計詮釋」。避免將民間說法直接寫成醫療功效，也避免將「全株可用」直接等同「全株可食」。</div></div>
+  </section>
+</main>
+<footer><div class="footer-inner"><div><div class="footer-brand">草本餐桌計畫</div><div style="font-size:10px;color:#8b876f;letter-spacing:.14em;margin-top:2px">HERBAL TABLE PROJECT</div></div><div class="footer-copy">一個持續長大的草本知識平台原型。<br>本頁植物與料理內容為概念示例，後續應依團隊查證資料與實際測試更新。</div></div></footer>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal" id="modalContent"><button class="modal-close" id="modalClose" aria-label="關閉視窗">×</button><div class="modal-art" id="modalArt"></div><div class="modal-copy" id="modalCopy"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="app.js" defer></script>
+</body>
+</html>
