@@ -1985,458 +1985,89 @@ async function spinToRandomRecipe(fromTouch = false, velocity = 0) {
   if (spinning) return;
 
   spinning = true;
-  const spinButton = $("#spinButton");
+
+  const spinButton = document.querySelector("#spinButton");
+  const status = document.querySelector("#spinStatus");
+  const board = document.querySelector("#tableBoard");
+  const rotator = document.querySelector("#wheelRotator");
+
   if (spinButton) spinButton.disabled = true;
 
-  $("#spinStatus").textContent = "餐桌正在旋轉……";
+  status.textContent = "餐桌正在旋轉……";
 
-  const index = Math.floor(Math.random() * recipes.length);
-  const step = 360 / recipes.length;
-  const currentMod = ((currentRotation % 360) + 360) % 360;
-  const desiredMod = ((360 - index * step) % 360 + 360) % 360;
-  const pointerDelta = ((desiredMod - currentMod) % 360 + 360) % 360;
-  const turns = fromTouch ? 2.5 + Math.min(1, Math.abs(velocity) * .12) : 4;
-  const target = currentRotation + turns * 360 + pointerDelta;
+  document.querySelectorAll(".dish-pod").forEach(item => {
+    item.classList.remove("selected");
+  });
 
-  document.querySelectorAll(".dish-pod").forEach(item => item.classList.remove("selected"));
+  // 隨機旋轉多圈，不預先指定要跳出的料理
+  const extraTurns = fromTouch
+    ? 3 + Math.min(1, Math.abs(velocity) * 0.15)
+    : 4 + Math.random() * 2;
 
-  await animateWheelTo(target, fromTouch ? 2100 : 3400);
+  const randomAngle = Math.random() * 360;
+  const targetRotation =
+    currentRotation + extraTurns * 360 + randomAngle;
 
-  const recipe = recipes[index];
-  const selected = document.querySelector(`[data-wheel-recipe="${recipe.id}"]`);
-  if (selected) selected.classList.add("selected");
+  // 執行轉盤動畫
+  await animateWheelTo(targetRotation, fromTouch ? 2200 : 3500);
+
+  // 等待瀏覽器完成最後一次版面更新
+  await new Promise(resolve => requestAnimationFrame(() => {
+    requestAnimationFrame(resolve);
+  }));
+
+  // 取得固定指針的位置
+  const boardRect = board.getBoundingClientRect();
+
+  const pointerX = boardRect.left + boardRect.width / 2;
+  const pointerY = boardRect.top + boardRect.height * 0.165;
+
+  // 實際計算每一道菜與指針的距離
+  const dishButtons = [
+    ...rotator.querySelectorAll("[data-wheel-recipe]")
+  ];
+
+  let nearestDish = null;
+  let shortestDistance = Infinity;
+
+  for (const dish of dishButtons) {
+    const rect = dish.getBoundingClientRect();
+
+    const dishX = rect.left + rect.width / 2;
+    const dishY = rect.top + rect.height / 2;
+
+    const distance = Math.hypot(
+      dishX - pointerX,
+      dishY - pointerY
+    );
+
+    if (distance < shortestDistance) {
+      shortestDistance = distance;
+      nearestDish = dish;
+    }
+  }
+
+  // 以指針實際指到的料理作為最終結果
+  let selectedRecipe = null;
+
+  if (nearestDish) {
+    const recipeId = nearestDish.dataset.wheelRecipe;
+
+    selectedRecipe = recipes.find(recipe => recipe.id === recipeId);
+
+    nearestDish.classList.add("selected");
+  }
 
   spinning = false;
+
   if (spinButton) spinButton.disabled = false;
 
-  $("#spinStatus").textContent = `抽中：${recipe.name}`;
-  showToast(`餐桌停在「${recipe.name}」`);
-  openRecipe(recipe.id);
-}
+  if (selectedRecipe) {
+    status.textContent = `抽中：${selectedRecipe.name}`;
 
-function goPage(name) {
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.toggle("active", page.id === `page-${name}`);
-  });
-
-  document.querySelectorAll(".nav-link").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === name);
-  });
-
-  $("#mobileNav").classList.remove("open");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  if (name === "home") {
-    requestAnimationFrame(() => {
-      if (!spinning) buildWheel();
-    });
-  }
-}
-
-function recipeMarkup(recipe) {
-  return `
-    <article class="recipe-card" data-recipe="${recipe.id}" tabindex="0" role="button" aria-label="查看${recipe.name}">
-      <div class="recipe-visual" style="background:linear-gradient(135deg,${recipe.color},#f4ead8)">
-        ${svgDish(recipe.shape)}
-      </div>
-      <div class="recipe-body">
-        <div class="recipe-title-row">
-          <h3>${recipe.name}</h3>
-          <button class="bookmark ${saved.has(recipe.id) ? "saved" : ""}" data-save="${recipe.id}" aria-label="收藏料理">${saved.has(recipe.id) ? "♥" : "♡"}</button>
-        </div>
-        <div class="card-meta">
-          ${recipe.plants.map(plant => `<span class="mini-tag">${plant}</span>`).join("")}
-          <span class="mini-tag">${recipe.category}</span>
-        </div>
-        <p>${recipe.description}</p>
-        <div class="recipe-foot">
-          <span>${recipe.status.split("｜")[0]}</span>
-          <b>查看料理卡 ↗</b>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-function renderRecipes() {
-  const query = ($("#recipeSearch").value || "").trim().toLowerCase();
-
-  const items = recipes.filter(recipe => {
-    const matchFilter = activeRecipeFilter === "全部" || recipe.category === activeRecipeFilter;
-    const haystack = [recipe.name, recipe.category, ...recipe.plants, ...recipe.parts].join(" ").toLowerCase();
-    return matchFilter && (!query || haystack.includes(query));
-  });
-
-  $("#recipeGrid").innerHTML = items.length
-    ? items.map(recipeMarkup).join("")
-    : `<div class="empty-state">還沒有找到符合的料理，換個關鍵字試試吧。</div>`;
-}
-
-function renderPlants() {
-  const query = ($("#plantSearch").value || "").trim().toLowerCase();
-
-  const items = plants.filter(plant => {
-    const matchFilter = activePlantFilter === "全部" || plant.tags.includes(activePlantFilter);
-    const haystack = [plant.id, plant.latin, plant.parts, plant.use].join(" ").toLowerCase();
-    return matchFilter && (!query || haystack.includes(query));
-  });
-
-  $("#plantGrid").innerHTML = items.length
-    ? items.map(plant => `
-      <button class="plant-card" data-plant="${plant.id}" type="button">
-        <span class="plant-illustration">${svgPlant(plant.type, plant.tone)}</span>
-        <span>
-          <h3>${plant.id}</h3>
-          <span class="latin">${plant.latin}</span>
-          <p>${plant.use}</p>
-          <span class="plant-use">查看植物資料 ↗</span>
-        </span>
-      </button>
-    `).join("")
-    : `<div class="empty-state">暫時沒有符合的植物資料。</div>`;
-}
-
-function renderJournal() {
-  $("#journalTimeline").innerHTML = journals.map((journal, i) => `
-    <article class="journal-entry" data-journal="${i}" tabindex="0">
-      <div class="entry-meta">${journal.date}　／　FIELD NOTE 0${i + 1}</div>
-      <h3>${journal.title}</h3>
-      <p>${journal.description}</p>
-      <span class="entry-expand">展開紀錄與建議欄位　＋</span>
-    </article>
-  `).join("");
-}
-
-function openModal(content, art = "") {
-  $("#modalCopy").innerHTML = content;
-  $("#modalArt").innerHTML = art;
-  $("#modalBackdrop").classList.add("open");
-  document.body.style.overflow = "hidden";
-  $("#modalClose").focus();
-}
-
-function closeModal() {
-  $("#modalBackdrop").classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-function openRecipe(id) {
-  const recipe = recipes.find(item => item.id === id);
-  if (!recipe) return;
-
-  openModal(`
-    <div class="modal-kicker">${recipe.category} / HERBAL DISH IDEA</div>
-    <h2 id="modalTitle">${recipe.name}</h2>
-    <p class="lead">${recipe.idea}</p>
-    <div class="info-block"><h4>使用植物</h4><p>${recipe.plants.join("、")}</p></div>
-    <div class="info-block"><h4>研究部位</h4><p>${recipe.parts.join("、")}</p></div>
-    <div class="info-block"><h4>風味觀察方向</h4><p>${recipe.flavor}</p></div>
-    <div class="info-block"><h4>料理概念</h4><p>${recipe.description}</p></div>
-    <div class="modal-note">${recipe.status}。這是展示用草案，不是已驗證食譜；正式開發前請查核品種、部位與食用性。</div>
-    <div class="modal-actions">
-      <button class="small-button" data-related-plant="${recipe.plants[0]}">探索相關植物 ↗</button>
-      <button class="small-button" data-close-modal>回到餐桌</button>
-    </div>
-  `, svgDish(recipe.shape));
-}
-
-function openPlant(id) {
-  const plant = plants.find(item => item.id === id);
-  if (!plant) return;
-
-  const relatedRecipes = recipes.filter(recipe =>
-    recipe.plants.some(name => name === plant.id || plant.id.startsWith(name.split("／")[0]))
-  );
-
-  openModal(`
-    <div class="modal-kicker">PLANT INDEX / 植物資料卡</div>
-    <h2 id="modalTitle">${plant.id}</h2>
-    <p class="lead">${plant.intro}</p>
-    <div class="info-block"><h4>植物名稱</h4><p>${plant.id}｜${plant.latin}</p></div>
-    <div class="info-block"><h4>部位整理方向</h4><p>${plant.parts}</p></div>
-    <div class="info-block"><h4>研究與生活連結</h4><p>${plant.use}</p></div>
-    <div class="info-block"><h4>相關料理概念</h4><p>${relatedRecipes.length ? relatedRecipes.map(recipe => recipe.name).join("、") : "目前尚無對應料理"}</p></div>
-    <div class="modal-note">資料尚待查核。正式內容應附上來源、部位、用途、可食性與查核狀態。</div>
-    <div class="modal-actions">
-      <button class="small-button" data-plant-recipes="${plant.id}">看相關料理 ↗</button>
-      <button class="small-button" data-close-modal>關閉資料卡</button>
-    </div>
-  `, svgPlant(plant.type, plant.tone));
-}
-
-function openJournal(index) {
-  const journal = journals[index];
-  openModal(`
-    <div class="modal-kicker">FIELD NOTE / 實驗日誌</div>
-    <h2 id="modalTitle">${journal.title}</h2>
-    <p class="lead">${journal.description}</p>
-    <div class="info-block"><h4>紀錄內容建議</h4><p>${journal.detail}</p></div>
-    <div class="info-block"><h4>可用欄位</h4><p>日期、人員、研究問題、食材及部位、資料來源、查核狀態、操作條件、觀察紀錄、結果比較及修正方向。</p></div>
-    <div class="modal-note">目前為內容架構示例。實際測試日期、方法及結論應由團隊完成研究後填入。</div>
-  `, svgPlant("leaf", "#e5e8d8"));
-}
-
-/* 導覽 */
-document.querySelectorAll("[data-page]").forEach(button => {
-  button.addEventListener("click", () => goPage(button.dataset.page));
-});
-
-$("#menuToggle").addEventListener("click", () => {
-  $("#mobileNav").classList.toggle("open");
-});
-
-$("#headerSpin").addEventListener("click", () => {
-  goPage("home");
-  setTimeout(() => spinToRandomRecipe(false), 180);
-});
-
-$("#spinButton").addEventListener("click", () => spinToRandomRecipe(false));
-
-$("#exploreButton").addEventListener("click", () => {
-  goPage("recipes");
-  showToast("先從一道料理開始探索吧");
-});
-
-/* 分類與搜尋 */
-$("#recipeFilters").addEventListener("click", event => {
-  const button = event.target.closest("[data-filter]");
-  if (!button) return;
-
-  activeRecipeFilter = button.dataset.filter;
-  $("#recipeFilters").querySelectorAll(".filter-btn").forEach(item => {
-    item.classList.toggle("active", item === button);
-  });
-  renderRecipes();
-});
-
-$("#plantFilters").addEventListener("click", event => {
-  const button = event.target.closest("[data-filter]");
-  if (!button) return;
-
-  activePlantFilter = button.dataset.filter;
-  $("#plantFilters").querySelectorAll(".filter-btn").forEach(item => {
-    item.classList.toggle("active", item === button);
-  });
-  renderPlants();
-});
-
-$("#recipeSearch").addEventListener("input", renderRecipes);
-$("#plantSearch").addEventListener("input", renderPlants);
-
-/* 料理收藏與資訊卡 */
-$("#recipeGrid").addEventListener("click", event => {
-  const bookmark = event.target.closest("[data-save]");
-
-  if (bookmark) {
-    event.stopPropagation();
-    const id = bookmark.dataset.save;
-
-    if (saved.has(id)) {
-      saved.delete(id);
-      showToast("已取消收藏");
-    } else {
-      saved.add(id);
-      showToast("已收藏這道料理");
-    }
-
-    renderRecipes();
-    return;
-  }
-
-  const card = event.target.closest("[data-recipe]");
-  if (card) openRecipe(card.dataset.recipe);
-});
-
-$("#recipeGrid").addEventListener("keydown", event => {
-  if ((event.key === "Enter" || event.key === " ") &&
-      event.target.matches("[data-recipe]")) {
-    event.preventDefault();
-    openRecipe(event.target.dataset.recipe);
-  }
-});
-
-$("#plantGrid").addEventListener("click", event => {
-  const card = event.target.closest("[data-plant]");
-  if (card) openPlant(card.dataset.plant);
-});
-
-$("#journalTimeline").addEventListener("click", event => {
-  const entry = event.target.closest("[data-journal]");
-  if (entry) openJournal(Number(entry.dataset.journal));
-});
-
-$("#journalTimeline").addEventListener("keydown", event => {
-  if ((event.key === "Enter" || event.key === " ") &&
-      event.target.matches("[data-journal]")) {
-    event.preventDefault();
-    openJournal(Number(event.target.dataset.journal));
-  }
-});
-
-/* 資訊卡按鈕 */
-$("#modalClose").addEventListener("click", closeModal);
-
-$("#modalBackdrop").addEventListener("click", event => {
-  if (event.target === $("#modalBackdrop")) closeModal();
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeModal();
-});
-
-$("#modalCopy").addEventListener("click", event => {
-  if (event.target.closest("[data-close-modal]")) {
-    closeModal();
-    return;
-  }
-
-  const plantButton = event.target.closest("[data-related-plant]");
-  if (plantButton) {
-    const name = plantButton.dataset.relatedPlant;
-    closeModal();
-    goPage("plants");
-    const plant = plants.find(item =>
-      item.id === name || item.id.startsWith(name.split("／")[0])
-    );
-    if (plant) setTimeout(() => openPlant(plant.id), 200);
-    return;
-  }
-
-  const recipeButton = event.target.closest("[data-plant-recipes]");
-  if (recipeButton) {
-    const name = recipeButton.dataset.plantRecipes;
-    closeModal();
-    goPage("recipes");
-    $("#recipeSearch").value = name.split("／")[0];
-    activeRecipeFilter = "全部";
-    $("#recipeFilters").querySelectorAll(".filter-btn").forEach(button => {
-      button.classList.toggle("active", button.dataset.filter === "全部");
-    });
-    renderRecipes();
-  }
-});
-
-/* 手機：在餐桌上滑動就旋轉。桌機：使用中央按鈕。 */
-const tableBoard = $("#tableBoard");
-let gesture = null;
-let suppressWheelClickUntil = 0;
-
-function isMobileWheel() {
-  return window.matchMedia("(max-width:760px)").matches;
-}
-
-function angleAtPointer(event) {
-  const rect = tableBoard.getBoundingClientRect();
-  return Math.atan2(
-    event.clientY - (rect.top + rect.height / 2),
-    event.clientX - (rect.left + rect.width / 2)
-  ) * 180 / Math.PI;
-}
-
-function shortestAngle(degrees) {
-  while (degrees > 180) degrees -= 360;
-  while (degrees < -180) degrees += 360;
-  return degrees;
-}
-
-tableBoard.addEventListener("pointerdown", event => {
-  if (!isMobileWheel() || spinning || event.isPrimary === false) return;
-  if (event.button !== undefined && event.button !== 0) return;
-
-  const rect = tableBoard.getBoundingClientRect();
-  const dx = event.clientX - (rect.left + rect.width / 2);
-  const dy = event.clientY - (rect.top + rect.height / 2);
-
-  gesture = {
-    pointerId: event.pointerId,
-    startX: event.clientX,
-    startY: event.clientY,
-    lastX: event.clientX,
-    lastAngle: angleAtPointer(event),
-    moved: false,
-    lastTime: performance.now(),
-    velocity: 0,
-    distance: 0,
-    nearCenter: Math.hypot(dx, dy) < rect.width * .22
-  };
-});
-
-tableBoard.addEventListener("pointermove", event => {
-  if (!gesture || event.pointerId !== gesture.pointerId || spinning) return;
-
-  const dx = event.clientX - gesture.startX;
-  const dy = event.clientY - gesture.startY;
-  gesture.distance = Math.hypot(dx, dy);
-
-  if (!gesture.moved && gesture.distance > 6) {
-    gesture.moved = true;
-    tableBoard.classList.add("is-dragging");
-    suppressWheelClickUntil = Date.now() + 1000;
-    try { tableBoard.setPointerCapture(event.pointerId); } catch (_) {}
-  }
-
-  if (!gesture.moved) return;
-  event.preventDefault();
-
-  const now = performance.now();
-  let delta;
-
-  if (gesture.nearCenter) {
-    delta = (event.clientX - gesture.lastX) * .85;
+    // 資訊卡與實際指針指向的料理使用同一筆資料
+    openRecipe(selectedRecipe.id);
   } else {
-    const currentAngle = angleAtPointer(event);
-    delta = shortestAngle(currentAngle - gesture.lastAngle);
-    gesture.lastAngle = currentAngle;
-  }
-
-  const dt = Math.max(8, now - gesture.lastTime);
-  gesture.velocity = delta / dt;
-
-  setWheelRotation(currentRotation + delta);
-  gesture.lastX = event.clientX;
-  gesture.lastTime = now;
-}, { passive: false });
-
-function endGesture(event) {
-  if (!gesture || (event && event.pointerId !== gesture.pointerId)) return;
-
-  const finished = gesture;
-  gesture = null;
-  tableBoard.classList.remove("is-dragging");
-
-  if (finished.moved && finished.distance > 8) {
-    suppressWheelClickUntil = Date.now() + 1000;
-    spinToRandomRecipe(true, finished.velocity);
+    status.textContent = "請再轉一次餐桌";
   }
 }
-
-tableBoard.addEventListener("pointerup", endGesture);
-tableBoard.addEventListener("pointercancel", endGesture);
-
-/* 點中央圓心也可以抽菜，點到菜色則開啟該道菜的資訊卡。 */
-tableBoard.addEventListener("click", event => {
-  if (Date.now() < suppressWheelClickUntil || spinning) return;
-
-  const dishButton = event.target.closest("[data-wheel-recipe]");
-  if (dishButton) {
-    openRecipe(dishButton.dataset.wheelRecipe);
-    return;
-  }
-
-  if (isMobileWheel() && event.target.closest("#tableCenter")) {
-    spinToRandomRecipe(true, 0);
-  }
-});
-
-window.addEventListener("resize", () => {
-  if (!spinning) buildWheel();
-});
-
-/* 啟動網站 */
-renderRecipes();
-renderPlants();
-renderJournal();
-buildWheel();
-</script>
-</body>
-</html>
