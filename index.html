@@ -1,95 +1,2442 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#f6f3e8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f4e9">
 <title>草本餐桌計畫｜讓一株植物，走上日常餐桌</title>
-<link rel="stylesheet" href="styles.css" />
+
+<style>
+:root {
+  --paper: #f7f4e9;
+  --paper2: #fffdf5;
+  --ink: #292c20;
+  --muted: #777565;
+  --olive: #667448;
+  --olive-dark: #485635;
+  --sage: #dbe1ce;
+  --line: #d9d3bd;
+  --coral: #e9aaa0;
+  --shadow: 0 18px 50px rgba(68,62,41,.10);
+  --serif: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --sans: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--olive);
+  outline-offset: 3px;
+}
+
+.site-header {
+  height: 78px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 clamp(18px, 5vw, 76px);
+  background: rgba(247,244,233,.95);
+  border-bottom: 1px solid rgba(119,117,101,.22);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.brand-stamp {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--olive);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--olive);
+  font-family: var(--serif);
+  font-size: 23px;
+}
+
+.brand-name {
+  display: block;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1.4;
+}
+
+.brand-en {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .2em;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-link {
+  border: 0;
+  background: none;
+  position: relative;
+  padding: 10px 0;
+  color: #686858;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.nav-link.active {
+  color: var(--olive-dark);
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  content: "";
+  height: 2px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3px;
+  background: var(--olive);
+}
+
+.header-cta {
+  border: 1px solid var(--olive);
+  background: transparent;
+  color: var(--olive-dark);
+  border-radius: 999px;
+  padding: 9px 17px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.header-cta:hover {
+  background: var(--olive);
+  color: white;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 27px;
+}
+
+.mobile-nav { display: none; }
+
+main { min-height: 75vh; }
+
+.page { display: none; }
+.page.active {
+  display: block;
+  animation: appear .35s ease;
+}
+
+@keyframes appear {
+  from { opacity: .5; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  color: var(--olive);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.hero {
+  max-width: 1420px;
+  min-height: 650px;
+  margin: auto;
+  padding: 48px clamp(20px, 5vw, 76px) 62px;
+  display: grid;
+  grid-template-columns: minmax(280px,.78fr) minmax(430px,1.22fr);
+  align-items: center;
+  gap: 32px;
+}
+
+.hero-copy { padding: 10px 0 24px; }
+
+.hero h1 {
+  margin: 20px 0;
+  font-family: var(--serif);
+  font-size: clamp(39px,4.3vw,64px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: .05em;
+}
+
+.hero h1 .accent { color: var(--olive); }
+
+.hero-description {
+  max-width: 400px;
+  margin: 0 0 23px;
+  color: #656454;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.tag {
+  border-radius: 999px;
+  background: #ece8d8;
+  color: #6a6c51;
+  padding: 6px 13px;
+  font-size: 11px;
+}
+
+.primary-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 23px;
+  color: white;
+  background: var(--olive);
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 8px 20px rgba(72,86,53,.13);
+}
+
+.primary-button:hover { background: var(--olive-dark); }
+
+.text-button {
+  border: 0;
+  background: none;
+  color: var(--olive-dark);
+  padding: 12px 16px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.hand-note {
+  margin-top: 28px;
+  color: #99937d;
+  font-family: var(--serif);
+  font-size: 13px;
+}
+
+.table-wrap { min-width: 0; }
+
+.table-scene {
+  width: 100%;
+  max-width: 710px;
+  aspect-ratio: 1;
+  margin: auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.table-shadow {
+  position: absolute;
+  inset: 7%;
+  border-radius: 50%;
+  background: #bda075;
+  filter: blur(16px);
+  opacity: .35;
+  transform: translateY(14px);
+}
+
+.table-board {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 8px solid #b18d5d;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(
+      7deg,
+      transparent 0 24px,
+      rgba(121,82,43,.055) 25px 27px,
+      transparent 28px 43px
+    ),
+    radial-gradient(
+      circle at 35% 28%,
+      #f4e4c2 0,
+      #e6cc9d 48%,
+      #d2b17a 76%,
+      #c29c66 100%
+    );
+  box-shadow:
+    inset 0 0 0 2px rgba(255,246,221,.72),
+    inset 0 0 0 7px rgba(121,84,42,.18),
+    inset 0 0 0 12px rgba(255,245,218,.45),
+    0 24px 38px rgba(74,57,32,.22);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.table-board::before {
+  content: "";
+  position: absolute;
+  inset: 3.2%;
+  border: 2px solid rgba(139,101,55,.42);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4px rgba(255,244,214,.42);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.table-board::after {
+  content: "";
+  position: absolute;
+  inset: 1%;
+  border: 1px solid rgba(255,247,225,.65);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.wheel-rotator {
+  position: absolute;
+  inset: 4%;
+  border: 2px solid rgba(153,112,61,.48);
+  border-radius: 50%;
+  background:
+    repeating-conic-gradient(
+      from 4deg,
+      rgba(134,94,48,.045) 0deg 1deg,
+      transparent 1deg 8deg
+    ),
+    radial-gradient(
+      circle at 34% 27%,
+      rgba(255,247,220,.62),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle,
+      #f0dfba 0,
+      #e5c895 60%,
+      #d1ad77 72%,
+      #e4c795 74%,
+      #cba46c 100%
+    );
+  box-shadow:
+    inset 0 0 0 4px rgba(255,247,221,.52),
+    inset 0 0 0 8px rgba(128,88,44,.12);
+  transform-origin: 50% 50%;
+  will-change: transform;
+  isolation: isolate;
+}
+
+.wheel-rotator::before {
+  content: "";
+  position: absolute;
+  inset: 4.8%;
+  border: 1px solid rgba(142,101,52,.25);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dish-pod {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(92px,18%,145px);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  transform:
+    translate(-50%,-50%)
+    rotate(var(--a))
+    translateY(var(--offset))
+    rotate(var(--na));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dish-pod:focus-visible .dish-name {
+  outline: 2px solid var(--olive);
+}
+
+.dish-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.dish-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 180 / 130;
+  filter: drop-shadow(0 5px 4px rgba(94,68,37,.18));
+}
+
+.dish-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.dish-name {
+  display: block;
+  max-width: 100%;
+  margin-top: -2px;
+  color: #353629;
+  font-family: var(--serif);
+  font-size: clamp(11px,1.05vw,14px);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: 0 1px 4px #fff8e4, 0 0 5px #fff8e4;
+}
+
+.dish-type { display: none; }
+
+.dish-pod.selected .dish-art {
+  filter:
+    drop-shadow(0 0 5px rgba(222,112,98,.72))
+    drop-shadow(0 6px 4px rgba(94,68,37,.22));
+}
+
+.dish-pod.selected .dish-name { color: #9b483e; }
+
+.wheel-pointer {
+  position: absolute;
+  left: 50%;
+  top: 1.5%;
+  width: 36px;
+  height: 42px;
+  transform: translateX(-50%);
+  z-index: 8;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 3px rgba(83,50,35,.3));
+}
+
+.wheel-pointer::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 29px solid #b75f50;
+}
+
+.wheel-pointer::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff1d2;
+  border: 2px solid #a65b4b;
+}
+
+.table-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26%;
+  aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  border: 4px double #c7ae7d;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%,#fffdf4 0,#f6edda 67%,#e9d7b7 100%);
+  box-shadow:
+    0 5px 14px rgba(82,61,32,.2),
+    inset 0 0 0 3px rgba(255,255,255,.65);
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.center-title {
+  font-family: var(--serif);
+  font-size: clamp(13px,1.45vw,20px);
+  color: var(--olive-dark);
+  font-weight: 700;
+  letter-spacing: .1em;
+  white-space: nowrap;
+}
+
+.spin-button {
+  border: 2px solid rgba(255,255,255,.7);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  margin-top: 4px;
+  color: white;
+  background: var(--olive);
+  font-size: 21px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 10px rgba(76,88,54,.24);
+}
+
+.table-caption {
+  min-height: 25px;
+  margin-top: 13px;
+  text-align: center;
+  color: var(--olive-dark);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.section-pad { padding: 70px clamp(18px,5vw,76px); }
+.section-inner { max-width: 1240px; margin: auto; }
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 27px;
+}
+
+.section-heading h2, .page-hero h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: .05em;
+}
+
+.section-heading h2 {
+  margin: 9px 0 0;
+  font-size: clamp(28px,3.3vw,42px);
+}
+
+.section-heading p {
+  max-width: 350px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.soft-section {
+  background: #efeddf;
+  border-top: 1px solid #e0dcc9;
+  border-bottom: 1px solid #e0dcc9;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 15px;
+}
+
+.quick-card {
+  min-height: 165px;
+  position: relative;
+  padding: 22px 20px;
+  border: 1px solid #e0dac6;
+  border-radius: 18px;
+  text-align: left;
+  color: var(--ink);
+  background: var(--paper2);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.quick-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.quick-number {
+  color: #aaa28b;
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+
+.quick-card h3 {
+  margin: 24px 0 6px;
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.quick-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.quick-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  color: var(--olive);
+}
+
+.quote-strip {
+  margin-top: 26px;
+  padding: 28px 32px;
+  background: #e6e8d9;
+  border-radius: 16px;
+}
+
+.quote-strip p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(17px,2vw,24px);
+}
+
+.quote-strip span {
+  display: block;
+  margin-top: 10px;
+  color: #757b61;
+  font-size: 10px;
+}
+
+.page-hero {
+  max-width: 1200px;
+  padding: 55px clamp(20px,5vw,76px) 30px;
+  margin: auto;
+}
+
+.page-hero h1 {
+  margin: 10px 0;
+  font-size: clamp(36px,4vw,53px);
+}
+
+.page-hero p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 clamp(20px,5vw,76px) 65px;
+}
+
+.recipe-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.filter-btn {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 13px;
+  background: transparent;
+  color: #686858;
+  font-size: 11px;
+}
+
+.filter-btn.active {
+  color: white;
+  background: var(--olive);
+  border-color: var(--olive);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fffdf6;
+  padding: 8px 13px;
+  min-width: 200px;
+}
+
+.search-box input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 18px;
+}
+
+.recipe-card {
+  border-radius: 18px;
+  border: 1px solid #e0dac6;
+  background: #fffdf6;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.recipe-visual {
+  height: 185px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.recipe-visual svg {
+  width: 180px;
+  max-width: 85%;
+  height: auto;
+}
+
+.visual-label {
+  position: absolute;
+  margin-top: -150px;
+  margin-left: 130px;
+  color: #656c50;
+  font-size: 9px;
+}
+
+.recipe-body { padding: 18px; }
+
+.recipe-title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.recipe-body h3 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 20px;
+}
+
+.bookmark {
+  border: 0;
+  background: transparent;
+  color: var(--olive);
+  font-size: 23px;
+  line-height: 1;
+}
+
+.bookmark.saved { color: #b75f50; }
+
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.mini-tag {
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: #efeddf;
+  color: #73765e;
+  font-size: 10px;
+}
+
+.recipe-body p {
+  margin: 0 0 13px;
+  color: #74715f;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.recipe-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #88826f;
+  font-size: 10px;
+}
+
+.recipe-foot b { color: var(--olive-dark); }
+
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+.plant-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 16px;
+  text-align: left;
+  color: var(--ink);
+  background: #fffdf6;
+  border: 1px solid #e1dbc8;
+  border-radius: 16px;
+}
+
+.plant-card:hover { border-color: #abb696; }
+
+.plant-illustration {
+  flex: 0 0 105px;
+  width: 105px;
+  height: 105px;
+}
+
+.plant-illustration svg {
+  width: 100%;
+  height: 100%;
+}
+
+.plant-card h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.latin {
+  color: #99927d;
+  font-size: 10px;
+}
+
+.plant-card p {
+  margin: 7px 0;
+  color: #73715f;
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.plant-use {
+  color: var(--olive);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.notice {
+  margin-top: 24px;
+  padding: 13px 16px;
+  border-left: 3px solid #b6bd9e;
+  background: #f1f0e5;
+  color: #777360;
+  font-size: 11px;
+  line-height: 1.9;
+}
+
+.journal-layout {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 35px;
+}
+
+.journal-intro {
+  align-self: start;
+  padding: 28px;
+  background: #e7e9db;
+  border-radius: 18px;
+}
+
+.journal-intro h2 {
+  font-family: var(--serif);
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.journal-intro p, .journal-entry p {
+  color: #73715f;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.journal-stamp {
+  width: 80px;
+  height: 80px;
+  margin-top: 24px;
+  border: 1px solid #aab393;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--olive);
+  font-family: var(--serif);
+}
+
+.timeline { border-left: 1px solid #b7bd9f; padding-left: 25px; }
+
+.journal-entry {
+  position: relative;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.journal-entry::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--olive);
+}
+
+.entry-meta {
+  color: #99927d;
+  font-size: 10px;
+}
+
+.journal-entry h3 {
+  margin: 6px 0;
+  font-family: var(--serif);
+  font-size: 21px;
+}
+
+.entry-expand { color: var(--olive); font-size: 11px; }
+
+.culture-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
+}
+
+.culture-card {
+  border: 1px solid #e1dbc8;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fffdf6;
+}
+
+.culture-art {
+  height: 210px;
+  overflow: hidden;
+  background: #e7e9db;
+}
+
+.culture-art svg { width: 100%; height: 100%; }
+
+.culture-card-body { padding: 22px; }
+
+.culture-card h3 {
+  margin: 4px 0 8px;
+  font-family: var(--serif);
+  font-size: 23px;
+}
+
+.culture-card p {
+  color: #74715f;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.source-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.source-pill {
+  border-radius: 99px;
+  padding: 5px 10px;
+  color: #77735e;
+  background: #efeddf;
+  font-size: 10px;
+}
+
+.source-pill.research { background: #e1e7d7; color: #586745; }
+.source-pill.interview { background: #f3e2dd; color: #986e63; }
+.source-pill.interpret { background: #eee3c9; color: #94743f; }
+
+footer {
+  padding: 34px clamp(20px,5vw,76px);
+  background: #e7e5d7;
+  border-top: 1px solid #d8d4c1;
+}
+
+.footer-inner {
+  max-width: 1240px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: .08em;
+}
+
+.footer-copy {
+  color: #817d6b;
+  font-size: 10px;
+  line-height: 1.9;
+  text-align: right;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(43,45,32,.48);
+  backdrop-filter: blur(5px);
+}
+
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  position: relative;
+  width: min(760px,100%);
+  max-height: 92vh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: .86fr 1.14fr;
+  border: 1px solid #e4dcc5;
+  border-radius: 22px;
+  background: #fbf8ee;
+  box-shadow: 0 25px 80px rgba(33,36,25,.3);
+}
+
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 3;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #dbd4bd;
+  border-radius: 50%;
+  background: rgba(255,253,245,.9);
+  color: #5d6049;
+  font-size: 20px;
+}
+
+.modal-art {
+  min-height: 330px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg,#e2e6d5,#f2dfc7);
+}
+
+.modal-art svg { width: 220px; max-width: 90%; position: relative; z-index: 1; }
+
+.modal-copy { padding: 35px 30px; }
+
+.modal-kicker {
+  color: var(--olive);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+}
+
+.modal-copy h2 {
+  margin: 8px 0 12px;
+  font-family: var(--serif);
+  font-size: 30px;
+}
+
+.modal-copy .lead {
+  color: #77715e;
+  font-size: 13px;
+  line-height: 1.9;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e6dfcc;
+}
+
+.info-block { margin-top: 14px; }
+
+.info-block h4 {
+  margin: 0 0 4px;
+  color: var(--olive-dark);
+  font-size: 11px;
+}
+
+.info-block p {
+  margin: 0;
+  color: #656251;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.modal-note {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f0eddf;
+  color: #8d8066;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.modal-actions {
+  margin-top: 17px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.small-button {
+  padding: 9px 13px;
+  color: var(--olive-dark);
+  border: 1px solid #c9cdb7;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 11px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 25px;
+  z-index: 80;
+  transform: translate(-50%,15px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 11px 18px;
+  border-radius: 999px;
+  color: white;
+  background: #414b32;
+  font-size: 12px;
+  transition: .25s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 40px 18px;
+  color: #83806d;
+  text-align: center;
+}
+
+@media (max-width: 1050px) {
+  .site-header { padding: 0 24px; }
+  .desktop-nav { gap: 13px; }
+  .hero { grid-template-columns: .8fr 1.2fr; gap: 16px; }
+  .hero h1 { font-size: clamp(35px,4vw,52px); }
+  .quick-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .recipe-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+@media (max-width: 760px) {
+  .site-header { height: 68px; padding: 0 18px; }
+  .brand-stamp { width: 34px; height: 34px; font-size: 19px; }
+  .brand-name { font-size: 18px; }
+  .brand-en { font-size: 8px; }
+  .desktop-nav, .header-cta { display: none; }
+  .menu-toggle { display: block; }
+
+  .mobile-nav {
+    position: absolute;
+    top: 67px;
+    left: 0;
+    right: 0;
+    z-index: 35;
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 12px 18px 18px;
+    background: var(--paper2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-nav.open { display: grid; }
+
+  .mobile-nav .nav-link {
+    text-align: left;
+    padding: 12px 8px;
+    white-space: normal;
+  }
+
+  .mobile-nav .nav-link::after { display: none; }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 30px 18px 42px;
+    min-height: 0;
+  }
+
+  .hero-copy { padding: 0 3px; }
+  .hero h1 { font-size: clamp(35px,8.5vw,45px); margin: 15px 0; }
+  .hero-description { font-size: 12px; line-height: 1.95; margin-bottom: 18px; }
+  .hero-tags { gap: 6px; margin-bottom: 18px; }
+  .tag { padding: 5px 10px; }
+  .hand-note { margin-top: 19px; font-size: 12px; }
+
+  .table-scene { max-width: 560px; }
+  .table-board { border-width: 6px; }
+  .wheel-rotator { inset: 4.2%; }
+  .dish-pod { width: clamp(66px,22%,96px); }
+  .dish-name { font-size: 11px; }
+  .table-center { width: 25%; }
+  .center-title { font-size: clamp(11px,3.2vw,15px); }
+  .spin-button { display: none; }
+  .wheel-pointer { top: 1.4%; width: 31px; height: 35px; }
+  .wheel-pointer::before {
+    left: 2px;
+    border-left-width: 13px;
+    border-right-width: 13px;
+    border-top-width: 24px;
+  }
+  .wheel-pointer::after { left: 10px; width: 8px; height: 8px; }
+  .table-caption { font-size: 12px; margin-top: 10px; }
+
+  .section-pad { padding: 48px 18px; }
+  .section-heading { display: block; }
+  .section-heading h2 { font-size: 30px; }
+  .section-heading p { margin-top: 10px; }
+  .quick-grid { gap: 10px; }
+  .quick-card { padding: 16px 13px; min-height: 154px; }
+  .quick-card h3 { font-size: 18px; }
+  .quick-card p { font-size: 10px; }
+  .quote-strip { padding: 22px; }
+
+  .page-hero { padding: 36px 18px 24px; }
+  .page-hero h1 { font-size: 37px; }
+  .page-hero p { font-size: 12px; }
+  .page-content { padding: 0 18px 50px; }
+  .recipe-toolbar { align-items: stretch; }
+  .search-box { width: 100%; }
+  .recipe-grid { gap: 10px; }
+  .recipe-visual { height: 145px; }
+  .recipe-body { padding: 12px; }
+  .recipe-body h3 { font-size: 16px; }
+  .recipe-body p { font-size: 10px; }
+  .recipe-foot { font-size: 9px; }
+  .plant-grid, .culture-grid { grid-template-columns: 1fr; gap: 12px; }
+  .plant-card { padding: 11px; gap: 12px; }
+  .plant-illustration { flex-basis: 80px; width: 80px; height: 80px; }
+  .plant-card h3 { font-size: 18px; }
+  .journal-layout { grid-template-columns: 1fr; gap: 22px; }
+  .journal-intro { padding: 22px; }
+  .culture-art { height: 160px; }
+  .footer-inner { align-items: flex-start; flex-direction: column; }
+  .footer-copy { text-align: left; }
+
+  .modal { grid-template-columns: 1fr; max-width: 520px; }
+  .modal-art { min-height: 160px; }
+  .modal-art svg { width: 150px; }
+  .modal-copy { padding: 23px 20px; }
+  .modal-copy h2 { font-size: 25px; }
+}
+
+@media (max-width: 390px) {
+  .hero h1 { font-size: 35px; }
+  .dish-pod { width: clamp(62px,21%,78px); }
+  .dish-name { font-size: 9px; }
+  .center-title { font-size: 10px; }
+  .recipe-grid { grid-template-columns: 1fr; }
+  .recipe-visual { height: 180px; }
+}
+</style>
 </head>
+
 <body>
-<div class="paper-grain"></div>
 <header class="site-header">
-  <button class="brand" data-page="home" aria-label="回到首頁"><span class="brand-stamp">草</span><span><span class="brand-name">草本餐桌計畫</span><span class="brand-en">HERBAL TABLE PROJECT</span></span></button>
+  <button class="brand" data-page="home" aria-label="回到首頁">
+    <span class="brand-stamp">草</span>
+    <span>
+      <span class="brand-name">草本餐桌計畫</span>
+      <span class="brand-en">HERBAL TABLE PROJECT</span>
+    </span>
+  </button>
+
   <nav class="desktop-nav" aria-label="主要導覽">
-    <button class="nav-link active" data-page="home">首頁</button><button class="nav-link" data-page="recipes">料理探索</button><button class="nav-link" data-page="plants">植物圖鑑</button><button class="nav-link" data-page="journal">料理實驗日誌</button><button class="nav-link" data-page="culture">飲食文化</button>
+    <button class="nav-link active" data-page="home">首頁</button>
+    <button class="nav-link" data-page="recipes">料理探索</button>
+    <button class="nav-link" data-page="plants">植物圖鑑</button>
+    <button class="nav-link" data-page="journal">料理實驗日誌</button>
+    <button class="nav-link" data-page="culture">飲食文化</button>
   </nav>
+
   <button class="header-cta" id="headerSpin">今天吃什麼？ ↗</button>
   <button class="menu-toggle" id="menuToggle" aria-label="開啟選單">☰</button>
-  <nav class="mobile-nav" id="mobileNav" aria-label="手機導覽"><button class="nav-link active" data-page="home">首頁　↗</button><button class="nav-link" data-page="recipes">料理探索　↗</button><button class="nav-link" data-page="plants">植物圖鑑　↗</button><button class="nav-link" data-page="journal">料理實驗日誌　↗</button><button class="nav-link" data-page="culture">飲食文化　↗</button></nav>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="nav-link active" data-page="home">首頁</button>
+    <button class="nav-link" data-page="recipes">料理探索</button>
+    <button class="nav-link" data-page="plants">植物圖鑑</button>
+    <button class="nav-link" data-page="journal">料理實驗日誌</button>
+    <button class="nav-link" data-page="culture">飲食文化</button>
+  </nav>
 </header>
+
 <main>
   <section class="page active" id="page-home">
     <div class="hero">
       <div class="hero-copy">
         <div class="eyebrow">A little plant, a little daily life</div>
         <h1>讓一株植物，<br><span class="accent">走上日常餐桌</span></h1>
-        <p class="hero-description">從植物出發，重新認識餐桌上的風味與生活。轉一轉今天的草本餐桌，看看哪一道料理，能帶你遇見植物的另一種可能。</p>
-        <div class="hero-tags"><span class="tag">#植物 × 料理</span><span class="tag">#臺灣飲食文化</span><span class="tag">#日常草本</span></div>
-        <button class="primary-button" id="exploreButton">開始探索 <span>↗</span></button>
+        <p class="hero-description">
+          從植物出發，重新認識餐桌上的風味與生活。
+          轉一轉今天的草本餐桌，看看哪一道料理，
+          能帶你遇見植物的另一種可能。
+        </p>
+
+        <div class="hero-tags">
+          <span class="tag">#植物 × 料理</span>
+          <span class="tag">#臺灣飲食文化</span>
+          <span class="tag">#日常草本</span>
+        </div>
+
+        <button class="primary-button" id="exploreButton">開始探索　↗</button>
         <button class="text-button" data-page="plants">先逛逛植物圖鑑</button>
-        <div class="hand-note"><span>✳</span> 每一次轉動，都是一場新的味覺提案。</div>
+
+        <div class="hand-note">✳ 每一次轉動，都是一場新的味覺提案。</div>
       </div>
+
       <div class="table-wrap">
         <div class="table-scene">
           <div class="table-shadow"></div>
+
           <div class="table-board" id="tableBoard" aria-label="草本餐桌轉盤">
-            <div class="wheel-rotator" id="wheelRotator" aria-label="料理轉盤"></div>
-            <div class="wheel-pointer" aria-hidden="true"><span></span></div>
-            <div class="table-center">
+            <div class="wheel-rotator" id="wheelRotator"></div>
+
+            <div class="wheel-pointer" aria-hidden="true"></div>
+
+            <div class="table-center" id="tableCenter">
               <div class="center-title">草本餐桌</div>
               <button class="spin-button" id="spinButton" aria-label="轉動餐桌">↻</button>
             </div>
           </div>
         </div>
-        <div class="table-caption"><strong id="spinStatus" aria-live="polite">轉出一道草本料理</strong></div>
-      </div>
-    </div>
-    <div class="soft-section section-pad">
-      <div class="section-inner">
-        <div class="section-heading"><div><div class="eyebrow">Explore at your own pace</div><h2>從哪裡開始都可以</h2></div><p>料理、植物、實驗紀錄與文化故事，串起每一個部位和每一種日常想像。</p></div>
-        <div class="quick-grid">
-          <button class="quick-card" data-page="recipes"><span class="quick-number">01 / DISH</span><span class="quick-icon">◉</span><h3>料理探索</h3><p>從一道菜開始，看看使用了哪些植物、部位與風味。</p><span class="quick-arrow">↗</span></button>
-          <button class="quick-card" data-page="plants"><span class="quick-number">02 / PLANT</span><span class="quick-icon">❧</span><h3>植物圖鑑</h3><p>從植物出發，整理不同部位的用途與料理連結。</p><span class="quick-arrow">↗</span></button>
-          <button class="quick-card" data-page="journal"><span class="quick-number">03 / PROCESS</span><span class="quick-icon">✎</span><h3>料理實驗日誌</h3><p>把測試、比較、失敗與修正，都留下來。</p><span class="quick-arrow">↗</span></button>
-          <button class="quick-card" data-page="culture"><span class="quick-number">04 / CULTURE</span><span class="quick-icon">⌂</span><h3>飲食文化</h3><p>從文獻、訪談與生活觀察，認識植物和臺灣的關係。</p><span class="quick-arrow">↗</span></button>
+
+        <div class="table-caption" id="spinStatus" aria-live="polite">
+          轉出一道草本料理
         </div>
-        <div class="quote-strip"><p>「一株植物，不只是一個名字；也可能是一道料理、一段記憶，或一種生活方法。」</p><span>草本餐桌計畫　／　設計概念</span></div>
       </div>
     </div>
+
+    <section class="soft-section section-pad">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Explore at your own pace</div>
+            <h2>從哪裡開始都可以</h2>
+          </div>
+          <p>料理、植物、實驗紀錄與文化故事，串起每一個部位和每一種日常想像。</p>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-card" data-page="recipes">
+            <span class="quick-number">01 / DISH</span>
+            <h3>料理探索</h3>
+            <p>從一道菜開始，看看使用哪些植物、部位與風味。</p>
+            <span class="quick-arrow">↗</span>
+          </button>
+
+          <button class="quick-card" data-page="plants">
+            <span class="quick-number">02 / PLANT</span>
+            <h3>植物圖鑑</h3>
+            <p>從植物出發，整理不同部位的用途與料理連結。</p>
+            <span class="quick-arrow">↗</span>
+          </button>
+
+          <button class="quick-card" data-page="journal">
+            <span class="quick-number">03 / PROCESS</span>
+            <h3>料理實驗日誌</h3>
+            <p>把測試、比較、失敗與修正，都留下來。</p>
+            <span class="quick-arrow">↗</span>
+          </button>
+
+          <button class="quick-card" data-page="culture">
+            <span class="quick-number">04 / CULTURE</span>
+            <h3>飲食文化</h3>
+            <p>從文獻、訪談與生活觀察，認識植物和臺灣的關係。</p>
+            <span class="quick-arrow">↗</span>
+          </button>
+        </div>
+
+        <div class="quote-strip">
+          <p>「一株植物，不只是一個名字；也可能是一道料理、一段記憶，或一種生活方法。」</p>
+          <span>草本餐桌計畫／設計概念</span>
+        </div>
+      </div>
+    </section>
   </section>
 
   <section class="page" id="page-recipes">
-    <div class="page-hero"><div class="eyebrow">Dish first, then discover</div><h1>料理探索</h1><p>從料理出發，找到它使用的植物與部位，再往植物圖鑑延伸。以下菜色是網站測試用的概念提案，正式內容可在你們完成食材研究與料理測試後替換。</p></div>
+    <div class="page-hero">
+      <div class="eyebrow">Dish first, then discover</div>
+      <h1>料理探索</h1>
+      <p>從料理出發，找到使用的植物與部位，再往植物圖鑑延伸。以下菜色是網站測試用的概念提案，正式內容請依食材研究與料理測試更新。</p>
+    </div>
+
     <div class="page-content">
-      <div class="recipe-toolbar"><div class="filter-row" id="recipeFilters"><button class="filter-btn active" data-filter="全部">全部</button><button class="filter-btn" data-filter="沙拉">沙拉</button><button class="filter-btn" data-filter="湯品">湯品</button><button class="filter-btn" data-filter="飲品">飲品</button><button class="filter-btn" data-filter="主食">主食</button><button class="filter-btn" data-filter="點心">點心</button></div><label class="search-box"><span>⌕</span><input id="recipeSearch" type="search" placeholder="搜尋料理或植物名稱…" /></label></div>
+      <div class="recipe-toolbar">
+        <div class="filter-row" id="recipeFilters">
+          <button class="filter-btn active" data-filter="全部">全部</button>
+          <button class="filter-btn" data-filter="沙拉">沙拉</button>
+          <button class="filter-btn" data-filter="湯品">湯品</button>
+          <button class="filter-btn" data-filter="飲品">飲品</button>
+          <button class="filter-btn" data-filter="主食">主食</button>
+          <button class="filter-btn" data-filter="點心">點心</button>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="recipeSearch" type="search" placeholder="搜尋料理或植物名稱">
+        </label>
+      </div>
+
       <div class="recipe-grid" id="recipeGrid"></div>
-      <div class="notice">原型註記：菜色名稱、搭配與植物部位皆為示意。正式展示前，請確認植物品種、可食部位、料理方式及相關食安資訊；「全株可用」不等同「全株可食」。</div>
+
+      <div class="notice">
+        本頁菜色及部位為示意。正式展示前需確認植物品種、可食部位、料理方式及食安資訊。「全株可用」不等於「全株可食」。
+      </div>
     </div>
   </section>
 
   <section class="page" id="page-plants">
-    <div class="page-hero"><div class="eyebrow">One plant, many connections</div><h1>植物圖鑑</h1><p>用植物作為索引，連結部位、用途、料理與生活文化。先以團隊目前討論過的七種植物建立資料骨架，往後可依研究來源持續補充。</p></div>
-    <div class="page-content"><div class="recipe-toolbar"><div class="filter-row" id="plantFilters"><button class="filter-btn active" data-filter="全部">全部</button><button class="filter-btn" data-filter="餐桌應用">餐桌應用</button><button class="filter-btn" data-filter="香氣與調味">香氣與調味</button><button class="filter-btn" data-filter="生活文化">生活文化</button></div><label class="search-box"><span>⌕</span><input id="plantSearch" type="search" placeholder="搜尋植物名稱…" /></label></div><div class="plant-grid" id="plantGrid"></div><div class="notice">部位與用途先作為資料整理欄位，不代表每個部位都可食用。後續建議在每筆資料中標示「資料來源、部位、用途、是否可食、查核狀態」，並將料理應用與非食用用途分開記錄。</div></div>
+    <div class="page-hero">
+      <div class="eyebrow">One plant, many connections</div>
+      <h1>植物圖鑑</h1>
+      <p>從植物出發，連結部位、用途、料理與生活文化。以下先以團隊討論過的七種植物建立資料骨架。</p>
+    </div>
+
+    <div class="page-content">
+      <div class="recipe-toolbar">
+        <div class="filter-row" id="plantFilters">
+          <button class="filter-btn active" data-filter="全部">全部</button>
+          <button class="filter-btn" data-filter="餐桌應用">餐桌應用</button>
+          <button class="filter-btn" data-filter="香氣與調味">香氣與調味</button>
+          <button class="filter-btn" data-filter="生活文化">生活文化</button>
+        </div>
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="plantSearch" type="search" placeholder="搜尋植物名稱">
+        </label>
+      </div>
+
+      <div class="plant-grid" id="plantGrid"></div>
+
+      <div class="notice">
+        植物部位與用途需要逐項查證。請分開記錄資料來源、部位、用途、可食性及查核狀態。
+      </div>
+    </div>
   </section>
 
   <section class="page" id="page-journal">
-    <div class="page-hero"><div class="eyebrow">Keep the process visible</div><h1>料理實驗日誌</h1><p>記錄從選材到測試的每一次觀察。這裡不只呈現成功成果，也保留問題、比較與修正，讓研究過程變成可以被理解的內容。</p></div>
-    <div class="page-content"><div class="journal-layout"><aside class="journal-intro"><div class="eyebrow">Field notes</div><h2>把試驗過程，<br>也端上餐桌。</h2><p>每篇日誌可以包含：研究問題、材料與部位、測試方式、觀察紀錄、團隊討論、修改方向，以及資料來源。以下為版型示例，日期和結果均待實際研究後更新。</p><div class="journal-stamp">草本<br>實驗紀錄</div></aside><div class="timeline" id="journalTimeline"></div></div></div>
+    <div class="page-hero">
+      <div class="eyebrow">Keep the process visible</div>
+      <h1>料理實驗日誌</h1>
+      <p>記錄從選材到測試的每次觀察。這裡不只呈現成功成果，也保留問題、比較與修正。</p>
+    </div>
+
+    <div class="page-content">
+      <div class="journal-layout">
+        <aside class="journal-intro">
+          <div class="eyebrow">Field notes</div>
+          <h2>把試驗過程，<br>也端上餐桌。</h2>
+          <p>每篇日誌可以包含研究問題、材料與部位、測試方式、觀察紀錄、團隊討論、修改方向及資料來源。</p>
+          <div class="journal-stamp">草本<br>實驗紀錄</div>
+        </aside>
+        <div class="timeline" id="journalTimeline"></div>
+      </div>
+    </div>
   </section>
 
   <section class="page" id="page-culture">
-    <div class="page-hero"><div class="eyebrow">Food, memory and everyday life</div><h1>飲食文化</h1><p>整理植物、臺灣飲食與日常生活的關係。網站將文獻內容、訪談觀察與團隊的設計詮釋分開呈現，讓資料來源清楚，也讓創意發展有跡可循。</p></div>
-    <div class="page-content"><div class="culture-grid">
-      <article class="culture-card"><div class="culture-art"><svg class="market-illustration" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-label="臺灣傳統市場插畫"><rect width="600" height="240" fill="#e8e6d7"/><circle cx="75" cy="45" r="60" fill="#f3eddb"/><path d="M0 110 L600 110 L600 240 L0 240Z" fill="#d9c8aa"/><path d="M62 40 L520 40 L558 104 L24 104Z" fill="#e7a59b"/><path d="M62 40 L520 40 L500 52 L83 52Z" fill="#fff1d9"/><path d="M90 53 L117 53 L130 104 L77 104Z M171 53 L198 53 L211 104 L158 104Z M252 53 L279 53 L292 104 L239 104Z M333 53 L360 53 L373 104 L320 104Z M414 53 L441 53 L454 104 L401 104Z" fill="#f3d4c3"/><rect x="48" y="105" width="504" height="20" fill="#a7ad87"/><path d="M65 125 L535 125 L515 153 L85 153Z" fill="#c4a278"/><g fill="#74855c"><ellipse cx="133" cy="145" rx="26" ry="13"/><ellipse cx="207" cy="143" rx="26" ry="13"/><ellipse cx="290" cy="146" rx="26" ry="13"/><ellipse cx="378" cy="144" rx="26" ry="13"/><ellipse cx="460" cy="145" rx="26" ry="13"/></g><g fill="#df9a8a"><circle cx="128" cy="139" r="7"/><circle cx="143" cy="145" r="7"/><circle cx="202" cy="140" r="7"/><circle cx="216" cy="145" r="7"/><circle cx="286" cy="140" r="7"/><circle cx="300" cy="145" r="7"/><circle cx="374" cy="139" r="7"/><circle cx="390" cy="145" r="7"/><circle cx="455" cy="140" r="7"/><circle cx="468" cy="145" r="7"/></g><path d="M0 190 Q120 150 225 188 T600 180 L600 240 L0 240Z" fill="#c6c9ad"/><path d="M38 195 L146 195 L134 240 L50 240Z" fill="#f2e8d1"/><path d="M166 197 L273 197 L260 240 L180 240Z" fill="#d8a99e"/><path d="M300 198 L409 198 L399 240 L316 240Z" fill="#eee0bb"/><path d="M430 197 L548 197 L530 240 L448 240Z" fill="#a8b18e"/></svg></div><div class="culture-card-body"><div class="eyebrow">01 / Local memory</div><h3>臺灣的草本飲食日常</h3><p>從傳統市場、家庭料理到節氣飲食，植物可能是食材、調味、包裹材料，也可能承載家庭記憶。這一區可逐步整理團隊找到的在地案例。</p><div class="source-pills"><span class="source-pill research">文獻整理</span><span class="source-pill interview">訪談觀察</span></div></div></article>
-      <article class="culture-card"><div class="culture-art"><svg class="market-illustration" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" aria-label="植物觀察手帳插畫"><rect width="600" height="240" fill="#e4e7d7"/><path d="M0 0 H600 V240 H0Z" fill="#e6e7d9"/><g transform="translate(95 30) rotate(-8)"><rect x="0" y="0" width="170" height="190" rx="4" fill="#fff9e9" stroke="#d5ccb7"/><path d="M22 28 H145 M22 43 H145 M22 58 H125 M22 120 H145 M22 135 H135 M22 150 H145" stroke="#d4d0bd" stroke-width="1"/><path d="M81 92 C53 75 47 58 63 56 C78 54 85 73 81 92 C84 64 103 45 113 54 C126 65 104 85 81 92Z" fill="#80966a"/><path d="M81 92 L81 114" stroke="#6b7954" stroke-width="2"/><circle cx="46" cy="174" r="5" fill="#e3aa9f"/><circle cx="62" cy="174" r="5" fill="#e3aa9f"/><circle cx="78" cy="174" r="5" fill="#e3aa9f"/></g><g transform="translate(300 25) rotate(7)"><rect x="0" y="0" width="185" height="205" rx="4" fill="#fffaf0" stroke="#d5ccb7"/><circle cx="90" cy="72" r="40" fill="#ece6ce"/><path d="M90 112 C62 88 55 68 71 56 C86 50 91 72 90 81 C98 48 121 46 128 59 C135 77 111 99 90 112Z" fill="#789064"/><path d="M90 112 L90 142" stroke="#6e7c55" stroke-width="2"/><path d="M23 150 H158 M23 165 H145 M23 180 H152" stroke="#d4d0bd" stroke-width="1"/></g><path d="M510 38 C470 60 465 112 505 121 C542 125 555 80 510 38Z" fill="#7d9065" opacity=".8"/><path d="M510 38 Q515 75 505 121" fill="none" stroke="#5e7550" stroke-width="2"/></svg></div><div class="culture-card-body"><div class="eyebrow">02 / Research notes</div><h3>植物知識如何傳下來？</h3><p>透過訪談與生活觀察，理解不同世代如何認識植物、使用植物，以及哪些經驗正在改變。設計詮釋會清楚標示為團隊觀點，而非研究事實。</p><div class="source-pills"><span class="source-pill interview">訪談觀察</span><span class="source-pill interpret">設計詮釋</span></div></div></article>
-      </div><div class="notice">內容原則：文獻資料需附來源；訪談內容需標示受訪者角色與訪談日期；團隊的創意延伸則標示為「設計詮釋」。避免將民間說法直接寫成醫療功效，也避免將「全株可用」直接等同「全株可食」。</div></div>
+    <div class="page-hero">
+      <div class="eyebrow">Food, memory and everyday life</div>
+      <h1>飲食文化</h1>
+      <p>整理植物、臺灣飲食與日常生活的關係，並區分文獻內容、訪談觀察與團隊設計詮釋。</p>
+    </div>
+
+    <div class="page-content">
+      <div class="culture-grid">
+        <article class="culture-card">
+          <div class="culture-art">
+            <svg viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice">
+              <rect width="600" height="240" fill="#e8e6d7"/>
+              <path d="M0 110H600V240H0Z" fill="#d9c8aa"/>
+              <path d="M62 40H520L558 104H24Z" fill="#e7a59b"/>
+              <path d="M62 40H520L500 52H83Z" fill="#fff1d9"/>
+              <path d="M90 53H117L130 104H77Z M171 53H198L211 104H158Z M252 53H279L292 104H239Z M333 53H360L373 104H320Z M414 53H441L454 104H401Z" fill="#f3d4c3"/>
+              <rect x="48" y="105" width="504" height="20" fill="#a7ad87"/>
+              <path d="M65 125H535L515 153H85Z" fill="#c4a278"/>
+              <g fill="#74855c">
+                <ellipse cx="133" cy="145" rx="26" ry="13"/>
+                <ellipse cx="207" cy="143" rx="26" ry="13"/>
+                <ellipse cx="290" cy="146" rx="26" ry="13"/>
+                <ellipse cx="378" cy="144" rx="26" ry="13"/>
+                <ellipse cx="460" cy="145" rx="26" ry="13"/>
+              </g>
+              <path d="M0 190Q120 150 225 188T600 180V240H0Z" fill="#c6c9ad"/>
+            </svg>
+          </div>
+          <div class="culture-card-body">
+            <div class="eyebrow">01 / Local memory</div>
+            <h3>臺灣的草本飲食日常</h3>
+            <p>從傳統市場、家庭料理到節氣飲食，植物可能是食材、調味、包裹材料，也可能承載家庭記憶。</p>
+            <div class="source-pills">
+              <span class="source-pill research">文獻整理</span>
+              <span class="source-pill interview">訪談觀察</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="culture-card">
+          <div class="culture-art">
+            <svg viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice">
+              <rect width="600" height="240" fill="#e6e7d9"/>
+              <g transform="translate(95 30) rotate(-8)">
+                <rect width="170" height="190" rx="4" fill="#fff9e9" stroke="#d5ccb7"/>
+                <path d="M22 28H145M22 43H145M22 58H125M22 120H145M22 135H135M22 150H145" stroke="#d4d0bd"/>
+                <path d="M81 92C53 75 47 58 63 56C78 54 85 73 81 92C84 64 103 45 113 54C126 65 104 85 81 92Z" fill="#80966a"/>
+                <path d="M81 92V114" stroke="#6b7954" stroke-width="2"/>
+              </g>
+              <g transform="translate(300 25) rotate(7)">
+                <rect width="185" height="205" rx="4" fill="#fffaf0" stroke="#d5ccb7"/>
+                <circle cx="90" cy="72" r="40" fill="#ece6ce"/>
+                <path d="M90 112C62 88 55 68 71 56C86 50 91 72 90 81C98 48 121 46 128 59C135 77 111 99 90 112Z" fill="#789064"/>
+                <path d="M90 112V142" stroke="#6e7c55" stroke-width="2"/>
+                <path d="M23 150H158M23 165H145M23 180H152" stroke="#d4d0bd"/>
+              </g>
+            </svg>
+          </div>
+          <div class="culture-card-body">
+            <div class="eyebrow">02 / Research notes</div>
+            <h3>植物知識如何傳下來？</h3>
+            <p>透過訪談與生活觀察，理解不同世代如何認識、使用植物，以及哪些生活經驗正在改變。</p>
+            <div class="source-pills">
+              <span class="source-pill interview">訪談觀察</span>
+              <span class="source-pill interpret">設計詮釋</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="notice">
+        文獻資料需附來源；訪談需標示受訪者角色及日期；設計詮釋則清楚標示為團隊觀點。
+      </div>
+    </div>
   </section>
 </main>
-<footer><div class="footer-inner"><div><div class="footer-brand">草本餐桌計畫</div><div style="font-size:10px;color:#8b876f;letter-spacing:.14em;margin-top:2px">HERBAL TABLE PROJECT</div></div><div class="footer-copy">一個持續長大的草本知識平台原型。<br>本頁植物與料理內容為概念示例，後續應依團隊查證資料與實際測試更新。</div></div></footer>
 
-<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal" id="modalContent"><button class="modal-close" id="modalClose" aria-label="關閉視窗">×</button><div class="modal-art" id="modalArt"></div><div class="modal-copy" id="modalCopy"></div></div></div>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">草本餐桌計畫</div>
+      <div class="brand-en">HERBAL TABLE PROJECT</div>
+    </div>
+    <div class="footer-copy">
+      一個持續長大的草本知識平台原型。<br>
+      本頁植物與料理內容為概念示例，後續請依研究與實際測試更新。
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="關閉視窗">×</button>
+    <div class="modal-art" id="modalArt"></div>
+    <div class="modal-copy" id="modalCopy"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
-<script src="app.js" defer></script>
+
+<script>
+"use strict";
+
+const recipes = [
+  {
+    id: "lotus-salad", name: "蓮荷清香沙拉", category: "沙拉",
+    plants: ["蓮"], parts: ["蓮藕", "蓮子（概念搭配）"],
+    flavor: "清爽、脆口、帶有淡雅植物香氣",
+    idea: "以蓮的不同部位作為餐桌探索起點，透過口感與色彩搭配呈現料理想像。",
+    description: "清爽系植物沙拉提案，從蓮藕的脆口印象延伸到不同質地的搭配。",
+    status: "概念菜色｜食材與部位待查核",
+    color: "#dfe8d6", shape: "salad"
+  },
+  {
+    id: "perilla-drink", name: "紫蘇梅氣飲", category: "飲品",
+    plants: ["紫蘇"], parts: ["紫蘇葉", "梅子（搭配食材）"],
+    flavor: "草本香氣、酸甜、清爽",
+    idea: "以紫蘇葉香氣為主題，搭配酸甜風味，探索草本如何進入日常飲食。",
+    description: "以紫蘇香氣為主角，搭配酸甜梅香的飲品概念。",
+    status: "概念菜色｜配方與使用量待測試",
+    color: "#ead8db", shape: "drink"
+  },
+  {
+    id: "cinnamon-porridge", name: "土肉桂暖香粥", category: "湯品",
+    plants: ["肉桂"], parts: ["土肉桂葉或樹皮（擇一查核）"],
+    flavor: "溫暖、木質、帶有辛香調性",
+    idea: "比較不同部位與品種的香氣表現，先以風味紀錄為主，不預設療效。",
+    description: "從臺灣土肉桂的香氣出發，延伸出溫暖系料理的試驗概念。",
+    status: "概念菜色｜品種、部位及食安需確認",
+    color: "#eadac0", shape: "soup"
+  },
+  {
+    id: "mulberry-pancake", name: "桑葉香草煎餅", category: "點心",
+    plants: ["桑樹"], parts: ["桑葉（可食性及使用方式待查）"],
+    flavor: "穀物香、植物清香、烘焙氣息",
+    idea: "以桑樹研究轉化成可觀察的料理測試，記錄色澤、香氣、口感與接受度。",
+    description: "以桑樹為主題的點心開發草案。",
+    status: "概念菜色｜不可視為已確認食譜",
+    color: "#e0e8cf", shape: "pancake"
+  },
+  {
+    id: "shell-ginger-rice", name: "月桃葉香蒸飯", category: "主食",
+    plants: ["月桃"], parts: ["月桃葉作為包裹／香氣媒介（不代表葉片食用）"],
+    flavor: "葉香、米飯蒸氣、淡雅草本氣息",
+    idea: "以包裹、蒸煮和香氣傳遞作為觀察，區分接觸食材的部位與食用部位。",
+    description: "以月桃葉的包裹與香氣意象，延伸臺灣植物與料理的連結。",
+    status: "概念菜色｜葉片用途需查核",
+    color: "#dfe7d1", shape: "rice"
+  },
+  {
+    id: "fishmint-noodles", name: "魚腥草青醬麵", category: "主食",
+    plants: ["魚腥草"], parts: ["地上部位（食用性、來源及處理方式待查）"],
+    flavor: "鮮明草本氣味、清新綠色調",
+    idea: "將氣味接受度作為料理實驗問題，可用盲測與描述詞紀錄。",
+    description: "以魚腥草鮮明的草本氣味作為風味研究題目。",
+    status: "概念菜色｜須先完成部位與食安查核",
+    color: "#e1e7d3", shape: "pasta"
+  },
+  {
+    id: "paper-mulberry-bowl", name: "構樹果香優格碗", category: "點心",
+    plants: ["構樹"], parts: ["果實（物種辨識與可食性待查）"],
+    flavor: "酸甜與果香的搭配想像",
+    idea: "以構樹作為植物辨識與部位查核的案例；資料確認前只保留概念。",
+    description: "以植物果實外觀與季節感作為視覺概念，待查核後再決定料理方向。",
+    status: "概念菜色｜先查核物種與食用性",
+    color: "#e9ded0", shape: "berry"
+  }
+];
+
+const plants = [
+  {
+    id: "桑樹", latin: "Morus alba L.（示意）",
+    tags: ["餐桌應用", "生活文化"],
+    parts: "葉、果實、枝、樹皮、根等部位需分別查證用途及可食性。",
+    use: "可從桑葉飲食、果實風味、傳統栽培與生活記憶蒐集資料。",
+    related: ["mulberry-pancake"],
+    intro: "目前畢製聚焦的研究植物。建議將部位用途、可食性與文化意義分成不同欄位。",
+    tone: "#dfe8d6", type: "leaf"
+  },
+  {
+    id: "肉桂／臺灣土肉桂", latin: "Cinnamomum osmophloeum（需核名）",
+    tags: ["餐桌應用", "香氣與調味"],
+    parts: "葉、樹皮等部位需依確切品種與資料分別確認，不能直接互相替代。",
+    use: "可研究臺灣土肉桂的香氣描述、調味文化及品種辨識。",
+    related: ["cinnamon-porridge"],
+    intro: "適合從香氣與調味切入；正式資料應確認學名、部位與引用來源。",
+    tone: "#eadcc2", type: "bark"
+  },
+  {
+    id: "月桃", latin: "Alpinia zerumbet（示意）",
+    tags: ["香氣與調味", "生活文化"],
+    parts: "葉片可研究包裹、器物與香氣媒介等用途；不因此推定葉片可食。",
+    use: "可從包裹、蒸煮、編織與日常器用等文化素材延伸。",
+    related: ["shell-ginger-rice"],
+    intro: "可呈現一株植物有多種用途，但不同用途不一定都能入口。",
+    tone: "#dfe8d6", type: "leaf"
+  },
+  {
+    id: "紫蘇", latin: "Perilla frutescens（示意）",
+    tags: ["餐桌應用", "香氣與調味"],
+    parts: "葉片可作為香氣與料理研究起點；品種、使用方式與食用安全需查核。",
+    use: "可比較香氣描述詞、接受度、顏色變化與搭配方式。",
+    related: ["perilla-drink"],
+    intro: "適合發展感官測試，整理人們描述香氣與風味時的常見詞群。",
+    tone: "#e8dce0", type: "leaf"
+  },
+  {
+    id: "蓮", latin: "Nelumbo nucifera（示意）",
+    tags: ["餐桌應用", "生活文化"],
+    parts: "蓮藕、蓮子等常見食材可作為切入點；其他部位須分項查證。",
+    use: "可從季節料理、食材質地、外觀與餐桌擺盤觀察出發。",
+    related: ["lotus-salad"],
+    intro: "可將部位圖譜視覺化，但每個部位都應有對應來源與使用狀態。",
+    tone: "#f1d7d3", type: "lotus"
+  },
+  {
+    id: "魚腥草", latin: "Houttuynia cordata（示意）",
+    tags: ["餐桌應用", "生活文化"],
+    parts: "需確認研究地區、品種辨識、使用部位與處理方式。",
+    use: "可把氣味接受度、地方飲食經驗與世代差異作為研究主題。",
+    related: ["fishmint-noodles"],
+    intro: "適合研究熟悉或陌生的植物氣味如何影響飲食選擇。",
+    tone: "#e0e8d8", type: "leaf"
+  },
+  {
+    id: "構樹", latin: "Broussonetia papyrifera（示意）",
+    tags: ["生活文化", "香氣與調味"],
+    parts: "果實、葉與韌皮等用途需分別查證；料理開發前應先確認物種。",
+    use: "可從植物纖維、民俗利用、地方生態及部位辨識探索。",
+    related: ["paper-mulberry-bowl"],
+    intro: "適合作為「可用不等於可食」的案例；確認安全性前只做資料整理。",
+    tone: "#e9ded0", type: "berry"
+  }
+];
+
+const journals = [
+  {
+    date: "研究階段 01",
+    title: "建立植物部位的查核表",
+    description: "整理植物名稱、學名、部位、用途、可食性、資料來源與查核狀態。",
+    detail: "記錄查核問題、資料來源、能支持的結論、尚待確認事項與下一步行動。"
+  },
+  {
+    date: "研究階段 02",
+    title: "把風味觀察變成可比較的紀錄",
+    description: "觀察香氣、口感、顏色、處理方式及受試者的描述詞。",
+    detail: "使用相同紀錄表記錄測試條件，區分主觀感受與可重複觀察到的差異。"
+  },
+  {
+    date: "研究階段 03",
+    title: "讓失敗也成為設計素材",
+    description: "氣味、口感、顏色或處理方式遇到的問題，都能成為下一輪調整依據。",
+    detail: "呈現原始版本、遇到的問題、改動項目與修正後的差異；尚未試作前不虛構結果。"
+  }
+];
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+let currentRotation = 0;
+let spinning = false;
+let activeRecipeFilter = "全部";
+let activePlantFilter = "全部";
+let toastTimer;
+const saved = new Set();
+
+function svgDish(shape) {
+  const bowl = `
+    <ellipse cx="90" cy="99" rx="63" ry="12" fill="#cbb99a" opacity=".45"/>
+    <ellipse cx="90" cy="76" rx="64" ry="31" fill="#fffdf4" stroke="#d5c5a7" stroke-width="2"/>
+    <ellipse cx="90" cy="71" rx="53" ry="24" fill="#f0ead7"/>
+  `;
+  let food = "";
+
+  if (shape === "salad") {
+    food = `
+      <g fill="#73895b">
+        <ellipse cx="65" cy="67" rx="10" ry="18" transform="rotate(-35 65 67)"/>
+        <ellipse cx="87" cy="60" rx="10" ry="18" transform="rotate(25 87 60)"/>
+        <ellipse cx="108" cy="71" rx="10" ry="18" transform="rotate(-25 108 71)"/>
+        <ellipse cx="78" cy="79" rx="9" ry="14" transform="rotate(42 78 79)"/>
+        <ellipse cx="112" cy="55" rx="8" ry="14" transform="rotate(35 112 55)"/>
+      </g>
+      <g fill="#e8aaa0">
+        <ellipse cx="72" cy="56" rx="6" ry="9" transform="rotate(-20 72 56)"/>
+        <ellipse cx="91" cy="72" rx="6" ry="9" transform="rotate(25 91 72)"/>
+        <ellipse cx="103" cy="58" rx="6" ry="9" transform="rotate(-10 103 58)"/>
+      </g>
+      <g fill="#dec98f">
+        <circle cx="61" cy="78" r="4"/><circle cx="97" cy="82" r="4"/>
+        <circle cx="119" cy="73" r="4"/>
+      </g>
+    `;
+  } else if (shape === "drink") {
+    food = `
+      <ellipse cx="90" cy="110" rx="31" ry="6" fill="#c4b99e" opacity=".6"/>
+      <path d="M62 24 L119 24 L111 96 Q90 106 69 96Z" fill="#fff" fill-opacity=".7" stroke="#cfbea2" stroke-width="2"/>
+      <path d="M66 55 L115 55 L110 94 Q90 101 70 94Z" fill="#c56d88"/>
+      <path d="M67 62 L114 62 L112 78 Q87 83 68 76Z" fill="#e6a3ac"/>
+      <g fill="#f3e5cd">
+        <rect x="72" y="43" width="13" height="15" rx="3" transform="rotate(-12 72 43)"/>
+        <rect x="94" y="48" width="15" height="13" rx="3" transform="rotate(18 94 48)"/>
+        <rect x="82" y="72" width="12" height="13" rx="3"/>
+      </g>
+      <path d="M91 24 L111 3" stroke="#789264" stroke-width="3"/>
+      <path d="M91 24 Q65 1 61 19 Q70 27 91 24Z" fill="#82966d"/>
+    `;
+  } else if (shape === "soup") {
+    food = `
+      <path d="M30 61 Q90 120 150 61 L141 92 Q90 119 39 92Z" fill="#e5d5b8" stroke="#cbb995" stroke-width="2"/>
+      <ellipse cx="90" cy="61" rx="60" ry="27" fill="#fff9e9" stroke="#c9b792" stroke-width="2"/>
+      <ellipse cx="90" cy="62" rx="51" ry="20" fill="#d9b36b"/>
+      <path d="M55 65 Q75 40 90 64 T126 62" fill="none" stroke="#f0d69c" stroke-width="4"/>
+      <g fill="#6e8256">
+        <ellipse cx="67" cy="56" rx="9" ry="4" transform="rotate(-28 67 56)"/>
+        <ellipse cx="108" cy="71" rx="10" ry="4" transform="rotate(30 108 71)"/>
+        <ellipse cx="92" cy="49" rx="8" ry="4"/>
+      </g>
+    `;
+  } else if (shape === "pancake") {
+    food = `
+      <ellipse cx="90" cy="72" rx="61" ry="31" fill="#fffdf3" stroke="#d1c1a2" stroke-width="2"/>
+      <ellipse cx="90" cy="68" rx="48" ry="24" fill="#d7a96f"/>
+      <ellipse cx="90" cy="65" rx="42" ry="18" fill="#ecc78f"/>
+      <g fill="#8b704d">
+        <circle cx="67" cy="61" r="2.4"/><circle cx="85" cy="74" r="2.4"/>
+        <circle cx="103" cy="57" r="2.4"/><circle cx="111" cy="70" r="2.4"/>
+      </g>
+      <path d="M78 50 Q60 22 72 31 Q91 35 78 50Z" fill="#708958"/>
+      <path d="M111 56 Q130 35 122 50 Q117 57 111 56Z" fill="#8ba16e"/>
+    `;
+  } else if (shape === "rice") {
+    food = `
+      <path d="M29 64 Q90 110 151 64 L141 89 Q90 119 39 89Z" fill="#d5c4a6" stroke="#c9b896" stroke-width="2"/>
+      <ellipse cx="90" cy="64" rx="61" ry="26" fill="#fff8e6" stroke="#c9b896" stroke-width="2"/>
+      <ellipse cx="90" cy="64" rx="47" ry="17" fill="#efe0bb"/>
+      <g fill="#fff8e8" stroke="#dfd1ad" stroke-width=".6">
+        ${Array.from({length:16},(_,i)=>`<ellipse cx="${57+(i*17)%68}" cy="${52+(i*11)%25}" rx="4" ry="2.5"/>`).join("")}
+      </g>
+      <path d="M64 54 Q45 28 57 40 Q72 47 64 54Z" fill="#76905d"/>
+      <path d="M115 67 Q136 38 130 57 Q124 66 115 67Z" fill="#8ba173"/>
+    `;
+  } else if (shape === "pasta") {
+    food = `
+      <ellipse cx="90" cy="73" rx="62" ry="30" fill="#fffdf4" stroke="#d4c3a5" stroke-width="2"/>
+      <ellipse cx="90" cy="70" rx="53" ry="22" fill="#cdd9b3"/>
+      <g fill="none" stroke="#e7ca89" stroke-width="4" stroke-linecap="round">
+        ${[0,1,2,3,4,5,6].map(i=>`<path d="M${46+i*13} ${58+(i%3)*7} q12 -12 19 0 t-8 14"/>`).join("")}
+      </g>
+      <path d="M65 65 Q45 34 56 47 Q73 56 65 65Z" fill="#5e7e50"/>
+      <path d="M112 53 Q133 31 127 47 Q123 57 112 53Z" fill="#76965e"/>
+      <circle cx="89" cy="74" r="4" fill="#d99b8d"/>
+    `;
+  } else {
+    food = `
+      <ellipse cx="90" cy="73" rx="62" ry="30" fill="#fffdf4" stroke="#d4c3a5" stroke-width="2"/>
+      <ellipse cx="90" cy="70" rx="52" ry="22" fill="#f3ead6"/>
+      <g fill="#5c7050">
+        <circle cx="60" cy="58" r="8"/><circle cx="77" cy="70" r="8"/>
+        <circle cx="97" cy="58" r="8"/><circle cx="112" cy="74" r="8"/>
+        <circle cx="80" cy="53" r="8"/><circle cx="104" cy="62" r="8"/>
+      </g>
+      <g fill="#8d9c68">
+        <circle cx="68" cy="72" r="5"/><circle cx="90" cy="61" r="5"/>
+        <circle cx="121" cy="61" r="5"/><circle cx="91" cy="79" r="5"/>
+      </g>
+    `;
+  }
+
+  return `<svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${bowl}${food}</svg>`;
+}
+
+function svgPlant(type, tone) {
+  let art = "";
+
+  if (type === "bark") {
+    art = `
+      <path d="M42 82 L93 29 L116 45 L64 98Z" fill="#a8784e" stroke="#825e3e"/>
+      <path d="M52 83L101 35M58 90L109 41" stroke="#d6ad76" stroke-width="4"/>
+      <path d="M83 103L132 57L145 70L95 116Z" fill="#d3ad72" stroke="#a78452"/>
+    `;
+  } else if (type === "lotus") {
+    art = `
+      <path d="M90 94V28" stroke="#6d875b" stroke-width="3"/>
+      <path d="M90 78C51 61 35 29 61 20C84 17 91 49 90 78Z" fill="#f1b7b0" stroke="#d99189"/>
+      <path d="M90 78C113 34 149 34 147 57C142 78 117 82 90 78Z" fill="#e8a49d" stroke="#d99189"/>
+      <path d="M90 78C79 41 93 11 108 23C124 38 109 62 90 78Z" fill="#f5cbc1" stroke="#d99189"/>
+      <path d="M90 98C70 73 52 73 43 87C37 104 67 110 90 98Z" fill="#82976a"/>
+    `;
+  } else if (type === "berry") {
+    art = `
+      <path d="M65 96Q98 60 119 25" stroke="#638052" stroke-width="3" fill="none"/>
+      <path d="M94 62Q52 15 72 17Q95 20 94 62Z" fill="#779063"/>
+      <path d="M111 38Q126 8 133 23Q133 39 111 38Z" fill="#90a275"/>
+      <g fill="#3f5140">
+        <circle cx="83" cy="77" r="8"/><circle cx="91" cy="86" r="8"/>
+        <circle cx="101" cy="77" r="8"/><circle cx="88" cy="67" r="8"/>
+        <circle cx="106" cy="88" r="8"/><circle cx="74" cy="88" r="8"/>
+      </g>
+    `;
+  } else {
+    art = `
+      <path d="M88 106Q88 66 86 27" fill="none" stroke="#71865b" stroke-width="3"/>
+      <path d="M86 58C43 62 28 36 46 24C65 14 82 39 86 58Z" fill="#82986c" stroke="#617b51"/>
+      <path d="M88 81C124 78 147 54 132 39C113 28 97 57 88 81Z" fill="#a4b48a" stroke="#71865b"/>
+      <path d="M86 95C49 91 34 73 45 61C61 51 79 73 86 95Z" fill="#6d8559" stroke="#617b51"/>
+      <path d="M86 58L48 28M88 81L132 41M86 95L45 63" fill="none" stroke="#c8d1ad" stroke-width="1.5"/>
+    `;
+  }
+
+  return `<svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg"><rect width="180" height="130" rx="12" fill="${tone}"/><circle cx="140" cy="27" r="22" fill="#fffdf5" opacity=".36"/>${art}</svg>`;
+}
+
+function showToast(message) {
+  const el = $("#toast");
+  el.textContent = message;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+}
+
+function setWheelRotation(angle) {
+  currentRotation = angle;
+  const rotator = $("#wheelRotator");
+  rotator.style.transform = `rotate(${angle}deg)`;
+  rotator.querySelectorAll(".dish-inner").forEach(inner => {
+    inner.style.transform = `rotate(${-angle}deg)`;
+  });
+}
+
+function buildWheel() {
+  const rotator = $("#wheelRotator");
+  const step = 360 / recipes.length;
+  const boardWidth = $("#tableBoard").getBoundingClientRect().width || window.innerWidth;
+  const radius = boardWidth * .335;
+
+  rotator.innerHTML = recipes.map((recipe, i) => `
+    <button
+      class="dish-pod"
+      style="--a:${i * step}deg;--na:${-i * step}deg;--offset:-${radius}px"
+      data-wheel-recipe="${recipe.id}"
+      aria-label="查看${recipe.name}"
+      type="button">
+      <span class="dish-inner">
+        <span class="dish-art">${svgDish(recipe.shape)}</span>
+        <span class="dish-name">${recipe.name}</span>
+      </span>
+    </button>
+  `).join("");
+
+  setWheelRotation(currentRotation);
+}
+
+function animateWheelTo(target, duration) {
+  return new Promise(resolve => {
+    const from = currentRotation;
+    const start = performance.now();
+    const rotator = $("#wheelRotator");
+    const innerItems = [...rotator.querySelectorAll(".dish-inner")];
+
+    function frame(now) {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      const angle = from + (target - from) * eased;
+
+      rotator.style.transform = `rotate(${angle}deg)`;
+      innerItems.forEach(item => {
+        item.style.transform = `rotate(${-angle}deg)`;
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        setWheelRotation(target);
+        resolve();
+      }
+    }
+
+    requestAnimationFrame(frame);
+  });
+}
+
+async function spinToRandomRecipe(fromTouch = false, velocity = 0) {
+  if (spinning) return;
+
+  spinning = true;
+  const spinButton = $("#spinButton");
+  if (spinButton) spinButton.disabled = true;
+
+  $("#spinStatus").textContent = "餐桌正在旋轉……";
+
+  const index = Math.floor(Math.random() * recipes.length);
+  const step = 360 / recipes.length;
+  const currentMod = ((currentRotation % 360) + 360) % 360;
+  const desiredMod = ((360 - index * step) % 360 + 360) % 360;
+  const pointerDelta = ((desiredMod - currentMod) % 360 + 360) % 360;
+  const turns = fromTouch ? 2.5 + Math.min(1, Math.abs(velocity) * .12) : 4;
+  const target = currentRotation + turns * 360 + pointerDelta;
+
+  document.querySelectorAll(".dish-pod").forEach(item => item.classList.remove("selected"));
+
+  await animateWheelTo(target, fromTouch ? 2100 : 3400);
+
+  const recipe = recipes[index];
+  const selected = document.querySelector(`[data-wheel-recipe="${recipe.id}"]`);
+  if (selected) selected.classList.add("selected");
+
+  spinning = false;
+  if (spinButton) spinButton.disabled = false;
+
+  $("#spinStatus").textContent = `抽中：${recipe.name}`;
+  showToast(`餐桌停在「${recipe.name}」`);
+  openRecipe(recipe.id);
+}
+
+function goPage(name) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === `page-${name}`);
+  });
+
+  document.querySelectorAll(".nav-link").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === name);
+  });
+
+  $("#mobileNav").classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (name === "home") {
+    requestAnimationFrame(() => {
+      if (!spinning) buildWheel();
+    });
+  }
+}
+
+function recipeMarkup(recipe) {
+  return `
+    <article class="recipe-card" data-recipe="${recipe.id}" tabindex="0" role="button" aria-label="查看${recipe.name}">
+      <div class="recipe-visual" style="background:linear-gradient(135deg,${recipe.color},#f4ead8)">
+        ${svgDish(recipe.shape)}
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-title-row">
+          <h3>${recipe.name}</h3>
+          <button class="bookmark ${saved.has(recipe.id) ? "saved" : ""}" data-save="${recipe.id}" aria-label="收藏料理">${saved.has(recipe.id) ? "♥" : "♡"}</button>
+        </div>
+        <div class="card-meta">
+          ${recipe.plants.map(plant => `<span class="mini-tag">${plant}</span>`).join("")}
+          <span class="mini-tag">${recipe.category}</span>
+        </div>
+        <p>${recipe.description}</p>
+        <div class="recipe-foot">
+          <span>${recipe.status.split("｜")[0]}</span>
+          <b>查看料理卡 ↗</b>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderRecipes() {
+  const query = ($("#recipeSearch").value || "").trim().toLowerCase();
+
+  const items = recipes.filter(recipe => {
+    const matchFilter = activeRecipeFilter === "全部" || recipe.category === activeRecipeFilter;
+    const haystack = [recipe.name, recipe.category, ...recipe.plants, ...recipe.parts].join(" ").toLowerCase();
+    return matchFilter && (!query || haystack.includes(query));
+  });
+
+  $("#recipeGrid").innerHTML = items.length
+    ? items.map(recipeMarkup).join("")
+    : `<div class="empty-state">還沒有找到符合的料理，換個關鍵字試試吧。</div>`;
+}
+
+function renderPlants() {
+  const query = ($("#plantSearch").value || "").trim().toLowerCase();
+
+  const items = plants.filter(plant => {
+    const matchFilter = activePlantFilter === "全部" || plant.tags.includes(activePlantFilter);
+    const haystack = [plant.id, plant.latin, plant.parts, plant.use].join(" ").toLowerCase();
+    return matchFilter && (!query || haystack.includes(query));
+  });
+
+  $("#plantGrid").innerHTML = items.length
+    ? items.map(plant => `
+      <button class="plant-card" data-plant="${plant.id}" type="button">
+        <span class="plant-illustration">${svgPlant(plant.type, plant.tone)}</span>
+        <span>
+          <h3>${plant.id}</h3>
+          <span class="latin">${plant.latin}</span>
+          <p>${plant.use}</p>
+          <span class="plant-use">查看植物資料 ↗</span>
+        </span>
+      </button>
+    `).join("")
+    : `<div class="empty-state">暫時沒有符合的植物資料。</div>`;
+}
+
+function renderJournal() {
+  $("#journalTimeline").innerHTML = journals.map((journal, i) => `
+    <article class="journal-entry" data-journal="${i}" tabindex="0">
+      <div class="entry-meta">${journal.date}　／　FIELD NOTE 0${i + 1}</div>
+      <h3>${journal.title}</h3>
+      <p>${journal.description}</p>
+      <span class="entry-expand">展開紀錄與建議欄位　＋</span>
+    </article>
+  `).join("");
+}
+
+function openModal(content, art = "") {
+  $("#modalCopy").innerHTML = content;
+  $("#modalArt").innerHTML = art;
+  $("#modalBackdrop").classList.add("open");
+  document.body.style.overflow = "hidden";
+  $("#modalClose").focus();
+}
+
+function closeModal() {
+  $("#modalBackdrop").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function openRecipe(id) {
+  const recipe = recipes.find(item => item.id === id);
+  if (!recipe) return;
+
+  openModal(`
+    <div class="modal-kicker">${recipe.category} / HERBAL DISH IDEA</div>
+    <h2 id="modalTitle">${recipe.name}</h2>
+    <p class="lead">${recipe.idea}</p>
+    <div class="info-block"><h4>使用植物</h4><p>${recipe.plants.join("、")}</p></div>
+    <div class="info-block"><h4>研究部位</h4><p>${recipe.parts.join("、")}</p></div>
+    <div class="info-block"><h4>風味觀察方向</h4><p>${recipe.flavor}</p></div>
+    <div class="info-block"><h4>料理概念</h4><p>${recipe.description}</p></div>
+    <div class="modal-note">${recipe.status}。這是展示用草案，不是已驗證食譜；正式開發前請查核品種、部位與食用性。</div>
+    <div class="modal-actions">
+      <button class="small-button" data-related-plant="${recipe.plants[0]}">探索相關植物 ↗</button>
+      <button class="small-button" data-close-modal>回到餐桌</button>
+    </div>
+  `, svgDish(recipe.shape));
+}
+
+function openPlant(id) {
+  const plant = plants.find(item => item.id === id);
+  if (!plant) return;
+
+  const relatedRecipes = recipes.filter(recipe =>
+    recipe.plants.some(name => name === plant.id || plant.id.startsWith(name.split("／")[0]))
+  );
+
+  openModal(`
+    <div class="modal-kicker">PLANT INDEX / 植物資料卡</div>
+    <h2 id="modalTitle">${plant.id}</h2>
+    <p class="lead">${plant.intro}</p>
+    <div class="info-block"><h4>植物名稱</h4><p>${plant.id}｜${plant.latin}</p></div>
+    <div class="info-block"><h4>部位整理方向</h4><p>${plant.parts}</p></div>
+    <div class="info-block"><h4>研究與生活連結</h4><p>${plant.use}</p></div>
+    <div class="info-block"><h4>相關料理概念</h4><p>${relatedRecipes.length ? relatedRecipes.map(recipe => recipe.name).join("、") : "目前尚無對應料理"}</p></div>
+    <div class="modal-note">資料尚待查核。正式內容應附上來源、部位、用途、可食性與查核狀態。</div>
+    <div class="modal-actions">
+      <button class="small-button" data-plant-recipes="${plant.id}">看相關料理 ↗</button>
+      <button class="small-button" data-close-modal>關閉資料卡</button>
+    </div>
+  `, svgPlant(plant.type, plant.tone));
+}
+
+function openJournal(index) {
+  const journal = journals[index];
+  openModal(`
+    <div class="modal-kicker">FIELD NOTE / 實驗日誌</div>
+    <h2 id="modalTitle">${journal.title}</h2>
+    <p class="lead">${journal.description}</p>
+    <div class="info-block"><h4>紀錄內容建議</h4><p>${journal.detail}</p></div>
+    <div class="info-block"><h4>可用欄位</h4><p>日期、人員、研究問題、食材及部位、資料來源、查核狀態、操作條件、觀察紀錄、結果比較及修正方向。</p></div>
+    <div class="modal-note">目前為內容架構示例。實際測試日期、方法及結論應由團隊完成研究後填入。</div>
+  `, svgPlant("leaf", "#e5e8d8"));
+}
+
+/* 導覽 */
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => goPage(button.dataset.page));
+});
+
+$("#menuToggle").addEventListener("click", () => {
+  $("#mobileNav").classList.toggle("open");
+});
+
+$("#headerSpin").addEventListener("click", () => {
+  goPage("home");
+  setTimeout(() => spinToRandomRecipe(false), 180);
+});
+
+$("#spinButton").addEventListener("click", () => spinToRandomRecipe(false));
+
+$("#exploreButton").addEventListener("click", () => {
+  goPage("recipes");
+  showToast("先從一道料理開始探索吧");
+});
+
+/* 分類與搜尋 */
+$("#recipeFilters").addEventListener("click", event => {
+  const button = event.target.closest("[data-filter]");
+  if (!button) return;
+
+  activeRecipeFilter = button.dataset.filter;
+  $("#recipeFilters").querySelectorAll(".filter-btn").forEach(item => {
+    item.classList.toggle("active", item === button);
+  });
+  renderRecipes();
+});
+
+$("#plantFilters").addEventListener("click", event => {
+  const button = event.target.closest("[data-filter]");
+  if (!button) return;
+
+  activePlantFilter = button.dataset.filter;
+  $("#plantFilters").querySelectorAll(".filter-btn").forEach(item => {
+    item.classList.toggle("active", item === button);
+  });
+  renderPlants();
+});
+
+$("#recipeSearch").addEventListener("input", renderRecipes);
+$("#plantSearch").addEventListener("input", renderPlants);
+
+/* 料理收藏與資訊卡 */
+$("#recipeGrid").addEventListener("click", event => {
+  const bookmark = event.target.closest("[data-save]");
+
+  if (bookmark) {
+    event.stopPropagation();
+    const id = bookmark.dataset.save;
+
+    if (saved.has(id)) {
+      saved.delete(id);
+      showToast("已取消收藏");
+    } else {
+      saved.add(id);
+      showToast("已收藏這道料理");
+    }
+
+    renderRecipes();
+    return;
+  }
+
+  const card = event.target.closest("[data-recipe]");
+  if (card) openRecipe(card.dataset.recipe);
+});
+
+$("#recipeGrid").addEventListener("keydown", event => {
+  if ((event.key === "Enter" || event.key === " ") &&
+      event.target.matches("[data-recipe]")) {
+    event.preventDefault();
+    openRecipe(event.target.dataset.recipe);
+  }
+});
+
+$("#plantGrid").addEventListener("click", event => {
+  const card = event.target.closest("[data-plant]");
+  if (card) openPlant(card.dataset.plant);
+});
+
+$("#journalTimeline").addEventListener("click", event => {
+  const entry = event.target.closest("[data-journal]");
+  if (entry) openJournal(Number(entry.dataset.journal));
+});
+
+$("#journalTimeline").addEventListener("keydown", event => {
+  if ((event.key === "Enter" || event.key === " ") &&
+      event.target.matches("[data-journal]")) {
+    event.preventDefault();
+    openJournal(Number(event.target.dataset.journal));
+  }
+});
+
+/* 資訊卡按鈕 */
+$("#modalClose").addEventListener("click", closeModal);
+
+$("#modalBackdrop").addEventListener("click", event => {
+  if (event.target === $("#modalBackdrop")) closeModal();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+$("#modalCopy").addEventListener("click", event => {
+  if (event.target.closest("[data-close-modal]")) {
+    closeModal();
+    return;
+  }
+
+  const plantButton = event.target.closest("[data-related-plant]");
+  if (plantButton) {
+    const name = plantButton.dataset.relatedPlant;
+    closeModal();
+    goPage("plants");
+    const plant = plants.find(item =>
+      item.id === name || item.id.startsWith(name.split("／")[0])
+    );
+    if (plant) setTimeout(() => openPlant(plant.id), 200);
+    return;
+  }
+
+  const recipeButton = event.target.closest("[data-plant-recipes]");
+  if (recipeButton) {
+    const name = recipeButton.dataset.plantRecipes;
+    closeModal();
+    goPage("recipes");
+    $("#recipeSearch").value = name.split("／")[0];
+    activeRecipeFilter = "全部";
+    $("#recipeFilters").querySelectorAll(".filter-btn").forEach(button => {
+      button.classList.toggle("active", button.dataset.filter === "全部");
+    });
+    renderRecipes();
+  }
+});
+
+/* 手機：在餐桌上滑動就旋轉。桌機：使用中央按鈕。 */
+const tableBoard = $("#tableBoard");
+let gesture = null;
+let suppressWheelClickUntil = 0;
+
+function isMobileWheel() {
+  return window.matchMedia("(max-width:760px)").matches;
+}
+
+function angleAtPointer(event) {
+  const rect = tableBoard.getBoundingClientRect();
+  return Math.atan2(
+    event.clientY - (rect.top + rect.height / 2),
+    event.clientX - (rect.left + rect.width / 2)
+  ) * 180 / Math.PI;
+}
+
+function shortestAngle(degrees) {
+  while (degrees > 180) degrees -= 360;
+  while (degrees < -180) degrees += 360;
+  return degrees;
+}
+
+tableBoard.addEventListener("pointerdown", event => {
+  if (!isMobileWheel() || spinning || event.isPrimary === false) return;
+  if (event.button !== undefined && event.button !== 0) return;
+
+  const rect = tableBoard.getBoundingClientRect();
+  const dx = event.clientX - (rect.left + rect.width / 2);
+  const dy = event.clientY - (rect.top + rect.height / 2);
+
+  gesture = {
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    lastX: event.clientX,
+    lastAngle: angleAtPointer(event),
+    moved: false,
+    lastTime: performance.now(),
+    velocity: 0,
+    distance: 0,
+    nearCenter: Math.hypot(dx, dy) < rect.width * .22
+  };
+});
+
+tableBoard.addEventListener("pointermove", event => {
+  if (!gesture || event.pointerId !== gesture.pointerId || spinning) return;
+
+  const dx = event.clientX - gesture.startX;
+  const dy = event.clientY - gesture.startY;
+  gesture.distance = Math.hypot(dx, dy);
+
+  if (!gesture.moved && gesture.distance > 6) {
+    gesture.moved = true;
+    tableBoard.classList.add("is-dragging");
+    suppressWheelClickUntil = Date.now() + 1000;
+    try { tableBoard.setPointerCapture(event.pointerId); } catch (_) {}
+  }
+
+  if (!gesture.moved) return;
+  event.preventDefault();
+
+  const now = performance.now();
+  let delta;
+
+  if (gesture.nearCenter) {
+    delta = (event.clientX - gesture.lastX) * .85;
+  } else {
+    const currentAngle = angleAtPointer(event);
+    delta = shortestAngle(currentAngle - gesture.lastAngle);
+    gesture.lastAngle = currentAngle;
+  }
+
+  const dt = Math.max(8, now - gesture.lastTime);
+  gesture.velocity = delta / dt;
+
+  setWheelRotation(currentRotation + delta);
+  gesture.lastX = event.clientX;
+  gesture.lastTime = now;
+}, { passive: false });
+
+function endGesture(event) {
+  if (!gesture || (event && event.pointerId !== gesture.pointerId)) return;
+
+  const finished = gesture;
+  gesture = null;
+  tableBoard.classList.remove("is-dragging");
+
+  if (finished.moved && finished.distance > 8) {
+    suppressWheelClickUntil = Date.now() + 1000;
+    spinToRandomRecipe(true, finished.velocity);
+  }
+}
+
+tableBoard.addEventListener("pointerup", endGesture);
+tableBoard.addEventListener("pointercancel", endGesture);
+
+/* 點中央圓心也可以抽菜，點到菜色則開啟該道菜的資訊卡。 */
+tableBoard.addEventListener("click", event => {
+  if (Date.now() < suppressWheelClickUntil || spinning) return;
+
+  const dishButton = event.target.closest("[data-wheel-recipe]");
+  if (dishButton) {
+    openRecipe(dishButton.dataset.wheelRecipe);
+    return;
+  }
+
+  if (isMobileWheel() && event.target.closest("#tableCenter")) {
+    spinToRandomRecipe(true, 0);
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (!spinning) buildWheel();
+});
+
+/* 啟動網站 */
+renderRecipes();
+renderPlants();
+renderJournal();
+buildWheel();
+</script>
 </body>
 </html>
