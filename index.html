@@ -40,6 +40,7 @@ body {
 
 button, input { font: inherit; }
 button { cursor: pointer; }
+
 button:focus-visible, input:focus-visible {
   outline: 2px solid var(--olive);
   outline-offset: 3px;
@@ -55,7 +56,7 @@ button:focus-visible, input:focus-visible {
   justify-content: space-between;
   gap: 24px;
   padding: 0 clamp(18px, 5vw, 76px);
-  background: rgba(247,244,233,.95);
+  background: rgba(247,244,233,.96);
   border-bottom: 1px solid rgba(119,117,101,.22);
   backdrop-filter: blur(14px);
 }
@@ -159,9 +160,10 @@ button:focus-visible, input:focus-visible {
 main { min-height: 75vh; }
 
 .page { display: none; }
+
 .page.active {
   display: block;
-  animation: appear .35s ease;
+  animation: appear .3s ease;
 }
 
 @keyframes appear {
@@ -747,14 +749,6 @@ main { min-height: 75vh; }
   height: auto;
 }
 
-.visual-label {
-  position: absolute;
-  margin-top: -150px;
-  margin-left: 130px;
-  color: #656c50;
-  font-size: 9px;
-}
-
 .recipe-body { padding: 18px; }
 
 .recipe-title-row {
@@ -916,7 +910,10 @@ main { min-height: 75vh; }
   font-family: var(--serif);
 }
 
-.timeline { border-left: 1px solid #b7bd9f; padding-left: 25px; }
+.timeline {
+  border-left: 1px solid #b7bd9f;
+  padding-left: 25px;
+}
 
 .journal-entry {
   position: relative;
@@ -1075,7 +1072,12 @@ footer {
   background: linear-gradient(145deg,#e2e6d5,#f2dfc7);
 }
 
-.modal-art svg { width: 220px; max-width: 90%; position: relative; z-index: 1; }
+.modal-art svg {
+  width: 220px;
+  max-width: 90%;
+  position: relative;
+  z-index: 1;
+}
 
 .modal-copy { padding: 35px 30px; }
 
@@ -1235,12 +1237,14 @@ footer {
   .center-title { font-size: clamp(11px,3.2vw,15px); }
   .spin-button { display: none; }
   .wheel-pointer { top: 1.4%; width: 31px; height: 35px; }
+
   .wheel-pointer::before {
     left: 2px;
     border-left-width: 13px;
     border-right-width: 13px;
     border-top-width: 24px;
   }
+
   .wheel-pointer::after { left: 10px; width: 8px; height: 8px; }
   .table-caption { font-size: 12px; margin-top: 10px; }
 
@@ -1266,10 +1270,12 @@ footer {
   .recipe-body h3 { font-size: 16px; }
   .recipe-body p { font-size: 10px; }
   .recipe-foot { font-size: 9px; }
+
   .plant-grid, .culture-grid { grid-template-columns: 1fr; gap: 12px; }
   .plant-card { padding: 11px; gap: 12px; }
   .plant-illustration { flex-basis: 80px; width: 80px; height: 80px; }
   .plant-card h3 { font-size: 18px; }
+
   .journal-layout { grid-template-columns: 1fr; gap: 22px; }
   .journal-intro { padding: 22px; }
   .culture-art { height: 160px; }
@@ -1330,6 +1336,7 @@ footer {
       <div class="hero-copy">
         <div class="eyebrow">A little plant, a little daily life</div>
         <h1>讓一株植物，<br><span class="accent">走上日常餐桌</span></h1>
+
         <p class="hero-description">
           從植物出發，重新認識餐桌上的風味與生活。
           轉一轉今天的草本餐桌，看看哪一道料理，
@@ -1344,7 +1351,6 @@ footer {
 
         <button class="primary-button" id="exploreButton">開始探索　↗</button>
         <button class="text-button" data-page="plants">先逛逛植物圖鑑</button>
-
         <div class="hand-note">✳ 每一次轉動，都是一場新的味覺提案。</div>
       </div>
 
@@ -1354,7 +1360,6 @@ footer {
 
           <div class="table-board" id="tableBoard" aria-label="草本餐桌轉盤">
             <div class="wheel-rotator" id="wheelRotator"></div>
-
             <div class="wheel-pointer" aria-hidden="true"></div>
 
             <div class="table-center" id="tableCenter">
@@ -1364,9 +1369,7 @@ footer {
           </div>
         </div>
 
-        <div class="table-caption" id="spinStatus" aria-live="polite">
-          轉出一道草本料理
-        </div>
+        <div class="table-caption" id="spinStatus" aria-live="polite">轉出一道草本料理</div>
       </div>
     </div>
 
@@ -1435,6 +1438,7 @@ footer {
           <button class="filter-btn" data-filter="主食">主食</button>
           <button class="filter-btn" data-filter="點心">點心</button>
         </div>
+
         <label class="search-box">
           <span>⌕</span>
           <input id="recipeSearch" type="search" placeholder="搜尋料理或植物名稱">
@@ -1464,6 +1468,7 @@ footer {
           <button class="filter-btn" data-filter="香氣與調味">香氣與調味</button>
           <button class="filter-btn" data-filter="生活文化">生活文化</button>
         </div>
+
         <label class="search-box">
           <span>⌕</span>
           <input id="plantSearch" type="search" placeholder="搜尋植物名稱">
@@ -1527,6 +1532,7 @@ footer {
               <path d="M0 190Q120 150 225 188T600 180V240H0Z" fill="#c6c9ad"/>
             </svg>
           </div>
+
           <div class="culture-card-body">
             <div class="eyebrow">01 / Local memory</div>
             <h3>臺灣的草本飲食日常</h3>
@@ -1557,6 +1563,7 @@ footer {
               </g>
             </svg>
           </div>
+
           <div class="culture-card-body">
             <div class="eyebrow">02 / Research notes</div>
             <h3>植物知識如何傳下來？</h3>
@@ -1604,133 +1611,168 @@ footer {
 
 const recipes = [
   {
-    id: "lotus-salad", name: "蓮荷清香沙拉", category: "沙拉",
-    plants: ["蓮"], parts: ["蓮藕", "蓮子（概念搭配）"],
+    id: "lotus-salad",
+    name: "蓮荷清香沙拉",
+    category: "沙拉",
+    plants: ["蓮"],
+    parts: ["蓮藕", "蓮子（概念搭配）"],
     flavor: "清爽、脆口、帶有淡雅植物香氣",
     idea: "以蓮的不同部位作為餐桌探索起點，透過口感與色彩搭配呈現料理想像。",
     description: "清爽系植物沙拉提案，從蓮藕的脆口印象延伸到不同質地的搭配。",
     status: "概念菜色｜食材與部位待查核",
-    color: "#dfe8d6", shape: "salad"
+    color: "#dfe8d6",
+    shape: "salad"
   },
   {
-    id: "perilla-drink", name: "紫蘇梅氣飲", category: "飲品",
-    plants: ["紫蘇"], parts: ["紫蘇葉", "梅子（搭配食材）"],
+    id: "perilla-drink",
+    name: "紫蘇梅氣飲",
+    category: "飲品",
+    plants: ["紫蘇"],
+    parts: ["紫蘇葉", "梅子（搭配食材）"],
     flavor: "草本香氣、酸甜、清爽",
     idea: "以紫蘇葉香氣為主題，搭配酸甜風味，探索草本如何進入日常飲食。",
     description: "以紫蘇香氣為主角，搭配酸甜梅香的飲品概念。",
     status: "概念菜色｜配方與使用量待測試",
-    color: "#ead8db", shape: "drink"
+    color: "#ead8db",
+    shape: "drink"
   },
   {
-    id: "cinnamon-porridge", name: "土肉桂暖香粥", category: "湯品",
-    plants: ["肉桂"], parts: ["土肉桂葉或樹皮（擇一查核）"],
+    id: "cinnamon-porridge",
+    name: "土肉桂暖香粥",
+    category: "湯品",
+    plants: ["肉桂"],
+    parts: ["土肉桂葉或樹皮（擇一查核）"],
     flavor: "溫暖、木質、帶有辛香調性",
     idea: "比較不同部位與品種的香氣表現，先以風味紀錄為主，不預設療效。",
     description: "從臺灣土肉桂的香氣出發，延伸出溫暖系料理的試驗概念。",
     status: "概念菜色｜品種、部位及食安需確認",
-    color: "#eadac0", shape: "soup"
+    color: "#eadac0",
+    shape: "soup"
   },
   {
-    id: "mulberry-pancake", name: "桑葉香草煎餅", category: "點心",
-    plants: ["桑樹"], parts: ["桑葉（可食性及使用方式待查）"],
+    id: "mulberry-pancake",
+    name: "桑葉香草煎餅",
+    category: "點心",
+    plants: ["桑樹"],
+    parts: ["桑葉（可食性及使用方式待查）"],
     flavor: "穀物香、植物清香、烘焙氣息",
     idea: "以桑樹研究轉化成可觀察的料理測試，記錄色澤、香氣、口感與接受度。",
     description: "以桑樹為主題的點心開發草案。",
     status: "概念菜色｜不可視為已確認食譜",
-    color: "#e0e8cf", shape: "pancake"
+    color: "#e0e8cf",
+    shape: "pancake"
   },
   {
-    id: "shell-ginger-rice", name: "月桃葉香蒸飯", category: "主食",
-    plants: ["月桃"], parts: ["月桃葉作為包裹／香氣媒介（不代表葉片食用）"],
+    id: "shell-ginger-rice",
+    name: "月桃葉香蒸飯",
+    category: "主食",
+    plants: ["月桃"],
+    parts: ["月桃葉作為包裹／香氣媒介（不代表葉片食用）"],
     flavor: "葉香、米飯蒸氣、淡雅草本氣息",
     idea: "以包裹、蒸煮和香氣傳遞作為觀察，區分接觸食材的部位與食用部位。",
     description: "以月桃葉的包裹與香氣意象，延伸臺灣植物與料理的連結。",
     status: "概念菜色｜葉片用途需查核",
-    color: "#dfe7d1", shape: "rice"
+    color: "#dfe7d1",
+    shape: "rice"
   },
   {
-    id: "fishmint-noodles", name: "魚腥草青醬麵", category: "主食",
-    plants: ["魚腥草"], parts: ["地上部位（食用性、來源及處理方式待查）"],
+    id: "fishmint-noodles",
+    name: "魚腥草青醬麵",
+    category: "主食",
+    plants: ["魚腥草"],
+    parts: ["地上部位（食用性、來源及處理方式待查）"],
     flavor: "鮮明草本氣味、清新綠色調",
     idea: "將氣味接受度作為料理實驗問題，可用盲測與描述詞紀錄。",
     description: "以魚腥草鮮明的草本氣味作為風味研究題目。",
     status: "概念菜色｜須先完成部位與食安查核",
-    color: "#e1e7d3", shape: "pasta"
+    color: "#e1e7d3",
+    shape: "pasta"
   },
   {
-    id: "paper-mulberry-bowl", name: "構樹果香優格碗", category: "點心",
-    plants: ["構樹"], parts: ["果實（物種辨識與可食性待查）"],
+    id: "paper-mulberry-bowl",
+    name: "構樹果香優格碗",
+    category: "點心",
+    plants: ["構樹"],
+    parts: ["果實（物種辨識與可食性待查）"],
     flavor: "酸甜與果香的搭配想像",
     idea: "以構樹作為植物辨識與部位查核的案例；資料確認前只保留概念。",
     description: "以植物果實外觀與季節感作為視覺概念，待查核後再決定料理方向。",
     status: "概念菜色｜先查核物種與食用性",
-    color: "#e9ded0", shape: "berry"
+    color: "#e9ded0",
+    shape: "berry"
   }
 ];
 
 const plants = [
   {
-    id: "桑樹", latin: "Morus alba L.（示意）",
+    id: "桑樹",
+    latin: "Morus alba L.（示意）",
     tags: ["餐桌應用", "生活文化"],
     parts: "葉、果實、枝、樹皮、根等部位需分別查證用途及可食性。",
     use: "可從桑葉飲食、果實風味、傳統栽培與生活記憶蒐集資料。",
-    related: ["mulberry-pancake"],
     intro: "目前畢製聚焦的研究植物。建議將部位用途、可食性與文化意義分成不同欄位。",
-    tone: "#dfe8d6", type: "leaf"
+    tone: "#dfe8d6",
+    type: "leaf"
   },
   {
-    id: "肉桂／臺灣土肉桂", latin: "Cinnamomum osmophloeum（需核名）",
+    id: "肉桂／臺灣土肉桂",
+    latin: "Cinnamomum osmophloeum（需核名）",
     tags: ["餐桌應用", "香氣與調味"],
     parts: "葉、樹皮等部位需依確切品種與資料分別確認，不能直接互相替代。",
     use: "可研究臺灣土肉桂的香氣描述、調味文化及品種辨識。",
-    related: ["cinnamon-porridge"],
     intro: "適合從香氣與調味切入；正式資料應確認學名、部位與引用來源。",
-    tone: "#eadcc2", type: "bark"
+    tone: "#eadcc2",
+    type: "bark"
   },
   {
-    id: "月桃", latin: "Alpinia zerumbet（示意）",
+    id: "月桃",
+    latin: "Alpinia zerumbet（示意）",
     tags: ["香氣與調味", "生活文化"],
     parts: "葉片可研究包裹、器物與香氣媒介等用途；不因此推定葉片可食。",
     use: "可從包裹、蒸煮、編織與日常器用等文化素材延伸。",
-    related: ["shell-ginger-rice"],
     intro: "可呈現一株植物有多種用途，但不同用途不一定都能入口。",
-    tone: "#dfe8d6", type: "leaf"
+    tone: "#dfe8d6",
+    type: "leaf"
   },
   {
-    id: "紫蘇", latin: "Perilla frutescens（示意）",
+    id: "紫蘇",
+    latin: "Perilla frutescens（示意）",
     tags: ["餐桌應用", "香氣與調味"],
     parts: "葉片可作為香氣與料理研究起點；品種、使用方式與食用安全需查核。",
     use: "可比較香氣描述詞、接受度、顏色變化與搭配方式。",
-    related: ["perilla-drink"],
     intro: "適合發展感官測試，整理人們描述香氣與風味時的常見詞群。",
-    tone: "#e8dce0", type: "leaf"
+    tone: "#e8dce0",
+    type: "leaf"
   },
   {
-    id: "蓮", latin: "Nelumbo nucifera（示意）",
+    id: "蓮",
+    latin: "Nelumbo nucifera（示意）",
     tags: ["餐桌應用", "生活文化"],
     parts: "蓮藕、蓮子等常見食材可作為切入點；其他部位須分項查證。",
     use: "可從季節料理、食材質地、外觀與餐桌擺盤觀察出發。",
-    related: ["lotus-salad"],
     intro: "可將部位圖譜視覺化，但每個部位都應有對應來源與使用狀態。",
-    tone: "#f1d7d3", type: "lotus"
+    tone: "#f1d7d3",
+    type: "lotus"
   },
   {
-    id: "魚腥草", latin: "Houttuynia cordata（示意）",
+    id: "魚腥草",
+    latin: "Houttuynia cordata（示意）",
     tags: ["餐桌應用", "生活文化"],
     parts: "需確認研究地區、品種辨識、使用部位與處理方式。",
     use: "可把氣味接受度、地方飲食經驗與世代差異作為研究主題。",
-    related: ["fishmint-noodles"],
     intro: "適合研究熟悉或陌生的植物氣味如何影響飲食選擇。",
-    tone: "#e0e8d8", type: "leaf"
+    tone: "#e0e8d8",
+    type: "leaf"
   },
   {
-    id: "構樹", latin: "Broussonetia papyrifera（示意）",
+    id: "構樹",
+    latin: "Broussonetia papyrifera（示意）",
     tags: ["生活文化", "香氣與調味"],
     parts: "果實、葉與韌皮等用途需分別查證；料理開發前應先確認物種。",
     use: "可從植物纖維、民俗利用、地方生態及部位辨識探索。",
-    related: ["paper-mulberry-bowl"],
     intro: "適合作為「可用不等於可食」的案例；確認安全性前只做資料整理。",
-    tone: "#e9ded0", type: "berry"
+    tone: "#e9ded0",
+    type: "berry"
   }
 ];
 
@@ -1755,8 +1797,8 @@ const journals = [
   }
 ];
 
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
+const $ = selector => document.querySelector(selector);
+const $$ = selector => [...document.querySelectorAll(selector)];
 
 let currentRotation = 0;
 let spinning = false;
@@ -1771,6 +1813,7 @@ function svgDish(shape) {
     <ellipse cx="90" cy="76" rx="64" ry="31" fill="#fffdf4" stroke="#d5c5a7" stroke-width="2"/>
     <ellipse cx="90" cy="71" rx="53" ry="24" fill="#f0ead7"/>
   `;
+
   let food = "";
 
   if (shape === "salad") {
@@ -1783,15 +1826,14 @@ function svgDish(shape) {
         <ellipse cx="112" cy="55" rx="8" ry="14" transform="rotate(35 112 55)"/>
       </g>
       <g fill="#e8aaa0">
-        <ellipse cx="72" cy="56" rx="6" ry="9" transform="rotate(-20 72 56)"/>
-        <ellipse cx="91" cy="72" rx="6" ry="9" transform="rotate(25 91 72)"/>
-        <ellipse cx="103" cy="58" rx="6" ry="9" transform="rotate(-10 103 58)"/>
+        <ellipse cx="72" cy="56" rx="6" ry="9"/>
+        <ellipse cx="91" cy="72" rx="6" ry="9"/>
+        <ellipse cx="103" cy="58" rx="6" ry="9"/>
       </g>
       <g fill="#dec98f">
         <circle cx="61" cy="78" r="4"/><circle cx="97" cy="82" r="4"/>
         <circle cx="119" cy="73" r="4"/>
-      </g>
-    `;
+      </g>`;
   } else if (shape === "drink") {
     food = `
       <ellipse cx="90" cy="110" rx="31" ry="6" fill="#c4b99e" opacity=".6"/>
@@ -1804,8 +1846,7 @@ function svgDish(shape) {
         <rect x="82" y="72" width="12" height="13" rx="3"/>
       </g>
       <path d="M91 24 L111 3" stroke="#789264" stroke-width="3"/>
-      <path d="M91 24 Q65 1 61 19 Q70 27 91 24Z" fill="#82966d"/>
-    `;
+      <path d="M91 24 Q65 1 61 19 Q70 27 91 24Z" fill="#82966d"/>`;
   } else if (shape === "soup") {
     food = `
       <path d="M30 61 Q90 120 150 61 L141 92 Q90 119 39 92Z" fill="#e5d5b8" stroke="#cbb995" stroke-width="2"/>
@@ -1816,8 +1857,7 @@ function svgDish(shape) {
         <ellipse cx="67" cy="56" rx="9" ry="4" transform="rotate(-28 67 56)"/>
         <ellipse cx="108" cy="71" rx="10" ry="4" transform="rotate(30 108 71)"/>
         <ellipse cx="92" cy="49" rx="8" ry="4"/>
-      </g>
-    `;
+      </g>`;
   } else if (shape === "pancake") {
     food = `
       <ellipse cx="90" cy="72" rx="61" ry="31" fill="#fffdf3" stroke="#d1c1a2" stroke-width="2"/>
@@ -1828,8 +1868,7 @@ function svgDish(shape) {
         <circle cx="103" cy="57" r="2.4"/><circle cx="111" cy="70" r="2.4"/>
       </g>
       <path d="M78 50 Q60 22 72 31 Q91 35 78 50Z" fill="#708958"/>
-      <path d="M111 56 Q130 35 122 50 Q117 57 111 56Z" fill="#8ba16e"/>
-    `;
+      <path d="M111 56 Q130 35 122 50 Q117 57 111 56Z" fill="#8ba16e"/>`;
   } else if (shape === "rice") {
     food = `
       <path d="M29 64 Q90 110 151 64 L141 89 Q90 119 39 89Z" fill="#d5c4a6" stroke="#c9b896" stroke-width="2"/>
@@ -1839,8 +1878,7 @@ function svgDish(shape) {
         ${Array.from({length:16},(_,i)=>`<ellipse cx="${57+(i*17)%68}" cy="${52+(i*11)%25}" rx="4" ry="2.5"/>`).join("")}
       </g>
       <path d="M64 54 Q45 28 57 40 Q72 47 64 54Z" fill="#76905d"/>
-      <path d="M115 67 Q136 38 130 57 Q124 66 115 67Z" fill="#8ba173"/>
-    `;
+      <path d="M115 67 Q136 38 130 57 Q124 66 115 67Z" fill="#8ba173"/>`;
   } else if (shape === "pasta") {
     food = `
       <ellipse cx="90" cy="73" rx="62" ry="30" fill="#fffdf4" stroke="#d4c3a5" stroke-width="2"/>
@@ -1850,8 +1888,7 @@ function svgDish(shape) {
       </g>
       <path d="M65 65 Q45 34 56 47 Q73 56 65 65Z" fill="#5e7e50"/>
       <path d="M112 53 Q133 31 127 47 Q123 57 112 53Z" fill="#76965e"/>
-      <circle cx="89" cy="74" r="4" fill="#d99b8d"/>
-    `;
+      <circle cx="89" cy="74" r="4" fill="#d99b8d"/>`;
   } else {
     food = `
       <ellipse cx="90" cy="73" rx="62" ry="30" fill="#fffdf4" stroke="#d4c3a5" stroke-width="2"/>
@@ -1864,8 +1901,7 @@ function svgDish(shape) {
       <g fill="#8d9c68">
         <circle cx="68" cy="72" r="5"/><circle cx="90" cy="61" r="5"/>
         <circle cx="121" cy="61" r="5"/><circle cx="91" cy="79" r="5"/>
-      </g>
-    `;
+      </g>`;
   }
 
   return `<svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${bowl}${food}</svg>`;
@@ -1878,16 +1914,14 @@ function svgPlant(type, tone) {
     art = `
       <path d="M42 82 L93 29 L116 45 L64 98Z" fill="#a8784e" stroke="#825e3e"/>
       <path d="M52 83L101 35M58 90L109 41" stroke="#d6ad76" stroke-width="4"/>
-      <path d="M83 103L132 57L145 70L95 116Z" fill="#d3ad72" stroke="#a78452"/>
-    `;
+      <path d="M83 103L132 57L145 70L95 116Z" fill="#d3ad72" stroke="#a78452"/>`;
   } else if (type === "lotus") {
     art = `
       <path d="M90 94V28" stroke="#6d875b" stroke-width="3"/>
       <path d="M90 78C51 61 35 29 61 20C84 17 91 49 90 78Z" fill="#f1b7b0" stroke="#d99189"/>
       <path d="M90 78C113 34 149 34 147 57C142 78 117 82 90 78Z" fill="#e8a49d" stroke="#d99189"/>
       <path d="M90 78C79 41 93 11 108 23C124 38 109 62 90 78Z" fill="#f5cbc1" stroke="#d99189"/>
-      <path d="M90 98C70 73 52 73 43 87C37 104 67 110 90 98Z" fill="#82976a"/>
-    `;
+      <path d="M90 98C70 73 52 73 43 87C37 104 67 110 90 98Z" fill="#82976a"/>`;
   } else if (type === "berry") {
     art = `
       <path d="M65 96Q98 60 119 25" stroke="#638052" stroke-width="3" fill="none"/>
@@ -1897,16 +1931,14 @@ function svgPlant(type, tone) {
         <circle cx="83" cy="77" r="8"/><circle cx="91" cy="86" r="8"/>
         <circle cx="101" cy="77" r="8"/><circle cx="88" cy="67" r="8"/>
         <circle cx="106" cy="88" r="8"/><circle cx="74" cy="88" r="8"/>
-      </g>
-    `;
+      </g>`;
   } else {
     art = `
       <path d="M88 106Q88 66 86 27" fill="none" stroke="#71865b" stroke-width="3"/>
       <path d="M86 58C43 62 28 36 46 24C65 14 82 39 86 58Z" fill="#82986c" stroke="#617b51"/>
       <path d="M88 81C124 78 147 54 132 39C113 28 97 57 88 81Z" fill="#a4b48a" stroke="#71865b"/>
       <path d="M86 95C49 91 34 73 45 61C61 51 79 73 86 95Z" fill="#6d8559" stroke="#617b51"/>
-      <path d="M86 58L48 28M88 81L132 41M86 95L45 63" fill="none" stroke="#c8d1ad" stroke-width="1.5"/>
-    `;
+      <path d="M86 58L48 28M88 81L132 41M86 95L45 63" fill="none" stroke="#c8d1ad" stroke-width="1.5"/>`;
   }
 
   return `<svg viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg"><rect width="180" height="130" rx="12" fill="${tone}"/><circle cx="140" cy="27" r="22" fill="#fffdf5" opacity=".36"/>${art}</svg>`;
@@ -1920,10 +1952,13 @@ function showToast(message) {
   toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
 }
 
+/* 讓餐桌與料理使用相同的旋轉角度，料理插圖則保持正向 */
 function setWheelRotation(angle) {
   currentRotation = angle;
   const rotator = $("#wheelRotator");
+
   rotator.style.transform = `rotate(${angle}deg)`;
+
   rotator.querySelectorAll(".dish-inner").forEach(inner => {
     inner.style.transform = `rotate(${-angle}deg)`;
   });
@@ -1965,8 +2000,9 @@ function animateWheelTo(target, duration) {
       const angle = from + (target - from) * eased;
 
       rotator.style.transform = `rotate(${angle}deg)`;
-      innerItems.forEach(item => {
-        item.style.transform = `rotate(${-angle}deg)`;
+
+      innerItems.forEach(inner => {
+        inner.style.transform = `rotate(${-angle}deg)`;
       });
 
       if (progress < 1) {
@@ -1981,93 +2017,679 @@ function animateWheelTo(target, duration) {
   });
 }
 
+function shortestAngle(degrees) {
+  while (degrees > 180) degrees -= 360;
+  while (degrees < -180) degrees += 360;
+  return degrees;
+}
+
+/*
+ * 修正轉盤抽選：
+ * 1. 先讓餐桌旋轉。
+ * 2. 停止後讀取每一道菜的實際中心角度。
+ * 3. 找出與正上方固定指針角度最接近的料理。
+ * 4. 抽選結果、菜名和資訊卡全部使用同一道料理。
+ */
 async function spinToRandomRecipe(fromTouch = false, velocity = 0) {
   if (spinning) return;
 
+  const rotator = $("#wheelRotator");
+  const board = $("#tableBoard");
+  const spinButton = $("#spinButton");
+  const status = $("#spinStatus");
+
+  /* 防止轉盤尚未初始化就被操作 */
+  if (!rotator.querySelector("[data-wheel-recipe]")) {
+    buildWheel();
+  }
+
+  const dishes = [...rotator.querySelectorAll("[data-wheel-recipe]")];
+
+  if (!dishes.length) {
+    status.textContent = "料理載入失敗，請重新整理頁面";
+    return;
+  }
+
   spinning = true;
-
-  const spinButton = document.querySelector("#spinButton");
-  const status = document.querySelector("#spinStatus");
-  const board = document.querySelector("#tableBoard");
-  const rotator = document.querySelector("#wheelRotator");
-
   if (spinButton) spinButton.disabled = true;
 
   status.textContent = "餐桌正在旋轉……";
 
-  document.querySelectorAll(".dish-pod").forEach(item => {
-    item.classList.remove("selected");
-  });
+  dishes.forEach(dish => dish.classList.remove("selected"));
 
-  // 隨機旋轉多圈，不預先指定要跳出的料理
+  const boardRect = board.getBoundingClientRect();
+  const centerX = boardRect.left + boardRect.width / 2;
+  const centerY = boardRect.top + boardRect.height / 2;
+
+  /* 隨機選擇旋轉角度，而不是預先指定最後跳出的菜色 */
   const extraTurns = fromTouch
-    ? 3 + Math.min(1, Math.abs(velocity) * 0.15)
-    : 4 + Math.random() * 2;
+    ? 2.5 + Math.min(1, Math.abs(velocity) * .15)
+    : 4 + Math.random() * 1.5;
 
   const randomAngle = Math.random() * 360;
-  const targetRotation =
-    currentRotation + extraTurns * 360 + randomAngle;
+  const targetRotation = currentRotation + extraTurns * 360 + randomAngle;
 
-  // 執行轉盤動畫
-  await animateWheelTo(targetRotation, fromTouch ? 2200 : 3500);
-
-  // 等待瀏覽器完成最後一次版面更新
-  await new Promise(resolve => requestAnimationFrame(() => {
-    requestAnimationFrame(resolve);
-  }));
-
-  // 取得固定指針的位置
-  const boardRect = board.getBoundingClientRect();
-
-  const pointerX = boardRect.left + boardRect.width / 2;
-  const pointerY = boardRect.top + boardRect.height * 0.165;
-
-  // 實際計算每一道菜與指針的距離
-  const dishButtons = [
-    ...rotator.querySelectorAll("[data-wheel-recipe]")
-  ];
-
-  let nearestDish = null;
-  let shortestDistance = Infinity;
-
-  for (const dish of dishButtons) {
-    const rect = dish.getBoundingClientRect();
-
-    const dishX = rect.left + rect.width / 2;
-    const dishY = rect.top + rect.height / 2;
-
-    const distance = Math.hypot(
-      dishX - pointerX,
-      dishY - pointerY
+  try {
+    await animateWheelTo(
+      targetRotation,
+      fromTouch ? 2200 : 3400
     );
 
-    if (distance < shortestDistance) {
-      shortestDistance = distance;
-      nearestDish = dish;
+    /* 等待最後一次畫面更新，確保讀取到的是停下後的位置 */
+    await new Promise(resolve => {
+      requestAnimationFrame(() => requestAnimationFrame(resolve));
+    });
+
+    const finalBoard = board.getBoundingClientRect();
+    const finalCenterX = finalBoard.left + finalBoard.width / 2;
+    const finalCenterY = finalBoard.top + finalBoard.height / 2;
+
+    /* 固定指針指向正上方，即 -90 度 */
+    const pointerAngle = -90;
+    let selectedDish = null;
+    let smallestAngleDifference = Infinity;
+
+    const finalDishes = [
+      ...rotator.querySelectorAll("[data-wheel-recipe]")
+    ];
+
+    finalDishes.forEach(dish => {
+      const rect = dish.getBoundingClientRect();
+      const dishX = rect.left + rect.width / 2;
+      const dishY = rect.top + rect.height / 2;
+
+      const dishAngle =
+        Math.atan2(
+          dishY - finalCenterY,
+          dishX - finalCenterX
+        ) * 180 / Math.PI;
+
+      const angleDifference = Math.abs(
+        shortestAngle(dishAngle - pointerAngle)
+      );
+
+      if (angleDifference < smallestAngleDifference) {
+        smallestAngleDifference = angleDifference;
+        selectedDish = dish;
+      }
+    });
+
+    /*
+     * 只從實際被指針指到的料理取得資料。
+     * 不另用一個隨機 index 產生資訊卡。
+     */
+    const selectedRecipe = selectedDish
+      ? recipes.find(recipe => recipe.id === selectedDish.dataset.wheelRecipe)
+      : null;
+
+    if (selectedDish) selectedDish.classList.add("selected");
+
+    if (selectedRecipe) {
+      status.textContent = `抽中：${selectedRecipe.name}`;
+      showToast(`餐桌停在「${selectedRecipe.name}」`);
+      openRecipe(selectedRecipe.id);
+    } else {
+      status.textContent = "請再轉一次餐桌";
     }
-  }
-
-  // 以指針實際指到的料理作為最終結果
-  let selectedRecipe = null;
-
-  if (nearestDish) {
-    const recipeId = nearestDish.dataset.wheelRecipe;
-
-    selectedRecipe = recipes.find(recipe => recipe.id === recipeId);
-
-    nearestDish.classList.add("selected");
-  }
-
-  spinning = false;
-
-  if (spinButton) spinButton.disabled = false;
-
-  if (selectedRecipe) {
-    status.textContent = `抽中：${selectedRecipe.name}`;
-
-    // 資訊卡與實際指針指向的料理使用同一筆資料
-    openRecipe(selectedRecipe.id);
-  } else {
-    status.textContent = "請再轉一次餐桌";
+  } catch (error) {
+    console.error("轉盤動畫發生錯誤：", error);
+    status.textContent = "轉盤發生問題，請再試一次";
+  } finally {
+    spinning = false;
+    if (spinButton) spinButton.disabled = false;
   }
 }
+
+/* 頁面切換 */
+function goPage(name) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === `page-${name}`);
+  });
+
+  document.querySelectorAll(".nav-link").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === name);
+  });
+
+  $("#mobileNav").classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (name === "home") {
+    requestAnimationFrame(() => {
+      if (!spinning) buildWheel();
+    });
+  }
+}
+
+/* 料理探索 */
+function recipeMarkup(recipe) {
+  return `
+    <article class="recipe-card"
+      data-recipe="${recipe.id}"
+      tabindex="0"
+      role="button"
+      aria-label="查看${recipe.name}">
+      <div class="recipe-visual"
+        style="background:linear-gradient(135deg,${recipe.color},#f4ead8)">
+        ${svgDish(recipe.shape)}
+      </div>
+
+      <div class="recipe-body">
+        <div class="recipe-title-row">
+          <h3>${recipe.name}</h3>
+          <button class="bookmark ${saved.has(recipe.id) ? "saved" : ""}"
+            data-save="${recipe.id}"
+            aria-label="收藏料理">
+            ${saved.has(recipe.id) ? "♥" : "♡"}
+          </button>
+        </div>
+
+        <div class="card-meta">
+          ${recipe.plants.map(plant => `<span class="mini-tag">${plant}</span>`).join("")}
+          <span class="mini-tag">${recipe.category}</span>
+        </div>
+
+        <p>${recipe.description}</p>
+
+        <div class="recipe-foot">
+          <span>${recipe.status.split("｜")[0]}</span>
+          <b>查看料理卡 ↗</b>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderRecipes() {
+  const query = ($("#recipeSearch").value || "").trim().toLowerCase();
+
+  const items = recipes.filter(recipe => {
+    const categoryMatch =
+      activeRecipeFilter === "全部" ||
+      recipe.category === activeRecipeFilter;
+
+    const content = [
+      recipe.name,
+      recipe.category,
+      ...recipe.plants,
+      ...recipe.parts
+    ].join(" ").toLowerCase();
+
+    return categoryMatch && (!query || content.includes(query));
+  });
+
+  $("#recipeGrid").innerHTML = items.length
+    ? items.map(recipeMarkup).join("")
+    : `<div class="empty-state">還沒有找到符合的料理，換個關鍵字試試吧。</div>`;
+}
+
+/* 植物圖鑑 */
+function renderPlants() {
+  const query = ($("#plantSearch").value || "").trim().toLowerCase();
+
+  const items = plants.filter(plant => {
+    const categoryMatch =
+      activePlantFilter === "全部" ||
+      plant.tags.includes(activePlantFilter);
+
+    const content = [
+      plant.id,
+      plant.latin,
+      plant.parts,
+      plant.use
+    ].join(" ").toLowerCase();
+
+    return categoryMatch && (!query || content.includes(query));
+  });
+
+  $("#plantGrid").innerHTML = items.length
+    ? items.map(plant => `
+      <button class="plant-card" data-plant="${plant.id}" type="button">
+        <span class="plant-illustration">
+          ${svgPlant(plant.type, plant.tone)}
+        </span>
+        <span>
+          <h3>${plant.id}</h3>
+          <span class="latin">${plant.latin}</span>
+          <p>${plant.use}</p>
+          <span class="plant-use">查看植物資料 ↗</span>
+        </span>
+      </button>
+    `).join("")
+    : `<div class="empty-state">暫時沒有符合的植物資料。</div>`;
+}
+
+/* 料理實驗日誌 */
+function renderJournal() {
+  $("#journalTimeline").innerHTML = journals.map((journal, index) => `
+    <article class="journal-entry" data-journal="${index}" tabindex="0">
+      <div class="entry-meta">${journal.date} ／ FIELD NOTE 0${index + 1}</div>
+      <h3>${journal.title}</h3>
+      <p>${journal.description}</p>
+      <span class="entry-expand">展開紀錄　＋</span>
+    </article>
+  `).join("");
+}
+
+/* 共用資訊卡 */
+function openModal(content, art = "") {
+  $("#modalCopy").innerHTML = content;
+  $("#modalArt").innerHTML = art;
+  $("#modalBackdrop").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  $("#modalBackdrop").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+/* 料理資訊卡 */
+function openRecipe(id) {
+  const recipe = recipes.find(item => item.id === id);
+  if (!recipe) return;
+
+  openModal(`
+    <div class="modal-kicker">${recipe.category} / HERBAL DISH IDEA</div>
+    <h2 id="modalTitle">${recipe.name}</h2>
+    <p class="lead">${recipe.idea}</p>
+
+    <div class="info-block">
+      <h4>使用植物</h4>
+      <p>${recipe.plants.join("、")}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>研究部位</h4>
+      <p>${recipe.parts.join("、")}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>風味觀察方向</h4>
+      <p>${recipe.flavor}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>料理概念</h4>
+      <p>${recipe.description}</p>
+    </div>
+
+    <div class="modal-note">
+      ${recipe.status}。正式開發前請查核植物品種、部位與可食性。
+    </div>
+
+    <div class="modal-actions">
+      <button class="small-button" data-related-plant="${recipe.plants[0]}">
+        探索相關植物 ↗
+      </button>
+      <button class="small-button" data-close-modal>回到餐桌</button>
+    </div>
+  `, svgDish(recipe.shape));
+}
+
+/* 植物資訊卡 */
+function openPlant(id) {
+  const plant = plants.find(item => item.id === id);
+  if (!plant) return;
+
+  const relatedRecipes = recipes.filter(recipe =>
+    recipe.plants.some(name =>
+      name === plant.id ||
+      name.startsWith(plant.id.split("／")[0]) ||
+      plant.id.startsWith(name.split("／")[0])
+    )
+  );
+
+  openModal(`
+    <div class="modal-kicker">PLANT INDEX / 植物資料卡</div>
+    <h2 id="modalTitle">${plant.id}</h2>
+    <p class="lead">${plant.intro}</p>
+
+    <div class="info-block">
+      <h4>植物名稱</h4>
+      <p>${plant.id}｜${plant.latin}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>部位整理方向</h4>
+      <p>${plant.parts}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>研究與生活連結</h4>
+      <p>${plant.use}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>相關料理概念</h4>
+      <p>${relatedRecipes.length
+        ? relatedRecipes.map(recipe => recipe.name).join("、")
+        : "目前尚無對應料理"}</p>
+    </div>
+
+    <div class="modal-note">
+      正式資料應附上來源、部位、用途、可食性與查核狀態。
+    </div>
+
+    <div class="modal-actions">
+      <button class="small-button" data-plant-recipes="${plant.id}">
+        看相關料理 ↗
+      </button>
+      <button class="small-button" data-close-modal>關閉資料卡</button>
+    </div>
+  `, svgPlant(plant.type, plant.tone));
+}
+
+/* 日誌資訊卡 */
+function openJournal(index) {
+  const journal = journals[index];
+  if (!journal) return;
+
+  openModal(`
+    <div class="modal-kicker">FIELD NOTE / 實驗日誌</div>
+    <h2 id="modalTitle">${journal.title}</h2>
+    <p class="lead">${journal.description}</p>
+
+    <div class="info-block">
+      <h4>紀錄內容建議</h4>
+      <p>${journal.detail}</p>
+    </div>
+
+    <div class="info-block">
+      <h4>可用欄位</h4>
+      <p>日期、人員、研究問題、食材及部位、資料來源、查核狀態、操作條件、觀察紀錄、結果比較及修正方向。</p>
+    </div>
+
+    <div class="modal-note">
+      實際測試日期、方法及結論，請依團隊研究結果填入。
+    </div>
+  `, svgPlant("leaf", "#e5e8d8"));
+}
+
+/* 頁面導覽 */
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => goPage(button.dataset.page));
+});
+
+$("#menuToggle").addEventListener("click", () => {
+  $("#mobileNav").classList.toggle("open");
+});
+
+$("#headerSpin").addEventListener("click", () => {
+  goPage("home");
+  setTimeout(() => spinToRandomRecipe(false), 180);
+});
+
+$("#spinButton").addEventListener("click", () => {
+  spinToRandomRecipe(false);
+});
+
+$("#exploreButton").addEventListener("click", () => {
+  goPage("recipes");
+  showToast("先從一道料理開始探索吧");
+});
+
+/* 分類與搜尋 */
+$("#recipeFilters").addEventListener("click", event => {
+  const button = event.target.closest("[data-filter]");
+  if (!button) return;
+
+  activeRecipeFilter = button.dataset.filter;
+
+  $("#recipeFilters").querySelectorAll(".filter-btn").forEach(item => {
+    item.classList.toggle("active", item === button);
+  });
+
+  renderRecipes();
+});
+
+$("#plantFilters").addEventListener("click", event => {
+  const button = event.target.closest("[data-filter]");
+  if (!button) return;
+
+  activePlantFilter = button.dataset.filter;
+
+  $("#plantFilters").querySelectorAll(".filter-btn").forEach(item => {
+    item.classList.toggle("active", item === button);
+  });
+
+  renderPlants();
+});
+
+$("#recipeSearch").addEventListener("input", renderRecipes);
+$("#plantSearch").addEventListener("input", renderPlants);
+
+/* 料理點擊與收藏 */
+$("#recipeGrid").addEventListener("click", event => {
+  const bookmark = event.target.closest("[data-save]");
+
+  if (bookmark) {
+    event.stopPropagation();
+    const id = bookmark.dataset.save;
+
+    if (saved.has(id)) {
+      saved.delete(id);
+      showToast("已取消收藏");
+    } else {
+      saved.add(id);
+      showToast("已收藏這道料理");
+    }
+
+    renderRecipes();
+    return;
+  }
+
+  const card = event.target.closest("[data-recipe]");
+  if (card) openRecipe(card.dataset.recipe);
+});
+
+$("#recipeGrid").addEventListener("keydown", event => {
+  if (
+    (event.key === "Enter" || event.key === " ") &&
+    event.target.matches("[data-recipe]")
+  ) {
+    event.preventDefault();
+    openRecipe(event.target.dataset.recipe);
+  }
+});
+
+$("#plantGrid").addEventListener("click", event => {
+  const card = event.target.closest("[data-plant]");
+  if (card) openPlant(card.dataset.plant);
+});
+
+$("#journalTimeline").addEventListener("click", event => {
+  const entry = event.target.closest("[data-journal]");
+  if (entry) openJournal(Number(entry.dataset.journal));
+});
+
+$("#journalTimeline").addEventListener("keydown", event => {
+  if (
+    (event.key === "Enter" || event.key === " ") &&
+    event.target.matches("[data-journal]")
+  ) {
+    event.preventDefault();
+    openJournal(Number(event.target.dataset.journal));
+  }
+});
+
+/* 資訊卡按鈕 */
+$("#modalClose").addEventListener("click", closeModal);
+
+$("#modalBackdrop").addEventListener("click", event => {
+  if (event.target === $("#modalBackdrop")) closeModal();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+$("#modalCopy").addEventListener("click", event => {
+  if (event.target.closest("[data-close-modal]")) {
+    closeModal();
+    return;
+  }
+
+  const relatedPlant = event.target.closest("[data-related-plant]");
+
+  if (relatedPlant) {
+    const name = relatedPlant.dataset.relatedPlant;
+    closeModal();
+    goPage("plants");
+
+    const plant = plants.find(item =>
+      item.id === name ||
+      item.id.startsWith(name.split("／")[0]) ||
+      name.startsWith(item.id.split("／")[0])
+    );
+
+    if (plant) setTimeout(() => openPlant(plant.id), 220);
+    return;
+  }
+
+  const relatedRecipesButton = event.target.closest("[data-plant-recipes]");
+
+  if (relatedRecipesButton) {
+    const name = relatedRecipesButton.dataset.plantRecipes;
+    closeModal();
+    goPage("recipes");
+
+    $("#recipeSearch").value = name.split("／")[0];
+    activeRecipeFilter = "全部";
+
+    $("#recipeFilters").querySelectorAll(".filter-btn").forEach(button => {
+      button.classList.toggle("active", button.dataset.filter === "全部");
+    });
+
+    renderRecipes();
+  }
+});
+
+/* 手機：滑動餐桌旋轉，放手後自動抽選 */
+let gesture = null;
+let suppressWheelClickUntil = 0;
+const tableBoard = $("#tableBoard");
+
+function isMobileWheel() {
+  return window.matchMedia("(max-width:760px)").matches;
+}
+
+function pointerAngle(event) {
+  const rect = tableBoard.getBoundingClientRect();
+
+  return Math.atan2(
+    event.clientY - (rect.top + rect.height / 2),
+    event.clientX - (rect.left + rect.width / 2)
+  ) * 180 / Math.PI;
+}
+
+tableBoard.addEventListener("pointerdown", event => {
+  if (!isMobileWheel() || spinning || !event.isPrimary) return;
+  if (event.button !== undefined && event.button !== 0) return;
+
+  const rect = tableBoard.getBoundingClientRect();
+  const dx = event.clientX - (rect.left + rect.width / 2);
+  const dy = event.clientY - (rect.top + rect.height / 2);
+
+  gesture = {
+    pointerId: event.pointerId,
+    startX: event.clientX,
+    startY: event.clientY,
+    lastX: event.clientX,
+    lastAngle: pointerAngle(event),
+    lastTime: performance.now(),
+    moved: false,
+    velocity: 0,
+    distance: 0,
+    nearCenter: Math.hypot(dx, dy) < rect.width * .22
+  };
+});
+
+tableBoard.addEventListener("pointermove", event => {
+  if (!gesture || event.pointerId !== gesture.pointerId || spinning) return;
+
+  const dx = event.clientX - gesture.startX;
+  const dy = event.clientY - gesture.startY;
+
+  gesture.distance = Math.hypot(dx, dy);
+
+  if (!gesture.moved && gesture.distance > 6) {
+    gesture.moved = true;
+    suppressWheelClickUntil = Date.now() + 1000;
+
+    try {
+      tableBoard.setPointerCapture(event.pointerId);
+    } catch (_) {}
+  }
+
+  if (!gesture.moved) return;
+
+  event.preventDefault();
+
+  const now = performance.now();
+  let delta;
+
+  if (gesture.nearCenter) {
+    delta = (event.clientX - gesture.lastX) * .85;
+  } else {
+    const angle = pointerAngle(event);
+    delta = shortestAngle(angle - gesture.lastAngle);
+    gesture.lastAngle = angle;
+  }
+
+  const elapsed = Math.max(8, now - gesture.lastTime);
+  gesture.velocity = delta / elapsed;
+
+  setWheelRotation(currentRotation + delta);
+
+  gesture.lastX = event.clientX;
+  gesture.lastTime = now;
+}, { passive: false });
+
+function endGesture(event) {
+  if (!gesture || (event && event.pointerId !== gesture.pointerId)) return;
+
+  const finished = gesture;
+  gesture = null;
+
+  if (finished.moved && finished.distance > 8) {
+    suppressWheelClickUntil = Date.now() + 1000;
+    spinToRandomRecipe(true, finished.velocity);
+  }
+}
+
+tableBoard.addEventListener("pointerup", endGesture);
+tableBoard.addEventListener("pointercancel", endGesture);
+
+tableBoard.addEventListener("lostpointercapture", () => {
+  if (gesture) endGesture();
+});
+
+/* 點餐點看菜色；手機點中央可抽菜 */
+tableBoard.addEventListener("click", event => {
+  if (Date.now() < suppressWheelClickUntil || spinning) return;
+
+  const dish = event.target.closest("[data-wheel-recipe]");
+
+  if (dish) {
+    openRecipe(dish.dataset.wheelRecipe);
+    return;
+  }
+
+  if (isMobileWheel() && event.target.closest("#tableCenter")) {
+    spinToRandomRecipe(true, 0);
+  }
+});
+
+window.addEventListener("resize", () => {
+  if (!spinning) buildWheel();
+});
+
+/* 初始化：這幾行會建立全部料理與頁面內容 */
+renderRecipes();
+renderPlants();
+renderJournal();
+buildWheel();
+
+</script>
+</body>
+</html>
