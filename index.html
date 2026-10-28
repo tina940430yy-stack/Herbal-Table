@@ -3,565 +3,394 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f7f5ef">
-<title>草本餐桌計畫｜植物與料理的日常提案</title>
+<title>草本餐桌計畫｜Herbal Table Project</title>
+
 <style>
 :root{
-  --cream:#f7f5ef;
-  --white:#fffefa;
-  --ink:#30352d;
-  --olive:#52654c;
-  --muted:#838478;
+  --bg:#f7f5ef;
+  --paper:#fffefa;
+  --green:#52654c;
+  --dark:#30352d;
+  --muted:#858778;
   --gold:#b39b71;
-  --line:#e5e0d5;
+  --border:#e5e0d5;
   --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
-  --sans:"PingFang TC","Microsoft JhengHei",sans-serif;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   margin:0;
-  background:var(--cream);
-  color:var(--ink);
-  font-family:var(--sans);
+  font-family:"PingFang TC","Microsoft JhengHei",sans-serif;
+  color:var(--dark);
+  background:var(--bg);
   line-height:1.8;
   overflow-x:hidden;
 }
 button,input{font:inherit}
 button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
 button:focus-visible,input:focus-visible{
-  outline:2px solid var(--olive);
+  outline:2px solid var(--green);
   outline-offset:3px;
 }
+[hidden]{display:none!important}
+
+/* 網站導覽 */
 header{
   height:76px;
+  padding:0 clamp(18px,4vw,70px);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:22px;
-  padding:0 clamp(20px,4.5vw,76px);
+  gap:20px;
   position:sticky;
   top:0;
-  z-index:25;
-  background:rgba(247,245,239,.95);
-  backdrop-filter:blur(13px);
-  border-bottom:1px solid #e3dfd6;
+  z-index:50;
+  border-bottom:1px solid var(--border);
+  background:#f7f5eff5;
+  backdrop-filter:blur(12px);
 }
 .brand{
   display:flex;
   align-items:center;
   gap:12px;
-  background:none;
-  border:0;
-  color:var(--ink);
   padding:0;
+  border:0;
+  background:none;
   text-align:left;
-  white-space:nowrap;
+  color:var(--dark);
+  flex-shrink:0;
 }
 .brand-mark{
-  width:41px;
-  height:41px;
-  border:1px solid var(--olive);
+  width:40px;height:40px;
+  display:grid;place-items:center;
+  border:1px solid var(--green);
+  color:var(--green);
   border-radius:50%;
-  display:grid;
-  place-items:center;
-  color:var(--olive);
-  font-family:var(--serif);
-  font-size:24px;
+  font:25px var(--serif);
 }
 .brand strong{
   display:block;
-  font-family:var(--serif);
-  font-size:21px;
-  letter-spacing:.1em;
-  line-height:1.35;
+  font:600 20px var(--serif);
+  letter-spacing:.09em;
+  line-height:1.4;
 }
 .brand small{
   display:block;
   font-size:9px;
-  letter-spacing:.19em;
+  letter-spacing:.17em;
   color:var(--muted);
-  line-height:1.6;
 }
-.desktop-nav{
-  display:flex;
-  gap:clamp(13px,2vw,30px);
-}
+nav.desktop{display:flex;gap:clamp(9px,1.7vw,25px)}
 .nav-btn{
-  border:0;
-  background:none;
-  color:#6c7066;
-  font-size:13px;
-  white-space:nowrap;
-  padding:13px 0;
-  position:relative;
-}
-.nav-btn.active{
-  color:var(--olive);
-  font-weight:700;
-}
-.desktop-nav .nav-btn.active:after{
-  content:"";
-  position:absolute;
-  bottom:8px;
-  left:0;
-  right:0;
-  height:1px;
-  background:var(--olive);
-}
-.header-spin{
-  border:1px solid #a5ad9d;
-  border-radius:30px;
-  background:none;
-  padding:10px 16px;
-  color:var(--olive);
+  border:0;background:none;
+  color:#707469;
   font-size:12px;
+  padding:12px 0;
   white-space:nowrap;
 }
-.hamburger{
+.nav-btn.active{color:var(--green);font-weight:700}
+.menu-btn{
   display:none;
-  border:0;
   background:none;
-  color:var(--ink);
-  font-size:26px;
+  border:0;
+  font-size:27px;
 }
 .mobile-nav{display:none}
-.page{display:none}
+.page{display:none;min-height:65vh}
 .page.active{display:block}
 .eyebrow{
-  color:#8f977f;
-  font-size:11px;
-  letter-spacing:.19em;
-  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.18em;
+  color:#89957e;
 }
+.primary{
+  padding:12px 23px;
+  background:var(--green);
+  border:0;border-radius:40px;
+  color:white;
+}
+.secondary{
+  border:0;
+  background:none;
+  color:var(--green);
+  text-decoration:underline;
+  text-underline-offset:4px;
+  margin-left:10px;
+}
+
+/* 首頁 */
 .hero{
-  max-width:1440px;
+  max-width:1380px;
   margin:auto;
-  min-height:650px;
+  padding:55px clamp(20px,5vw,70px);
   display:grid;
-  grid-template-columns:minmax(280px,.8fr) minmax(450px,1.2fr);
-  gap:25px;
+  grid-template-columns:.82fr 1.18fr;
   align-items:center;
-  padding:48px clamp(20px,5vw,75px) 65px;
+  gap:28px;
 }
-.hero-copy h1{
-  font:500 clamp(41px,4.5vw,66px)/1.45 var(--serif);
-  letter-spacing:.055em;
-  margin:18px 0 22px;
+.hero h1{
+  margin:18px 0;
+  font:500 clamp(37px,4.6vw,62px)/1.5 var(--serif);
+  letter-spacing:.04em;
 }
-.hero-copy h1 em{
-  font-style:normal;
-  color:var(--olive);
-}
-.hero-copy p{
-  max-width:420px;
+.hero h1 em{font-style:normal;color:var(--green)}
+.hero p{
+  color:var(--muted);
+  max-width:430px;
   font-size:14px;
-  color:#77796e;
-  line-height:2.1;
-  margin:0 0 27px;
 }
 .tags{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  margin:0 0 25px;
+  margin:23px 0;
 }
-.tags span,.pill{
-  border-radius:100px;
-  background:#ebe9df;
-  color:#69725d;
-  font-size:11px;
+.tags span{
+  border-radius:30px;
+  background:#eae9df;
+  color:#68725e;
   padding:5px 12px;
+  font-size:11px;
 }
-.primary{
-  background:var(--olive);
-  color:white;
-  border:0;
-  border-radius:40px;
-  padding:12px 24px;
-  font-size:14px;
-}
-.secondary{
-  color:var(--olive);
-  background:transparent;
-  border:0;
-  text-decoration:underline;
-  text-underline-offset:5px;
-  margin-left:10px;
-  font-size:13px;
-}
-.hero-note{
-  font-size:12px!important;
-  margin-top:29px!important;
-  color:#a09e8e!important;
-}
-.table-wrap{
-  width:100%;
-  min-width:0;
-}
+
+/* 白色石紋轉盤桌 */
 .table-scene{
-  width:100%;
-  max-width:710px;
-  aspect-ratio:1;
-  margin:0 auto;
   position:relative;
-  display:grid;
-  place-items:center;
+  width:100%;
+  max-width:690px;
+  aspect-ratio:1;
+  margin:auto;
 }
 .table-shadow{
   position:absolute;
   inset:7%;
   border-radius:50%;
-  background:#6d655b;
-  opacity:.15;
-  filter:blur(20px);
-  transform:translateY(21px);
+  background:#766c5a;
+  filter:blur(22px);
+  opacity:.18;
+  transform:translateY(20px);
 }
-/* 白色石紋桌面與可旋轉的內盤 */
 .table-board{
   position:relative;
-  width:100%;
-  height:100%;
+  width:100%;height:100%;
   border-radius:50%;
-  border:2px solid #c5c1b9;
+  border:3px solid #cac6bb;
   overflow:hidden;
-  isolation:isolate;
-  box-shadow:
-    inset 0 0 0 8px #fdfcf8,
-    inset 0 0 0 11px #d8d2c6,
-    0 14px 32px #544b3d22;
   background:
-    linear-gradient(
-      119deg,
-      transparent 22%,
-      #b0b0a31e 22.2%,
-      transparent 22.7%,
-      transparent 48%,
-      #b4b8b318 48.3%,
-      transparent 48.9%
-    ),
-    linear-gradient(
-      155deg,
-      transparent 38%,
-      #c6c5ba28 38.4%,
-      transparent 38.8%
-    ),
-    radial-gradient(
-      ellipse at 31% 21%,
-      #fff 0%,
-      #f7f7f3 46%,
-      #e8e8e2 100%
-    );
-}
-.table-board:before{
-  content:"";
-  position:absolute;
-  inset:2.4%;
-  border-radius:50%;
-  border:1px solid #cbc4b8;
-  pointer-events:none;
-  z-index:1;
+    linear-gradient(118deg,
+      transparent 20%,#aeb3aa25 20.2%,
+      transparent 20.7% 51%,
+      #a4a9a425 51.3%,transparent 51.7%),
+    radial-gradient(circle at 35% 24%,#fff,#f4f4ef 62%,#e4e4dc);
+  box-shadow:
+    inset 0 0 0 8px #fffefa,
+    inset 0 0 0 11px #d7d4ca,
+    0 14px 32px #514b3f24;
 }
 .table-board:after{
   content:"";
   position:absolute;
-  inset:4.1%;
+  inset:3%;
+  border:1px solid #d4c4a6;
   border-radius:50%;
-  box-shadow:inset 0 0 0 2px #b8a37f88;
   pointer-events:none;
-  z-index:1;
 }
 .wheel{
   position:absolute;
-  inset:5.8%;
+  inset:6%;
   border-radius:50%;
-  overflow:visible;
-  transform:rotate(0deg);
-  will-change:transform;
   border:4px solid #b9a17a;
-  box-shadow:
-    0 0 0 2px #e8d8b8,
-    0 0 0 7px #b49b75,
-    0 0 0 9px #f2e9d9,
-    0 8px 18px #76634b1b,
-    inset 0 0 24px #b39f8030;
   background:
-    linear-gradient(
-      116deg,
-      transparent 0 21%,
-      #a4a9a414 21.2%,
-      transparent 21.5% 54%,
-      #abb1ac14 54.2%,
-      transparent 54.6%
-    ),
-    linear-gradient(
-      28deg,
-      transparent 0 38%,
-      #b0b6b214 38.3%,
-      transparent 38.8%
-    ),
-    radial-gradient(
-      circle at 34% 26%,
-      #fffefa 0,
-      #f3f2ea 55%,
-      #e6e3d9 100%
-    );
+    linear-gradient(130deg,
+      transparent 25%,#a6ada715 25.3%,transparent 25.7%),
+    radial-gradient(circle at 32% 25%,#fffefa,#f1f0e9 60%,#e8e5dd);
+  box-shadow:
+    0 0 0 2px #f1e7d5,
+    0 0 0 7px #baa37e,
+    0 0 0 9px #faf6ee,
+    0 9px 20px #6a5c4620;
+  will-change:transform;
 }
-.wheel:before{
+.wheel:after{
   content:"";
   position:absolute;
   inset:3%;
+  border:1px solid #c7b69a;
   border-radius:50%;
-  border:1px solid #c8b89a88;
   pointer-events:none;
 }
 .dish{
   position:absolute;
   left:var(--x);
   top:var(--y);
-  width:28%;
   transform:translate(-50%,-50%);
-  background:none;
-  border:0;
+  width:29%;
   padding:0;
-  display:block;
+  border:0;
+  background:none;
+  color:var(--dark);
   text-align:center;
-  color:var(--ink);
-  -webkit-tap-highlight-color:transparent;
 }
 .dish-inner{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
-  will-change:transform;
   pointer-events:none;
+  will-change:transform;
 }
 .dish-art{
   width:100%;
-  display:block;
-  filter:drop-shadow(0px 7px 4px #6a5b432e);
+  filter:drop-shadow(0 6px 4px #6255412a);
 }
-.dish-art svg{
-  width:100%;
-  height:auto;
-  display:block;
-  overflow:visible;
-}
+.dish-art svg{display:block;width:100%;height:auto}
 .dish-name{
-  font:700 clamp(11px,1.1vw,15px)/1.35 var(--serif);
+  font:600 clamp(10px,1.1vw,15px) var(--serif);
   white-space:nowrap;
-  margin-top:-2px;
-  text-shadow:
-    0 1px 4px #fffffff0,
-    0 0 3px white;
+  text-shadow:0 0 5px white,0 0 3px white;
 }
-.dish.selected .dish-name{color:#9f7255}
-.dish.selected .dish-art{
-  filter:drop-shadow(0 0 7px #ae9575a1);
-}
+.dish.selected .dish-name{color:#a07b51}
 .pointer{
   position:absolute;
-  top:1.6%;
-  left:50%;
-  z-index:9;
+  z-index:10;
+  top:1.4%;left:50%;
   transform:translateX(-50%);
-  width:29px;
-  height:35px;
+  width:31px;height:37px;
   pointer-events:none;
-  filter:drop-shadow(0 2px 2px #65544044);
 }
 .pointer:before{
   content:"";
   position:absolute;
-  top:6px;
-  left:1px;
-  border-left:14px solid transparent;
-  border-right:14px solid transparent;
-  border-top:26px solid #a9855d;
+  left:1px;top:7px;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  border-top:28px solid #ae8d66;
 }
 .pointer:after{
   content:"";
   position:absolute;
-  top:0;
-  left:10px;
-  width:9px;
-  height:9px;
+  top:0;left:11px;
+  width:9px;height:9px;
   border-radius:50%;
-  border:2px solid #ac906c;
-  background:#faf8f2;
+  border:2px solid #ad9068;
+  background:white;
 }
 .center{
   position:absolute;
-  top:50%;
-  left:50%;
+  left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  z-index:8;
   width:25%;
   aspect-ratio:1;
-  transform:translate(-50%,-50%);
-  background:
-    radial-gradient(
-      circle at 38% 25%,
-      #fff 0,
-      #f9f8f3 70%,
-      #e6e4dc
-    );
   border-radius:50%;
-  border:4px double #ccbda1;
-  box-shadow:
-    0 7px 15px #47403327,
-    inset 0 0 0 5px #fefefa;
-  z-index:6;
+  border:4px double #cbbb9e;
+  background:radial-gradient(circle at 30% 20%,white,#f4f2e9);
+  box-shadow:0 6px 16px #4d433022;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:5px;
+  flex-direction:column;
+  gap:7px;
 }
 .center strong{
-  font:700 clamp(12px,1.4vw,19px) var(--serif);
-  letter-spacing:.09em;
+  font:600 clamp(12px,1.5vw,19px) var(--serif);
   white-space:nowrap;
 }
 .center button{
-  background:var(--olive);
   border:0;
+  background:var(--green);
   color:white;
-  width:37px;
-  height:37px;
-  display:grid;
-  place-items:center;
+  width:38px;height:38px;
   border-radius:50%;
-  font-size:21px;
+  font-size:22px;
 }
-/* 只有手機顯示右側滑動操作區 */
 .gesture-zone{display:none}
 .spin-caption{
   text-align:center;
-  font-size:12px;
-  color:#777a6d;
-  margin-top:16px;
-  min-height:26px;
+  color:var(--green);
+  margin-top:15px;
+  font-size:13px;
 }
 .mobile-hint{display:none}
+
+/* 各頁通用 */
 .section{
-  padding:66px clamp(20px,5vw,76px);
+  padding:65px clamp(20px,5vw,70px);
 }
-.section.soft{
-  background:#eeeee6;
-  border-top:1px solid var(--line);
-}
+.soft{background:#eeeee6;border-top:1px solid var(--border)}
 .inner{max-width:1200px;margin:auto}
-.section-title{
-  font:500 clamp(30px,3.1vw,42px) var(--serif);
-  margin:5px 0 18px;
+.section h2,.page-head h1{
+  font:500 clamp(30px,3vw,44px) var(--serif);
+  margin:5px 0 14px;
 }
-.section-description{
+.section-desc,.page-head p{
+  color:var(--muted);
   font-size:13px;
-  color:#888a7b;
 }
 .feature-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:13px;
-  margin-top:26px;
+  margin-top:25px;
 }
 .feature{
-  background:#fcfbf7;
-  padding:22px;
-  border:1px solid #e4e1d5;
-  border-radius:15px;
   text-align:left;
-  min-height:156px;
-  color:var(--ink);
-}
-.feature small{
-  font-size:10px;
-  color:#aaa793;
-  letter-spacing:.12em;
-}
-.feature h3{
-  font:600 20px var(--serif);
-  margin:21px 0 6px;
-}
-.feature p{
-  font-size:11px;
-  color:#838477;
-  margin:0;
-}
-.feature:hover,.recipe-card:hover,.plant-card:hover{
-  box-shadow:0 9px 24px #5c554215;
-  transform:translateY(-2px);
-}
-.quotation{
-  background:#e2e6dc;
+  background:var(--paper);
+  color:var(--dark);
+  border:1px solid var(--border);
   border-radius:15px;
-  padding:24px;
-  margin-top:22px;
-  font:18px/1.8 var(--serif);
+  padding:20px;
+  min-height:145px;
+}
+.feature small{font-size:10px;color:#9c9b8f}
+.feature h3{font:600 19px var(--serif);margin:20px 0 5px}
+.feature p{font-size:11px;color:var(--muted);margin:0}
+.quotation{
+  margin-top:24px;
+  padding:23px;
+  background:#e2e7dc;
+  border-radius:15px;
+  font:18px var(--serif);
 }
 .page-head,.page-content{
-  max-width:1210px;
+  max-width:1200px;
   margin:auto;
-  padding-left:clamp(20px,5vw,76px);
-  padding-right:clamp(20px,5vw,76px);
+  padding-left:clamp(20px,5vw,70px);
+  padding-right:clamp(20px,5vw,70px);
 }
-.page-head{
-  padding-top:51px;
-  padding-bottom:26px;
-}
-.page-head h1{
-  font:500 clamp(36px,4vw,52px) var(--serif);
-  margin:8px 0 9px;
-}
-.page-head p{
-  font-size:13px;
-  color:#808174;
-  max-width:790px;
-}
-.page-content{padding-bottom:75px}
+.page-head{padding-top:48px;padding-bottom:27px}
+.page-content{padding-bottom:70px}
 .toolbar{
   display:flex;
-  flex-wrap:wrap;
   gap:15px;
   justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
-}
-.filters{
-  display:flex;
-  gap:7px;
   flex-wrap:wrap;
+  margin-bottom:23px;
 }
+.filters{display:flex;flex-wrap:wrap;gap:7px}
 .filter{
-  border:1px solid #d9d8cb;
   background:none;
-  border-radius:30px;
+  border:1px solid #d7d8cb;
+  border-radius:25px;
   padding:7px 13px;
-  color:#77796e;
+  color:#6e7467;
   font-size:12px;
 }
-.filter.active{
-  background:var(--olive);
-  color:white;
-  border-color:var(--olive);
-}
+.filter.active{background:var(--green);color:white}
 .search{
-  background:#fdfcf8;
-  border:1px solid #dedbd0;
-  border-radius:30px;
-  padding:8px 13px;
-  display:flex;
-  gap:8px;
-  align-items:center;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:25px;
+  padding:7px 13px;
+  font-size:12px;
 }
 .search input{
-  background:none;
   border:0;
   outline:0;
-  width:160px;
-  font-size:12px;
-  color:var(--ink);
+  background:none;
+  width:165px;
 }
 .recipes,.plants{
   display:grid;
@@ -569,454 +398,720 @@ header{
   gap:17px;
 }
 .recipe-card,.plant-card{
-  border:1px solid #e2dfd3;
+  background:var(--paper);
+  border:1px solid var(--border);
   border-radius:17px;
-  background:#fdfcf8;
   overflow:hidden;
-  transition:.2s;
+  cursor:pointer;
+  color:var(--dark);
   text-align:left;
-  color:var(--ink);
 }
-.recipe-card{cursor:pointer}
 .recipe-image{
-  height:205px;
+  height:195px;
   display:grid;
   place-items:center;
-  background:
-    radial-gradient(
-      circle at 30% 20%,
-      #f3f4ee,
-      #e9e8df
-    );
+  background:radial-gradient(circle at 30% 20%,#f5f6f0,#e5e7df);
 }
-.recipe-image svg{
-  width:215px;
-  max-height:190px;
-  max-width:80%;
-}
-.recipe-info{padding:16px 17px 20px}
-.recipe-info h3{
-  font:600 20px var(--serif);
+.recipe-image svg{width:210px;max-width:82%}
+.recipe-info{padding:16px}
+.recipe-info h3,.plant-card h3{
+  font:600 21px var(--serif);
   margin:0;
 }
-.recipe-info p{
+.recipe-info p,.plant-card p{
   font-size:12px;
-  color:#7d8075;
-  line-height:1.9;
+  color:var(--muted);
 }
-.recipe-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
+.recipe-top{display:flex;justify-content:space-between;gap:8px}
 .save{
-  border:0;
-  background:none;
-  color:#849275;
-  font-size:22px;
+  border:0;background:none;
+  color:#8b987d;
+  font-size:23px;
 }
 .save.saved{color:#a87f55}
-.smalltags{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-  margin-top:8px;
-}
+.smalltags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .smalltags span{
-  background:#ecefe6;
-  color:#6d7a66;
-  border-radius:30px;
+  background:#eaece4;
+  border-radius:25px;
   padding:3px 9px;
   font-size:10px;
+  color:#6d7d65;
 }
-.readmore{
-  font-size:11px;
-  color:var(--olive);
-}
-.plants{
-  grid-template-columns:repeat(2,1fr);
-}
+.readmore{font-size:11px;color:var(--green)}
+.plants{grid-template-columns:repeat(2,1fr)}
 .plant-card{
   display:flex;
-  gap:16px;
   align-items:center;
   padding:16px;
-  cursor:pointer;
+  gap:17px;
 }
 .plant-icon{
-  width:120px;
-  height:110px;
-  flex-shrink:0;
-  display:grid;
-  place-items:center;
+  flex:0 0 110px;
+  width:110px;height:110px;
+  display:grid;place-items:center;
   border-radius:12px;
-  background:#eef0e7;
+  background:#e9ede5;
 }
-.plant-icon svg{
-  width:115px;
-  height:105px;
-}
-.plant-card h3{
-  font:600 23px var(--serif);
-  margin:0;
-}
-.plant-card p{
-  font-size:12px;
-  color:#808274;
-  margin:5px 0 7px;
-}
-.latin{
-  font-size:11px;
-  color:#a39e90;
-}
+.plant-icon svg{width:100px}
+.latin{font-size:10px;color:#99998c}
 .notice{
   margin-top:24px;
+  background:#eeeee5;
+  border-left:2px solid #a5b19b;
+  padding:13px;
+  color:#89897d;
   font-size:11px;
-  color:#929184;
-  background:#efeee6;
-  padding:15px 17px;
-  border-left:2px solid #a7b097;
 }
 .journal{
   display:grid;
   grid-template-columns:.8fr 1.2fr;
-  gap:32px;
+  gap:30px;
 }
 .journal-side{
-  padding:27px;
-  background:#e6e9de;
+  background:#e5e8dd;
+  padding:25px;
   border-radius:15px;
 }
-.journal-side h2{
-  font:500 28px/1.6 var(--serif);
-}
-.journal-side p,.journal-item p{
-  font-size:12px;
-  color:#808274;
-}
-.timeline{
-  border-left:1px solid #a8b49d;
-  padding-left:24px;
-}
-.journal-item{
-  margin-bottom:27px;
-  position:relative;
-  cursor:pointer;
-}
+.journal-side h2{font:500 28px var(--serif)}
+.journal-side p{font-size:12px;color:var(--muted)}
+.timeline{border-left:1px solid #a5b49d;padding-left:25px}
+.journal-item{position:relative;margin-bottom:30px;cursor:pointer}
 .journal-item:before{
   content:"";
-  position:absolute;
-  left:-29px;
-  top:8px;
-  background:var(--olive);
-  width:9px;
-  height:9px;
+  position:absolute;left:-30px;top:8px;
+  width:9px;height:9px;
   border-radius:50%;
+  background:var(--green);
 }
-.journal-item small{
-  font-size:11px;
-  color:#999786;
-}
-.journal-item h3{
-  font:600 21px var(--serif);
-  margin:6px 0;
-}
+.journal-item h3{font:600 20px var(--serif);margin:5px 0}
+.journal-item p{font-size:12px;color:var(--muted)}
+.journal-item small{font-size:10px;color:#99998c}
 .culture{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:17px;
+  gap:18px;
 }
 .culture article{
-  background:#fdfcf8;
-  border:1px solid #e1ded2;
-  border-radius:15px;
-  padding:27px;
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:26px;
 }
-.culture h3{
-  font:600 23px var(--serif);
-}
-.culture p{
-  font-size:13px;
-  color:#818377;
-  line-height:2;
-}
+.culture h3{font:600 23px var(--serif)}
+.culture p{font-size:13px;color:var(--muted)}
 .culture-mark{
-  width:70px;
-  height:70px;
-  border:1px solid #c9cfbf;
+  display:grid;place-items:center;
+  width:70px;height:70px;
+  border:1px solid #aab9a3;
   border-radius:50%;
-  display:grid;
-  place-items:center;
+  background:#e7eee3;
+  color:var(--green);
   font:28px var(--serif);
-  color:var(--olive);
-  background:#edf0e8;
 }
 footer{
   background:#e8e8df;
-  border-top:1px solid #dddcd0;
-  padding:30px clamp(20px,5vw,76px);
-  font-size:11px;
-  color:#808477;
+  padding:30px clamp(20px,5vw,70px);
   display:flex;
   justify-content:space-between;
   gap:15px;
+  color:var(--muted);
+  font-size:11px;
 }
-footer strong{
-  font:600 19px var(--serif);
-  color:var(--ink);
-}
+footer strong{font:600 19px var(--serif);color:var(--dark)}
+
+/* 資訊卡 */
 .modal-wrap{
   display:none;
   position:fixed;
   inset:0;
-  z-index:50;
+  z-index:100;
   align-items:center;
   justify-content:center;
-  padding:16px;
-  background:#22271fc0;
-  backdrop-filter:blur(5px);
+  background:#20291fbd;
+  padding:15px;
 }
 .modal-wrap.show{display:flex}
 .modal{
   width:min(740px,100%);
-  max-height:min(90vh,850px);
+  max-height:91vh;
   overflow:auto;
-  background:#fbfaf5;
+  background:var(--paper);
   border-radius:20px;
-  box-shadow:0 20px 70px #161d164a;
   display:grid;
   grid-template-columns:.85fr 1.15fr;
   position:relative;
 }
 .modal-visual{
-  min-height:340px;
-  background:
-    radial-gradient(
-      circle at 40% 30%,
-      #f9f9f3,
-      #e7e8dc
-    );
+  min-height:320px;
+  background:#e9ece5;
   display:grid;
   place-items:center;
 }
-.modal-visual svg{
-  width:240px;
-  max-width:90%;
-}
-.modal-text{padding:34px 30px}
-.modal-text h2{
-  font:600 29px var(--serif);
-  margin:8px 0;
-}
-.modal-text p{
-  font-size:13px;
-  color:#787a6f;
-}
-.modal-text h4{
-  font-size:12px;
-  color:var(--olive);
-  margin:15px 0 2px;
-}
+.modal-visual svg{width:230px;max-width:90%}
+.modal-text{padding:30px}
+.modal-text h2{font:600 28px var(--serif)}
+.modal-text h4{font-size:12px;color:var(--green);margin:15px 0 3px}
+.modal-text p{font-size:13px;color:#777b6e}
 .modal-close{
   position:absolute;
-  top:12px;
-  right:12px;
-  border:1px solid #ddd9cd;
+  top:12px;right:12px;
+  width:35px;height:35px;
+  border:1px solid var(--border);
   border-radius:50%;
-  background:#fffefa;
-  width:34px;
-  height:34px;
-  font-size:21px;
-  z-index:3;
+  background:white;
+  font-size:20px;
 }
 .modal-btn{
-  margin-top:15px;
-  border:1px solid #a4b09e;
-  color:var(--olive);
+  border:1px solid #a6b5a0;
   background:none;
-  padding:8px 15px;
-  border-radius:25px;
+  border-radius:30px;
+  color:var(--green);
+  padding:8px 14px;
+  margin:7px 7px 0 0;
   font-size:12px;
 }
-@media(max-width:1100px){
-  .desktop-nav{gap:12px}
-  .nav-btn{font-size:12px}
-  .hero{
-    grid-template-columns:.8fr 1.2fr;
-    gap:18px;
-  }
-  .recipes{grid-template-columns:repeat(2,1fr)}
+
+/* 草本小廚房 */
+.kitchen-head{
+  max-width:1200px;
+  padding:45px clamp(18px,5vw,70px) 22px;
+  margin:auto;
+}
+.kitchen-head h1{
+  font:500 clamp(34px,4vw,52px) var(--serif);
+  margin:7px 0;
+}
+.kitchen-head p{font-size:13px;color:var(--muted)}
+.kitchen-layout{
+  max-width:1200px;
+  padding:0 clamp(18px,5vw,70px) 70px;
+  display:grid;
+  grid-template-columns:260px minmax(0,1fr);
+  gap:18px;
+  margin:auto;
+  align-items:start;
+}
+.ticket,.kitchen-main{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:20px;
+  overflow:hidden;
+}
+.ticket{
+  padding:22px;
+  position:sticky;
+  top:91px;
+}
+.ticket-top{
+  display:flex;
+  justify-content:space-between;
+  padding-bottom:12px;
+  border-bottom:1px dashed #d5cfbf;
+  color:#999889;
+  font-size:10px;
+  letter-spacing:.12em;
+}
+.ticket h2{font:600 23px var(--serif);margin:16px 0 6px}
+.ticket p{font-size:12px;color:var(--muted)}
+.ticket ul{
+  margin:13px 0;
+  padding-left:17px;
+  color:#63745d;
+  font-size:12px;
+}
+.ticket-meta{
+  font-size:11px;
+  color:#919183;
+  border-top:1px dashed #d5cfbf;
+  padding-top:12px;
+}
+.text-link{
+  border:0;
+  background:none;
+  text-decoration:underline;
+  text-underline-offset:4px;
+  color:var(--green);
+  padding:12px 0;
+  font-size:11px;
+}
+.kitchen-top{
+  background:#f1f1eb;
+  padding:15px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+.step-label{
+  font-size:10px;
+  color:#8c9084;
+  letter-spacing:.12em;
+}
+.progress-dots{display:flex;gap:5px}
+.progress-dots i{
+  display:block;
+  width:20px;height:4px;
+  border-radius:10px;
+  background:#d9d9ce;
+}
+.progress-dots i.on{background:var(--green)}
+.kitchen-body{padding:22px}
+.kitchen-body h2{font:500 28px var(--serif);margin:0 0 5px}
+.instruction{
+  min-height:27px;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+.game-stage{
+  min-height:345px;
+  border:1px solid #e7e5dc;
+  border-radius:16px;
+  background:
+    linear-gradient(128deg,transparent 34%,#abb2ac16 34.4%,transparent 35%),
+    radial-gradient(circle at 40% 20%,white,#eeede7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.stage-content{
+  width:100%;
+  min-height:345px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
+}
+.stage-art{width:215px;max-width:65%}
+.stage-art svg{width:100%}
+.stage-note{font:14px var(--serif);color:#77816f;text-align:center}
+.game-feedback{
+  font-size:11px;
+  min-height:23px;
+  margin-top:8px;
+  color:#8d725a;
+}
+.game-actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+.game-help{
+  margin-right:auto;
+  font-size:11px;
+  color:#929284;
+}
+.game-btn{
+  border:0;
+  background:var(--green);
+  color:white;
+  border-radius:30px;
+  padding:10px 18px;
+  font-size:12px;
+}
+.game-btn.outline{
+  background:none;
+  border:1px solid #b1c0a9;
+  color:var(--green);
+}
+.shelf{
+  border-top:1px solid var(--border);
+  margin-top:17px;
+  padding-top:15px;
+}
+.shelf-heading{
+  display:flex;
+  justify-content:space-between;
+  color:#677663;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:12px;
+}
+.ingredient-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+.ingredient{
+  background:#f9f9f4;
+  border:1px solid #e5e4d9;
+  border-radius:12px;
+  padding:8px 4px;
+  min-width:0;
+  text-align:center;
+  color:#5f6d59;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.ingredient.selected{border-color:#809d77;background:#edf3e9}
+.ingredient svg{width:65px;height:55px;pointer-events:none}
+.ingredient span{font-size:11px}
+.ingredient small{font-size:9px;color:#98998d}
+.drag-ghost{
+  position:fixed;
+  z-index:999;
+  width:83px;
+  padding:8px;
+  border:1px solid #bbc8b4;
+  border-radius:14px;
+  background:#fffefaed;
+  box-shadow:0 10px 25px #333a3025;
+  transform:translate(-50%,-65%);
+  pointer-events:none;
+  text-align:center;
+  font-size:11px;
+}
+.drag-ghost svg{width:60px;height:55px;display:block;margin:auto}
+.drop-tray{
+  width:min(85%,340px);
+  min-height:210px;
+  border:2px dashed #a9b9a3;
+  border-radius:22px;
+  background:#fdfefaaf;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:16px;
+  gap:10px;
+}
+.drop-tray.hover,.drop-target.hover{
+  background:#e6f0e3;
+  border-color:#718e69;
+}
+.tray-items{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:7px;
+}
+.tray-items button{
+  border:1px solid #b6c7b0;
+  border-radius:20px;
+  background:#eef3ea;
+  padding:4px 9px;
+  font-size:11px;
+  color:var(--green);
+}
+.work-area{
+  width:100%;
+  min-height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+  touch-action:none;
+  user-select:none;
+}
+.chopboard{
+  position:relative;
+  width:min(90%,415px);
+  height:220px;
+  border-radius:24px;
+  border:9px solid #eee3cf;
+  background:linear-gradient(155deg,#e8d8bc,#d0b895);
+  box-shadow:0 12px 19px #63543f27;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  touch-action:none;
+  overflow:hidden;
+}
+.chopboard:before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border:1px solid #c0a77e;
+  border-radius:15px;
+}
+.chopboard svg{width:140px;z-index:2}
+.slices{
+  position:absolute;
+  bottom:27px;
+  left:0;right:0;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  z-index:3;
+}
+.slices i{
+  width:30px;height:30px;
+  border-radius:50%;
+  border:3px solid #f7edd6;
+  background:radial-gradient(circle,#c6b38f 0 4px,#f0e4c6 5px 12px,#cbb38e);
+}
+.stir-bowl{
+  width:210px;height:210px;
+  position:relative;
+  touch-action:none;
+  border:13px solid #fffefa;
+  box-shadow:0 10px 17px #504c3b25,inset 0 0 0 5px #e1ddd4;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 28%,#f8deea,#c395aa);
+  display:grid;
+  place-items:center;
+}
+.stir-bowl.green{
+  background:radial-gradient(circle at 35% 28%,#e7efdb,#a7c496);
+}
+.spoon{
+  position:absolute;
+  width:10px;height:130px;
+  background:linear-gradient(90deg,#a3a5a0,white,#8a938b);
+  border-radius:10px;
+  transform:rotate(var(--spoon,30deg)) translateY(-22px);
+  transform-origin:50% 72%;
+  pointer-events:none;
+}
+.spoon:after{
+  content:"";
+  position:absolute;
+  bottom:0;left:-10px;
+  width:30px;height:38px;
+  border-radius:50%;
+  background:linear-gradient(90deg,#b8c1bd,white,#a2aca8);
+}
+.stir-ring{
+  position:absolute;
+  inset:-24px;
+  border-radius:50%;
+  background:conic-gradient(#829a78 var(--fill,0%),#e4e7df 0);
+  z-index:-1;
+}
+.pour-layout,.serve-layout{
+  width:100%;
+  display:flex;
+  gap:25px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.draggable-tool{
+  padding:9px;
+  background:white;
+  border:1px solid #d4d1c5;
+  border-radius:14px;
+  touch-action:none;
+  cursor:grab;
+  color:var(--green);
+  text-align:center;
+}
+.draggable-tool svg{width:100px;height:85px;display:block}
+.drop-target{
+  width:210px;height:145px;
+  border:2px dashed #b5bcb0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(ellipse,#e8e0ce,#fffefa 70%);
+  font-size:12px;
+  color:var(--green);
+}
+.drop-target.filled{background:#e2e9dc}
+.tea-cup{
+  width:190px;height:190px;
+  border:14px solid white;
+  border-radius:50%;
+  background:radial-gradient(circle,#cda46e,#8a5e42);
+  box-shadow:0 10px 17px #5a514022,inset 0 0 0 5px #e8cba8;
+  color:white;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  touch-action:none;
+  position:relative;
+}
+.tea-progress{
+  position:absolute;
+  inset:-22px;
+  border:6px solid #aabb9b;
+  border-radius:50%;
+  opacity:var(--opacity,.2);
+  pointer-events:none;
+}
+.serve-plate{
+  width:220px;height:220px;
+  max-width:47%;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle,white 50%,#e2e3db 51% 59%,white 60% 68%,#c8c5b9 69% 71%,transparent 72%);
+  position:relative;
+  font-size:11px;
+  color:#8c9887;
+}
+.serve-plate svg{width:80%;height:auto}
+.serve-food{
+  touch-action:none;
+  background:#fffefa;
+  border:1px solid #d7d5c8;
+  border-radius:14px;
+  padding:9px;
+}
+.serve-food svg{width:145px;max-width:100%}
+.result-panel{
+  background:#fffefa;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:24px;
+  width:min(430px,100%);
+  text-align:center;
+}
+.result-panel svg{width:180px;max-width:85%}
+.score{
+  font:600 45px var(--serif);
+  color:var(--green);
+}
+.result-panel p,.result-panel li{
+  font-size:12px;
+  color:#74796e;
+}
+.result-panel ul{text-align:left}
+
+/* 手機版 */
+@media(max-width:1050px){
+  .feature-grid{grid-template-columns:repeat(3,1fr)}
+  nav.desktop{gap:10px}
+  .nav-btn{font-size:11px}
 }
 @media(max-width:760px){
   header{height:68px;padding:0 18px}
-  .brand-mark{
-    width:34px;
-    height:34px;
-    font-size:21px;
-  }
+  .brand-mark{width:34px;height:34px;font-size:21px}
   .brand strong{font-size:18px}
   .brand small{font-size:8px}
-  .desktop-nav,.header-spin{display:none}
-  .hamburger{display:block}
+  nav.desktop{display:none}
+  .menu-btn{display:block}
   .mobile-nav.open{
     display:grid;
     position:absolute;
-    top:68px;
-    left:0;
-    right:0;
+    top:68px;left:0;right:0;
     grid-template-columns:repeat(2,1fr);
-    gap:4px;
-    padding:12px 19px 17px;
-    background:#fbfaf6;
-    border-bottom:1px solid #e1dfd7;
+    background:#fffefa;
+    border-bottom:1px solid var(--border);
+    padding:14px 20px;
+    gap:5px;
   }
-  .mobile-nav .nav-btn{
-    text-align:left;
-    padding:12px 8px;
-  }
+  .mobile-nav .nav-btn{text-align:left;font-size:13px}
   .hero{
     display:flex;
     flex-direction:column;
-    min-height:0;
-    align-items:stretch;
-    padding:34px 18px 36px;
-    gap:10px;
+    padding:32px 18px 45px;
+    gap:15px;
   }
-  .hero-copy h1{
-    font-size:clamp(35px,9vw,44px);
-    margin:12px 0 14px;
-  }
-  .hero-copy p{
-    font-size:13px;
-    margin-bottom:18px;
-  }
-  .tags{margin-bottom:19px}
-  .hero-note{display:none}
-  .table-wrap{margin-top:17px}
+  .hero h1{font-size:clamp(34px,9vw,44px)}
+  .hero p{font-size:13px}
   .table-scene{max-width:540px}
-  .table-board{border-width:2px}
-  .wheel{
-    inset:6%;
-    border-width:2px;
-  }
   .dish{width:31%}
-  .dish-name{
-    font-size:clamp(10px,2.7vw,12px);
-  }
-  .center{width:25%}
-  .center strong{
-    font-size:clamp(11px,3vw,15px);
-  }
+  .dish-name{font-size:clamp(9px,2.6vw,12px)}
+  .wheel{border-width:2px}
+  .center strong{font-size:clamp(10px,3vw,15px)}
   .center button{display:none}
-  .pointer{
-    top:1%;
-    transform:translateX(-50%) scale(.84);
-  }
-  /* 手機指定右側操作區，避免觸碰料理時誤轉 */
+  .pointer{transform:translateX(-50%) scale(.85)}
   .gesture-zone{
     display:flex;
     position:absolute;
-    right:0;
-    top:29%;
-    width:17%;
-    height:42%;
-    border:0;
-    background:transparent;
+    right:0;top:28%;
+    width:18%;height:44%;
+    z-index:12;
     align-items:center;
     justify-content:flex-end;
     padding-right:3%;
-    z-index:11;
     touch-action:none;
-    -webkit-user-select:none;
     user-select:none;
     cursor:grab;
   }
   .gesture-zone span{
     display:grid;
     place-items:center;
-    width:26px;
-    height:79px;
-    background:linear-gradient(90deg,#e7dac3,#c2ad89);
-    border:1px solid #bda67e;
-    border-radius:40px;
-    box-shadow:0 3px 8px #5b4f3c29;
-    color:#695c48;
-    font-size:17px;
-    letter-spacing:-2px;
+    width:27px;height:80px;
+    border-radius:30px;
+    border:1px solid #bba782;
+    background:linear-gradient(90deg,#e6d9c3,#c2ac88);
+    color:#665943;
     writing-mode:vertical-rl;
-  }
-  .gesture-zone:active span{
-    background:#ad9572;
-    color:white;
   }
   .mobile-hint{
     display:block;
+    margin-top:3px;
     text-align:center;
     font-size:11px;
-    color:#8b8b7c;
-    margin-top:0;
+    color:#8b8d80;
   }
-  .spin-caption{
-    margin-top:11px;
-    font-size:12px;
-  }
-  .section{padding:48px 18px}
-  .feature-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-  .feature{
-    min-height:146px;
-    padding:16px;
-  }
-  .feature h3{font-size:18px}
-  .quotation{font-size:16px}
-  .page-head{padding:35px 18px 20px}
-  .page-head h1{font-size:36px}
+  .feature-grid{grid-template-columns:repeat(2,1fr)}
+  .section{padding:47px 18px}
+  .feature{padding:15px}
+  .feature h3{font-size:17px}
+  .page-head{padding:36px 18px 20px}
   .page-content{padding:0 18px 55px}
-  .search{width:100%}
-  .search input{width:100%}
-  .recipes{gap:10px}
-  .recipe-image{height:145px}
-  .recipe-image svg{width:160px}
-  .recipe-info{padding:13px}
+  .recipes{grid-template-columns:repeat(2,1fr);gap:10px}
+  .recipe-image{height:140px}
+  .recipe-info{padding:12px}
   .recipe-info h3{font-size:16px}
-  .recipe-info p{font-size:11px}
-  .plants,.journal,.culture{
-    grid-template-columns:1fr;
-  }
-  .plant-icon{
-    width:95px;
-    height:95px;
-  }
-  .plant-icon svg{
-    width:90px;
-    height:85px;
-  }
-  .journal{gap:22px}
-  .modal{
-    grid-template-columns:1fr;
-    max-width:500px;
-  }
-  .modal-visual{min-height:170px}
-  .modal-visual svg{width:160px}
-  .modal-text{padding:21px 22px}
-  .modal-text h2{font-size:25px}
+  .plants,.journal,.culture{grid-template-columns:1fr}
+  .plant-icon{flex-basis:85px;width:85px;height:85px}
+  .plant-icon svg{width:83px}
+  .modal{grid-template-columns:1fr}
+  .modal-visual{min-height:165px}
+  .modal-visual svg{width:155px}
+  .modal-text{padding:21px}
   footer{flex-direction:column}
+  .kitchen-head{padding:32px 18px 17px}
+  .kitchen-head h1{font-size:36px}
+  .kitchen-layout{
+    display:flex;
+    flex-direction:column;
+    padding:0 14px 55px;
+    gap:13px;
+  }
+  .ticket{width:100%;position:static;padding:15px}
+  .ticket h2{font-size:20px;margin:8px 0}
+  .ticket ul{
+    display:flex;
+    flex-wrap:wrap;
+    gap:5px 22px;
+    margin:5px 0;
+  }
+  .kitchen-main{width:100%}
+  .kitchen-body{padding:14px}
+  .kitchen-body h2{font-size:24px}
+  .game-stage,.stage-content{min-height:280px}
+  .ingredient-grid{grid-template-columns:repeat(4,1fr);gap:5px}
+  .ingredient{padding:6px 2px}
+  .ingredient svg{width:54px;height:45px}
+  .ingredient span{font-size:10px}
+  .game-actions{justify-content:flex-end}
+  .game-help{flex-basis:100%}
+  .chopboard{height:185px}
+  .stir-bowl{width:185px;height:185px}
+  .tea-cup{width:170px;height:170px}
+  .serve-plate{width:165px;height:165px}
+  .serve-food svg{width:115px}
 }
-@media(max-width:385px){
-  .dish{width:31%}
-  .dish-name{font-size:9px}
+@media(max-width:390px){
   .recipes{grid-template-columns:1fr}
-  .recipe-image{height:190px}
-  .recipe-image svg{width:200px}
+  .recipe-image{height:180px}
+  .dish-name{font-size:9px}
 }
 </style>
 </head>
 
 <body>
+
 <header>
-  <button class="brand" data-page="home" aria-label="回首頁">
+  <button class="brand" data-page="home">
     <span class="brand-mark">草</span>
     <span>
       <strong>草本餐桌計畫</strong>
@@ -1024,212 +1119,261 @@ footer strong{
     </span>
   </button>
 
-  <nav class="desktop-nav" aria-label="網站導覽">
+  <nav class="desktop">
     <button class="nav-btn active" data-page="home">首頁</button>
     <button class="nav-btn" data-page="recipes">料理探索</button>
     <button class="nav-btn" data-page="plants">植物圖鑑</button>
     <button class="nav-btn" data-page="journal">料理實驗日誌</button>
     <button class="nav-btn" data-page="culture">飲食文化</button>
+    <button class="nav-btn" data-page="kitchen">草本小廚房</button>
   </nav>
 
-  <button class="header-spin" id="headerSpin">今天吃什麼？</button>
-  <button class="hamburger" id="hamburger" aria-label="開啟選單">☰</button>
+  <button class="menu-btn" id="menuBtn" aria-label="選單">☰</button>
 
-  <nav class="mobile-nav" id="mobileNav" aria-label="手機導覽">
+  <nav class="mobile-nav" id="mobileNav">
     <button class="nav-btn active" data-page="home">首頁</button>
     <button class="nav-btn" data-page="recipes">料理探索</button>
     <button class="nav-btn" data-page="plants">植物圖鑑</button>
     <button class="nav-btn" data-page="journal">料理實驗日誌</button>
     <button class="nav-btn" data-page="culture">飲食文化</button>
+    <button class="nav-btn" data-page="kitchen">草本小廚房</button>
   </nav>
 </header>
 
 <main>
-  <!-- 首頁 -->
-  <section class="page active" id="page-home">
-    <div class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">HERBAL TABLE PROJECT</div>
-        <h1>讓一株植物，<br><em>走上日常餐桌</em></h1>
+
+<!-- 首頁 -->
+<section class="page active" id="page-home">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">HERBAL TABLE PROJECT</div>
+      <h1>讓一株植物，<br><em>走上日常餐桌</em></h1>
+      <p>
+        從植物出發，重新認識餐桌上的風味與生活。
+        轉動今日草本餐桌，探索料理與植物之間的連結。
+      </p>
+      <div class="tags">
+        <span>植物與料理</span>
+        <span>臺灣飲食文化</span>
+        <span>草本日常</span>
+      </div>
+      <button class="primary" data-page="recipes">開始探索</button>
+      <button class="secondary" data-page="plants">植物圖鑑</button>
+    </div>
+
+    <div>
+      <div class="table-scene">
+        <div class="table-shadow"></div>
+        <div class="table-board">
+          <div class="wheel" id="wheel"></div>
+          <div class="pointer"></div>
+          <div class="center">
+            <strong>草本餐桌</strong>
+            <button id="spinButton" aria-label="轉盤旋轉">↻</button>
+          </div>
+          <div class="gesture-zone" id="gestureZone">
+            <span>≋</span>
+          </div>
+        </div>
+      </div>
+      <div class="spin-caption" id="spinStatus">轉出今天的草本料理</div>
+      <div class="mobile-hint">在餐桌右側金色區域滑動即可旋轉</div>
+    </div>
+  </div>
+
+  <div class="section soft">
+    <div class="inner">
+      <div class="eyebrow">EXPLORE</div>
+      <h2>從餐桌，走進植物的故事</h2>
+      <p class="section-desc">三種植物，延伸出不同的餐桌探索方式。</p>
+
+      <div class="feature-grid">
+        <button class="feature" data-page="recipes">
+          <small>01 / RECIPES</small><h3>料理探索</h3>
+          <p>認識料理與植物部位。</p>
+        </button>
+        <button class="feature" data-page="plants">
+          <small>02 / PLANTS</small><h3>植物圖鑑</h3>
+          <p>探索桑、肉桂、蓮。</p>
+        </button>
+        <button class="feature" data-page="journal">
+          <small>03 / JOURNAL</small><h3>料理實驗日誌</h3>
+          <p>記錄研究與測試。</p>
+        </button>
+        <button class="feature" data-page="culture">
+          <small>04 / CULTURE</small><h3>飲食文化</h3>
+          <p>從生活認識植物。</p>
+        </button>
+        <button class="feature" data-page="kitchen">
+          <small>05 / PLAY</small><h3>草本小廚房</h3>
+          <p>隨機接單，親手料理。</p>
+        </button>
+      </div>
+
+      <div class="quotation">
+        「一株植物，不只是一個名字，也能成為一道料理與一段生活故事。」
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 料理探索 -->
+<section class="page" id="page-recipes">
+  <div class="page-head">
+    <div class="eyebrow">DISCOVER THE DISH</div>
+    <h1>料理探索</h1>
+    <p>透過料理了解使用的植物、部位及風味特色。</p>
+  </div>
+  <div class="page-content">
+    <div class="toolbar">
+      <div class="filters" id="recipeFilters">
+        <button class="filter active" data-filter="全部">全部</button>
+        <button class="filter" data-filter="主食">主食</button>
+        <button class="filter" data-filter="點心">點心</button>
+        <button class="filter" data-filter="飲品">飲品</button>
+        <button class="filter" data-filter="沙拉">沙拉</button>
+      </div>
+      <label class="search">
+        搜尋 <input id="recipeSearch" type="search" placeholder="料理或植物">
+      </label>
+    </div>
+    <div class="recipes" id="recipeGrid"></div>
+    <p class="notice">目前菜色為示意，正式料理配方與植物部位仍需完成查證。</p>
+  </div>
+</section>
+
+<!-- 植物圖鑑 -->
+<section class="page" id="page-plants">
+  <div class="page-head">
+    <div class="eyebrow">BOTANICAL INDEX</div>
+    <h1>植物圖鑑</h1>
+    <p>從桑、肉桂、蓮三種植物出發，探索不同部位的用途。</p>
+  </div>
+  <div class="page-content">
+    <div class="plants" id="plantGrid"></div>
+  </div>
+</section>
+
+<!-- 料理實驗日誌 -->
+<section class="page" id="page-journal">
+  <div class="page-head">
+    <div class="eyebrow">RESEARCH JOURNAL</div>
+    <h1>料理實驗日誌</h1>
+    <p>記錄食材選擇、料理測試與設計過程。</p>
+  </div>
+  <div class="page-content">
+    <div class="journal">
+      <aside class="journal-side">
+        <div class="eyebrow">FIELD NOTES</div>
+        <h2>把研究過程，<br>一起端上餐桌。</h2>
+        <p>日後可加入料理照片、風味紀錄與團隊實驗心得。</p>
+      </aside>
+      <div class="timeline" id="journalList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 飲食文化 -->
+<section class="page" id="page-culture">
+  <div class="page-head">
+    <div class="eyebrow">FOOD & CULTURE</div>
+    <h1>飲食文化</h1>
+    <p>從植物與臺灣飲食的關係，探索生活知識與文化記憶。</p>
+  </div>
+  <div class="page-content">
+    <div class="culture">
+      <article>
+        <div class="culture-mark">桑</div>
+        <h3>桑與日常生活</h3>
         <p>
-          從植物出發，重新認識餐桌上的風味與生活。
-          轉動今日草本餐桌，探索一道料理與植物之間的連結。
+          從桑葚、桑葉與地方栽培記憶出發，
+          整理植物與飲食、日常生活的關係。
         </p>
-        <div class="tags">
-          <span>植物與料理</span>
-          <span>臺灣飲食文化</span>
-          <span>草本日常</span>
+        <div class="smalltags">
+          <span>文獻整理</span><span>訪談觀察</span>
         </div>
-        <button class="primary" id="startExplore">開始探索</button>
-        <button class="secondary" data-page="plants">植物圖鑑</button>
-        <p class="hero-note">每次轉動，都是一道新的風味提案。</p>
-      </div>
-
-      <div class="table-wrap">
-        <div class="table-scene">
-          <div class="table-shadow"></div>
-
-          <div class="table-board" id="tableBoard">
-            <div class="wheel" id="wheel"></div>
-            <div class="pointer" aria-hidden="true"></div>
-
-            <div class="center">
-              <strong>草本餐桌</strong>
-              <button id="spinButton" aria-label="旋轉餐桌">↻</button>
-            </div>
-
-            <div class="gesture-zone" id="gestureZone"
-              aria-label="在右側上下滑動旋轉餐桌"
-              role="button" tabindex="0">
-              <span aria-hidden="true">≋</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="spin-caption" id="spinStatus" aria-live="polite">
-          轉出今天的草本料理
-        </div>
-        <div class="mobile-hint">
-          在餐桌右側的金色滑動區向上或向下滑動
-        </div>
-      </div>
-    </div>
-
-    <section class="section soft">
-      <div class="inner">
-        <div class="eyebrow">EXPLORE</div>
-        <h2 class="section-title">從餐桌，走進植物的故事</h2>
-        <p class="section-description">
-          三種植物，從風味、部位到文化，延伸出不同的探索路線。
+      </article>
+      <article>
+        <div class="culture-mark">食</div>
+        <h3>餐桌上的植物知識</h3>
+        <p>
+          不同世代可能透過家庭料理、市場與節慶認識植物。
+          本頁將逐步加入研究資料。
         </p>
-        <div class="feature-grid">
-          <button class="feature" data-page="recipes">
-            <small>01 / RECIPES</small>
-            <h3>料理探索</h3>
-            <p>從菜色認識使用的植物與料理想法。</p>
+        <div class="smalltags">
+          <span>飲食文化</span><span>設計詮釋</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 草本小廚房 -->
+<section class="page" id="page-kitchen">
+  <div class="kitchen-head">
+    <div class="eyebrow">HERBAL KITCHEN / INTERACTIVE COOKING</div>
+    <h1>草本小廚房</h1>
+    <p>
+      接收隨機訂單，挑選食材，再透過手指或滑鼠親手完成料理。
+      目前提供三道示意料理。
+    </p>
+  </div>
+
+  <div class="kitchen-layout">
+    <aside class="ticket">
+      <div class="ticket-top">
+        <span>ORDER TICKET</span>
+        <span id="orderCount">01 / 03</span>
+      </div>
+
+      <h2 id="ticketTitle">今日訂單</h2>
+      <p id="ticketDesc">點擊開始營業領取第一張訂單。</p>
+      <ul id="ticketItems"></ul>
+      <div class="ticket-meta" id="ticketMeta">
+        草本餐桌 · 示意料理
+      </div>
+      <button class="text-link" id="restartGame">重新開始遊戲</button>
+    </aside>
+
+    <div class="kitchen-main">
+      <div class="kitchen-top">
+        <span class="step-label" id="stepLabel">WELCOME</span>
+        <div class="progress-dots" id="progressDots"></div>
+      </div>
+
+      <div class="kitchen-body">
+        <h2 id="gameTitle">今天，換你掌廚</h2>
+        <div class="instruction" id="gameInstruction">
+          完成三張訂單，認識三種不同植物。
+        </div>
+
+        <div class="game-stage" id="gameStage"></div>
+        <div class="game-feedback" id="gameFeedback"></div>
+
+        <div class="game-actions">
+          <span class="game-help" id="gameHelp">
+            手機使用手指，電腦使用滑鼠
+          </span>
+          <button class="game-btn outline" id="assistBtn" hidden>
+            輔助完成操作
           </button>
-          <button class="feature" data-page="plants">
-            <small>02 / PLANTS</small>
-            <h3>植物圖鑑</h3>
-            <p>探索桑、肉桂、蓮的部位與日常用途。</p>
-          </button>
-          <button class="feature" data-page="journal">
-            <small>03 / JOURNAL</small>
-            <h3>料理實驗日誌</h3>
-            <p>記錄測試、觀察與設計修正。</p>
-          </button>
-          <button class="feature" data-page="culture">
-            <small>04 / CULTURE</small>
-            <h3>飲食文化</h3>
-            <p>從臺灣生活記憶認識植物。</p>
+          <button class="game-btn" id="gameNext">
+            開始營業
           </button>
         </div>
-        <div class="quotation">
-          「一株植物，不只是一個名字，也能成為一道料理與一段生活故事。」
-        </div>
-      </div>
-    </section>
-  </section>
 
-  <!-- 料理探索 -->
-  <section class="page" id="page-recipes">
-    <div class="page-head">
-      <div class="eyebrow">DISCOVER THE DISH</div>
-      <h1>料理探索</h1>
-      <p>先以桑、肉桂與蓮發展示意菜色，之後再換成團隊實際開發的料理與照片。</p>
-    </div>
-    <div class="page-content">
-      <div class="toolbar">
-        <div class="filters" id="recipeFilters">
-          <button class="filter active" data-filter="全部">全部</button>
-          <button class="filter" data-filter="主食">主食</button>
-          <button class="filter" data-filter="飲品">飲品</button>
-          <button class="filter" data-filter="點心">點心</button>
-          <button class="filter" data-filter="沙拉">沙拉</button>
-        </div>
-        <label class="search">
-          搜尋
-          <input id="recipeSearch" placeholder="料理或植物" type="search">
-        </label>
-      </div>
-      <div class="recipes" id="recipeGrid"></div>
-      <p class="notice">
-        此頁為概念展示。正式料理需依實際研究確認植物品種、可食部位、
-        食材處理方式及食用安全。
-      </p>
-    </div>
-  </section>
-
-  <!-- 植物圖鑑 -->
-  <section class="page" id="page-plants">
-    <div class="page-head">
-      <div class="eyebrow">BOTANICAL INDEX</div>
-      <h1>植物圖鑑</h1>
-      <p>先聚焦三種植物：桑、肉桂與蓮。點開植物可以反向查看相關料理。</p>
-    </div>
-    <div class="page-content">
-      <div class="plants" id="plantGrid"></div>
-      <p class="notice">
-        圖鑑內容目前是研究架構與示例，植物各部位的用途及食用方式仍需逐項查證。
-      </p>
-    </div>
-  </section>
-
-  <!-- 料理實驗日誌 -->
-  <section class="page" id="page-journal">
-    <div class="page-head">
-      <div class="eyebrow">RESEARCH JOURNAL</div>
-      <h1>料理實驗日誌</h1>
-      <p>把選材、風味測試與每次設計修正留下來，讓研究過程也成為作品的一部分。</p>
-    </div>
-    <div class="page-content">
-      <div class="journal">
-        <aside class="journal-side">
-          <div class="eyebrow">FIELD NOTES</div>
-          <h2>把研究過程，<br>一起端上餐桌。</h2>
-          <p>日後可以逐篇加入料理測試照片、風味評分、記錄日期及實驗心得。</p>
-        </aside>
-        <div class="timeline" id="journalList"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 飲食文化 -->
-  <section class="page" id="page-culture">
-    <div class="page-head">
-      <div class="eyebrow">FOOD & CULTURE</div>
-      <h1>飲食文化</h1>
-      <p>從植物與臺灣飲食的關係出發，收集生活記憶與使用方式，並保留清楚的資料出處。</p>
-    </div>
-    <div class="page-content">
-      <div class="culture">
-        <article>
-          <div class="culture-mark">桑</div>
-          <h3>桑與日常生活</h3>
-          <p>
-            從桑樹的果實、葉片與栽培記憶出發，整理植物如何走進生活與飲食。
-            區分受訪者說法、文獻資料與團隊的設計詮釋。
-          </p>
-          <div class="smalltags">
-            <span>文獻整理</span>
-            <span>訪談觀察</span>
+        <div class="shelf" id="ingredientShelf" hidden>
+          <div class="shelf-heading">
+            <span>食材架 · 拖曳食材至備料盤</span>
+            <span id="ingredientCount">0 項</span>
           </div>
-        </article>
-        <article>
-          <div class="culture-mark">食</div>
-          <h3>餐桌上的植物知識</h3>
-          <p>
-            不同世代可能透過市場、家庭料理、節慶或日常經驗認識植物。
-            本頁將逐步加入研究來源與實地訪談內容。
-          </p>
-          <div class="smalltags">
-            <span>飲食文化</span>
-            <span>設計詮釋</span>
-          </div>
-        </article>
+          <div class="ingredient-grid" id="ingredientGrid"></div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 </main>
 
 <footer>
@@ -1237,12 +1381,11 @@ footer strong{
     <strong>草本餐桌計畫</strong>
     <div>HERBAL TABLE PROJECT</div>
   </div>
-  <div>文化創意設計畢業專題｜網站內容為研究示例</div>
+  <div>文化創意設計畢業專題 · 示意網站</div>
 </footer>
 
-<!-- 料理、植物與日誌共用資訊卡 -->
-<div class="modal-wrap" id="modalWrap" role="dialog" aria-modal="true" aria-label="內容資訊">
-  <div class="modal">
+<div class="modal-wrap" id="modalWrap">
+  <div class="modal" role="dialog" aria-modal="true">
     <button class="modal-close" id="modalClose" aria-label="關閉">×</button>
     <div class="modal-visual" id="modalVisual"></div>
     <div class="modal-text" id="modalText"></div>
@@ -1252,7 +1395,11 @@ footer strong{
 <script>
 "use strict";
 
-/* 六道示意料理，分屬桑、肉桂、蓮 */
+/* ======================================================
+   01. 基本資料
+   未來可以在這裡替換正式菜色、植物部位與料理介紹
+====================================================== */
+
 const recipes = [
   {
     id:"sang-berry",
@@ -1261,7 +1408,7 @@ const recipes = [
     category:"點心",
     part:"桑葚果實",
     taste:"酸甜果香、柔和乳香",
-    idea:"以桑葚作為果香主角，嘗試搭配優格與不同口感配料。",
+    idea:"以桑葚搭配優格與不同口感配料。",
     shape:"berry"
   },
   {
@@ -1271,7 +1418,7 @@ const recipes = [
     category:"主食",
     part:"桑葉（處理方式待查核）",
     taste:"植物清香、穀物香氣",
-    idea:"探索葉片在麵糊中的風味、色澤及口感表現。",
+    idea:"探索桑葉與麵糊搭配的風味及色澤。",
     shape:"pancake"
   },
   {
@@ -1279,9 +1426,9 @@ const recipes = [
     name:"土肉桂香米粥",
     plant:"肉桂",
     category:"主食",
-    part:"臺灣土肉桂（品種與部位待查核）",
-    taste:"溫潤穀香、細緻辛香",
-    idea:"以香氣層次為研究方向，先確認適合的食用部位與處理方式。",
+    part:"臺灣土肉桂（部位待查核）",
+    taste:"穀物香、細緻辛香",
+    idea:"以臺灣土肉桂的香氣為研究方向。",
     shape:"porridge"
   },
   {
@@ -1290,8 +1437,8 @@ const recipes = [
     plant:"肉桂",
     category:"飲品",
     part:"臺灣土肉桂（部位待查核）",
-    taste:"木質與清甜香氣",
-    idea:"作為草本香氣比較的示意飲品，正式配方需經查證。",
+    taste:"木質香氣、溫暖風味",
+    idea:"示範不同植物香氣的飲品應用。",
     shape:"tea"
   },
   {
@@ -1300,8 +1447,8 @@ const recipes = [
     plant:"蓮",
     category:"沙拉",
     part:"蓮藕",
-    taste:"清爽、脆口、淡雅",
-    idea:"以蓮藕的口感為主軸，搭配不同色彩與層次。",
+    taste:"清爽、脆口",
+    idea:"利用蓮藕切片搭配蔬菜與調味。",
     shape:"salad"
   },
   {
@@ -1310,33 +1457,32 @@ const recipes = [
     plant:"蓮",
     category:"點心",
     part:"蓮子",
-    taste:"溫和清甜、柔軟口感",
-    idea:"由蓮子出發，探索傳統甜湯的當代呈現方式。",
+    taste:"柔和清甜",
+    idea:"從傳統蓮子甜湯延伸料理概念。",
     shape:"soup"
   }
 ];
 
-/* 三種植物資料 */
 const plants = [
   {
     id:"桑",
-    latin:"Morus alba L.（研究時確認物種）",
-    parts:"果實、葉、枝、樹皮與根等部位，應分別記錄可食性與用途。",
-    culture:"可從桑葚飲食、桑葉與地方栽培記憶切入。",
+    latin:"Morus alba L.",
+    parts:"果實、葉、枝、樹皮、根等部位，需分項確認用途與可食性。",
+    culture:"桑葚飲食、桑葉與地方栽培生活記憶。",
     shape:"mulberry"
   },
   {
     id:"肉桂",
-    latin:"臺灣土肉桂 Cinnamomum osmophloeum（需確認品種）",
-    parts:"葉與樹皮等部位必須依物種及可靠資料查核。",
-    culture:"以臺灣土肉桂的香氣、調味經驗及植物辨識為研究方向。",
+    latin:"Cinnamomum osmophloeum（臺灣土肉桂）",
+    parts:"葉、樹皮等不同部位需依品種與可靠資料查核。",
+    culture:"從臺灣土肉桂的香氣、調味與植物文化切入。",
     shape:"cinnamon"
   },
   {
     id:"蓮",
-    latin:"Nelumbo nucifera Gaertn.",
-    parts:"蓮藕、蓮子等是常見食材，其他部位需逐項確認。",
-    culture:"從蓮不同部位的口感、食材文化與日常料理切入。",
+    latin:"Nelumbo nucifera",
+    parts:"蓮藕、蓮子等常見食材及其他部位的應用。",
+    culture:"以蓮的不同部位與臺灣飲食文化為研究方向。",
     shape:"lotus"
   }
 ];
@@ -1345,434 +1491,547 @@ const journals = [
   {
     title:"桑樹部位應用整理",
     date:"研究紀錄 01",
-    text:"建立果實、葉、枝、樹皮、根的分項知識表。",
-    detail:"紀錄來源、物種、部位、用途、可食性與待查證問題。"
+    text:"整理桑樹不同部位的資料。",
+    detail:"建立部位、用途、文獻來源與食用安全查核表。"
   },
   {
     title:"植物風味比較",
     date:"研究紀錄 02",
-    text:"規劃桑、肉桂與蓮的香氣和口感測試。",
-    detail:"使用一致的描述詞，比較香氣強度、顏色、口感與接受度。"
+    text:"規劃桑、肉桂、蓮的香氣及口感測試。",
+    detail:"記錄香氣強度、色澤、口感與受試者反應。"
   },
   {
     title:"料理視覺與呈現",
     date:"設計紀錄 03",
-    text:"測試料理的擺盤、故事與資訊卡的連結。",
-    detail:"保留草圖、試作照片、修改原因與下次調整方向。"
+    text:"觀察料理擺盤及資訊設計方式。",
+    detail:"紀錄草圖、試作照片與後續設計修正。"
   }
 ];
 
-const $ = s => document.querySelector(s);
+const $ = selector => document.querySelector(selector);
+const $$ = selector => [...document.querySelectorAll(selector)];
 
-let rotation = 0;
-let spinning = false;
-let activeFilter = "全部";
-let saved = new Set();
-let gesture = null;
-let animationFrame = 0;
+/* ======================================================
+   02. SVG 示意圖片
+   後續可替換成正式食材圖片
+====================================================== */
 
-const STEP = 360 / recipes.length;
-const norm = x => ((x % 360) + 360) % 360;
-
-/* 料理示意圖片 */
 function dishSVG(type) {
-  const base = `
-    <ellipse cx="90" cy="103" rx="69" ry="15"
-      fill="#666252" opacity=".10"/>
-    <ellipse cx="90" cy="76" rx="69" ry="35"
-      fill="#fffdf8" stroke="#d7d5c8" stroke-width="3"/>
-    <ellipse cx="90" cy="73" rx="58" ry="27"
-      fill="#f1eee4"/>
+  const plate = `
+    <ellipse cx="90" cy="106" rx="65" ry="13"
+      fill="#5c5548" opacity=".12"/>
+    <ellipse cx="90" cy="76" rx="67" ry="33"
+      fill="#fffdf9" stroke="#d1d2c8" stroke-width="3"/>
+    <ellipse cx="90" cy="73" rx="55" ry="25"
+      fill="#eeeade"/>
   `;
 
-  let food = "";
+  let content = "";
 
-  if (type === "berry") {
-    food = `
-      <g fill="#f9f4e7">
-        <ellipse cx="90" cy="72" rx="51" ry="21"/>
+  if(type === "berry") {
+    content = `
+      <ellipse cx="90" cy="74" rx="49" ry="21" fill="#fbf6ec"/>
+      <g fill="#793f59">
+        <circle cx="60" cy="68" r="11"/>
+        <circle cx="84" cy="77" r="11"/>
+        <circle cx="108" cy="64" r="12"/>
+        <circle cx="119" cy="83" r="9"/>
       </g>
-      <path d="M50 76Q90 95 130 72"
-        fill="none" stroke="#efdfc7" stroke-width="9"/>
-      <g fill="#7b3d56">
-        <circle cx="62" cy="65" r="11"/>
-        <circle cx="84" cy="76" r="11"/>
-        <circle cx="106" cy="61" r="12"/>
-        <circle cx="120" cy="81" r="9"/>
+      <g fill="#ac6e84">
+        <circle cx="72" cy="59" r="8"/>
+        <circle cx="97" cy="73" r="8"/>
       </g>
-      <g fill="#a15b73">
-        <circle cx="71" cy="59" r="8"/>
-        <circle cx="96" cy="67" r="9"/>
-      </g>
-      <path d="M86 61Q70 38 76 40Q90 41 86 61Z"
-        fill="#728b6a"/>
+      <path d="M89 60Q70 36 73 40Q92 45 89 60Z"
+        fill="#779469"/>
     `;
   }
-
-  else if (type === "pancake") {
-    food = `
-      <ellipse cx="90" cy="72" rx="54" ry="25"
-        fill="#cda979"/>
-      <ellipse cx="90" cy="68" rx="50" ry="20"
-        fill="#e7c68b"/>
-      <g fill="#a58a60">
-        <circle cx="66" cy="68" r="3"/>
-        <circle cx="79" cy="57" r="3"/>
-        <circle cx="98" cy="79" r="3"/>
-        <circle cx="111" cy="63" r="3"/>
+  else if(type === "pancake") {
+    content = `
+      <ellipse cx="90" cy="75" rx="51" ry="24" fill="#cda778"/>
+      <ellipse cx="90" cy="70" rx="49" ry="21" fill="#e5c18a"/>
+      <g fill="#9f855b">
+        <circle cx="65" cy="69" r="3"/>
+        <circle cx="88" cy="58" r="3"/>
+        <circle cx="112" cy="74" r="3"/>
       </g>
-      <path d="M89 67Q63 40 67 40Q93 42 89 67Z"
-        fill="#78906c"/>
-      <path d="M91 70Q124 43 123 48Q118 74 91 70Z"
-        fill="#9aaa76"/>
+      <path d="M90 66Q65 37 68 44Q94 48 90 66Z"
+        fill="#7d956b"/>
     `;
   }
-
-  else if (type === "porridge") {
-    food = `
-      <ellipse cx="90" cy="76" rx="59" ry="28"
-        fill="#fff8eb"/>
-      <ellipse cx="90" cy="75" rx="53" ry="22"
-        fill="#e3cda8"/>
-      <g fill="#f9eacd">
-        <ellipse cx="70" cy="67" rx="13" ry="6"/>
-        <ellipse cx="107" cy="70" rx="15" ry="8"/>
-        <ellipse cx="90" cy="82" rx="16" ry="6"/>
+  else if(type === "porridge") {
+    content = `
+      <ellipse cx="90" cy="75" rx="54" ry="23" fill="#e4cea8"/>
+      <g fill="#f9ecd0">
+        <ellipse cx="70" cy="66" rx="14" ry="7"/>
+        <ellipse cx="105" cy="70" rx="16" ry="8"/>
+        <ellipse cx="90" cy="83" rx="17" ry="7"/>
       </g>
-      <g fill="#7c8e68">
-        <ellipse cx="60" cy="75" rx="9" ry="4"
-          transform="rotate(-15 60 75)"/>
-        <ellipse cx="106" cy="82" rx="10" ry="4"
-          transform="rotate(30 106 82)"/>
-      </g>
-      <path d="M83 52l10-14 7 5-10 15Z"
-        fill="#b58359"/>
+      <path d="M87 56l12-17 8 5-12 18Z" fill="#ab7b55"/>
+      <ellipse cx="64" cy="79" rx="10" ry="4" fill="#718a65"/>
     `;
   }
-
-  else if (type === "tea") {
+  else if(type === "tea") {
     return `
-      <svg viewBox="0 0 180 130"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true">
-        <ellipse cx="90" cy="111" rx="48" ry="9"
-          fill="#484337" opacity=".12"/>
-        <path d="M58 42H126L119 100Q90 112 65 99Z"
-          fill="#fdfcf8" opacity=".82"
-          stroke="#d2c8b6" stroke-width="3"/>
-        <path d="M64 58H121L116 95Q90 104 70 95Z"
-          fill="#bb885b" opacity=".8"/>
-        <ellipse cx="92" cy="58" rx="29" ry="6"
-          fill="#d5ac74"/>
-        <path d="M126 57Q155 47 144 76Q140 87 120 83"
-          stroke="#d0c9bc" stroke-width="6" fill="none"/>
-        <path d="M82 48Q70 28 78 24Q93 23 82 48Z"
-          fill="#859b70"/>
+      <svg viewBox="0 0 180 135" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="90" cy="112" rx="45" ry="9"
+          fill="#5a554b" opacity=".15"/>
+        <path d="M57 39H123L117 99Q91 110 65 99Z"
+          fill="#fffefa" fill-opacity=".8"
+          stroke="#d4cebf" stroke-width="3"/>
+        <path d="M63 57H119L114 95Q90 105 69 95Z"
+          fill="#bb895d" opacity=".8"/>
+        <ellipse cx="91" cy="58" rx="29" ry="7" fill="#d2a977"/>
+        <path d="M123 55Q150 47 144 73Q139 84 120 83"
+          fill="none" stroke="#d4cebf" stroke-width="6"/>
+        <path d="M83 50Q70 25 78 22Q91 25 83 50Z"
+          fill="#7f9675"/>
       </svg>
     `;
   }
-
-  else if (type === "salad") {
-    food = `
-      <g fill="#8ea374">
-        <ellipse cx="62" cy="65" rx="10" ry="17"
-          transform="rotate(-40 62 65)"/>
-        <ellipse cx="82" cy="60" rx="12" ry="19"
-          transform="rotate(24 82 60)"/>
-        <ellipse cx="110" cy="65" rx="12" ry="18"
-          transform="rotate(-25 110 65)"/>
-        <ellipse cx="100" cy="82" rx="11" ry="14"/>
+  else if(type === "salad") {
+    content = `
+      <g fill="#86a077">
+        <ellipse cx="63" cy="65" rx="12" ry="19"
+          transform="rotate(-35 63 65)"/>
+        <ellipse cx="84" cy="61" rx="12" ry="19"
+          transform="rotate(30 84 61)"/>
+        <ellipse cx="110" cy="71" rx="12" ry="18"/>
       </g>
-      <g fill="#ede0c4" stroke="#cfbe9f" stroke-width="2">
-        <circle cx="64" cy="78" r="11"/>
-        <circle cx="112" cy="76" r="11"/>
-        <circle cx="89" cy="64" r="10"/>
+      <g fill="#efe3cb" stroke="#c7b999" stroke-width="2">
+        <circle cx="68" cy="77" r="12"/>
+        <circle cx="108" cy="75" r="12"/>
+        <circle cx="91" cy="59" r="10"/>
       </g>
-      <g fill="#c0b18f">
-        <circle cx="64" cy="78" r="3"/>
-        <circle cx="112" cy="76" r="3"/>
-        <circle cx="89" cy="64" r="3"/>
+      <g fill="#c3b38e">
+        <circle cx="68" cy="77" r="3"/>
+        <circle cx="108" cy="75" r="3"/>
+        <circle cx="91" cy="59" r="3"/>
       </g>
-      <g fill="#e4a19b">
-        <circle cx="80" cy="76" r="6"/>
-        <circle cx="100" cy="54" r="7"/>
-      </g>
+      <circle cx="82" cy="72" r="6" fill="#e4a4a0"/>
     `;
   }
-
   else {
-    food = `
-      <ellipse cx="90" cy="76" rx="57" ry="27"
-        fill="#f5e2ad"/>
-      <g fill="#f9edcf">
-        <ellipse cx="64" cy="70" rx="13" ry="9"/>
-        <ellipse cx="90" cy="76" rx="14" ry="10"/>
-        <ellipse cx="114" cy="70" rx="13" ry="9"/>
-        <ellipse cx="100" cy="60" rx="12" ry="8"/>
+    content = `
+      <ellipse cx="90" cy="75" rx="54" ry="24" fill="#f3dfab"/>
+      <g fill="#fff0ce">
+        <ellipse cx="62" cy="71" rx="13" ry="9"/>
+        <ellipse cx="87" cy="77" rx="14" ry="10"/>
+        <ellipse cx="116" cy="69" rx="13" ry="9"/>
       </g>
-      <g fill="#b89a6c">
-        <circle cx="67" cy="73" r="3"/>
-        <circle cx="97" cy="73" r="3"/>
-        <circle cx="115" cy="68" r="3"/>
-      </g>
-      <g fill="#e7d7ac">
-        <circle cx="83" cy="55" r="4"/>
-        <circle cx="108" cy="88" r="4"/>
+      <g fill="#b09a73">
+        <circle cx="64" cy="72" r="3"/>
+        <circle cx="86" cy="76" r="3"/>
+        <circle cx="115" cy="69" r="3"/>
       </g>
     `;
   }
 
   return `
-    <svg viewBox="0 0 180 130"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true">
-      ${base}${food}
-    </svg>
-  `;
-}
-
-/* 植物示意插畫 */
-function plantSVG(type) {
-  let g = "";
-
-  if (type === "mulberry") {
-    g = `
-      <path d="M89 106L97 25"
-        stroke="#7b8c6b" stroke-width="3"/>
-      <path d="M95 54Q49 15 44 40Q45 60 95 54Z"
-        fill="#78986e"/>
-      <path d="M96 75Q140 21 143 52Q141 71 96 75Z"
-        fill="#95a881"/>
-      <g fill="#853b58">
-        <circle cx="75" cy="77" r="9"/>
-        <circle cx="87" cy="72" r="9"/>
-        <circle cx="98" cy="80" r="9"/>
-        <circle cx="80" cy="88" r="9"/>
-        <circle cx="92" cy="92" r="9"/>
-      </g>
-    `;
-  }
-
-  else if (type === "cinnamon") {
-    g = `
-      <path d="M38 100L91 31L108 43L55 111Z"
-        fill="#b68a63"/>
-      <path d="M51 98L98 40M63 94L101 48"
-        stroke="#e5c7a4" stroke-width="3"/>
-      <path d="M81 108L130 51L145 63L97 119Z"
-        fill="#cfaa7b"/>
-      <path d="M89 105L137 57"
-        stroke="#f1d4a9" stroke-width="3"/>
-      <path d="M105 44Q108 12 125 19Q130 38 105 44Z"
-        fill="#8ba17b"/>
-    `;
-  }
-
-  else {
-    g = `
-      <path d="M90 106V47"
-        stroke="#789574" stroke-width="3"/>
-      <path d="M90 90Q47 65 55 40Q80 28 90 90Z"
-        fill="#e9a7a4"/>
-      <path d="M90 90Q125 34 143 54Q145 77 90 90Z"
-        fill="#f1c0bb"/>
-      <path d="M90 91Q79 31 95 23Q116 35 90 91Z"
-        fill="#f7d2c7"/>
-      <path d="M89 108Q47 95 45 113Q69 125 89 108Z"
-        fill="#93a889"/>
-    `;
-  }
-
-  return `
-    <svg viewBox="0 0 180 130"
+    <svg viewBox="0 0 180 135"
       xmlns="http://www.w3.org/2000/svg">
-      ${g}
+      ${plate}
+      ${content}
     </svg>
   `;
 }
 
-/* 建立轉盤料理 */
+function plantSVG(type) {
+  let content = "";
+
+  if(type === "mulberry") {
+    content = `
+      <path d="M88 111L95 25" stroke="#738c6c" stroke-width="4"/>
+      <path d="M95 55Q48 13 43 40Q48 62 95 55Z"
+        fill="#76976c"/>
+      <path d="M96 77Q145 19 142 52Q138 77 96 77Z"
+        fill="#9cae88"/>
+      <g fill="#823d5a">
+        <circle cx="73" cy="78" r="10"/>
+        <circle cx="87" cy="74" r="10"/>
+        <circle cx="98" cy="85" r="10"/>
+        <circle cx="80" cy="92" r="10"/>
+      </g>
+    `;
+  }
+  else if(type === "cinnamon") {
+    content = `
+      <path d="M40 101L92 28L109 42L56 113Z"
+        fill="#b18861"/>
+      <path d="M52 98L99 40" stroke="#ead0a6" stroke-width="4"/>
+      <path d="M83 108L130 52L143 65L96 119Z"
+        fill="#cfa879"/>
+      <path d="M95 106L136 60" stroke="#ead0a6" stroke-width="3"/>
+      <path d="M103 44Q105 15 125 19Q133 41 103 44Z"
+        fill="#88a17a"/>
+    `;
+  }
+  else {
+    content = `
+      <path d="M89 108V48" stroke="#728e70" stroke-width="4"/>
+      <path d="M90 91Q47 65 53 41Q82 28 90 91Z"
+        fill="#eba6a4"/>
+      <path d="M90 91Q127 31 143 55Q145 78 90 91Z"
+        fill="#efc0b7"/>
+      <path d="M90 91Q79 31 96 24Q115 37 90 91Z"
+        fill="#f4d0c6"/>
+      <path d="M89 107Q45 96 46 112Q73 125 89 107Z"
+        fill="#8ca481"/>
+    `;
+  }
+
+  return `
+    <svg viewBox="0 0 180 135"
+      xmlns="http://www.w3.org/2000/svg">
+      ${content}
+    </svg>
+  `;
+}
+
+function ingredientSVG(type) {
+  const start = `<svg viewBox="0 0 100 84"
+    xmlns="http://www.w3.org/2000/svg">`;
+  const end = `</svg>`;
+
+  if(type === "berry") {
+    return start + `
+      <path d="M54 27Q55 9 76 11"
+        stroke="#7b956f" stroke-width="4" fill="none"/>
+      <path d="M60 24Q34 4 34 19Q40 27 60 24Z"
+        fill="#8eaa7c"/>
+      <g fill="#84485e">
+        <circle cx="49" cy="42" r="12"/>
+        <circle cx="64" cy="47" r="12"/>
+        <circle cx="54" cy="60" r="12"/>
+        <circle cx="38" cy="58" r="10"/>
+      </g>
+    ` + end;
+  }
+
+  if(type === "lotus") {
+    return start + `
+      <g fill="#f3e9d0" stroke="#b7a884" stroke-width="2">
+        <ellipse cx="38" cy="45" rx="19" ry="26"/>
+        <ellipse cx="68" cy="51" rx="19" ry="25"/>
+      </g>
+      <g fill="#c3b28c">
+        <circle cx="38" cy="33" r="5"/>
+        <circle cx="30" cy="53" r="4"/>
+        <circle cx="49" cy="53" r="4"/>
+        <circle cx="68" cy="43" r="5"/>
+        <circle cx="60" cy="62" r="4"/>
+      </g>
+    ` + end;
+  }
+
+  if(type === "cinnamon") {
+    return start + `
+      <path d="M25 66L61 16L75 25L39 75Z"
+        fill="#ad7f57"/>
+      <path d="M48 73L78 29L89 39L58 81Z"
+        fill="#c69e71"/>
+      <path d="M34 65L68 21M55 70L82 35"
+        stroke="#e9cea6" stroke-width="3"/>
+    ` + end;
+  }
+
+  if(type === "greens") {
+    return start + `
+      <g fill="#8ca47d">
+        <ellipse cx="43" cy="36" rx="15" ry="26"
+          transform="rotate(-33 43 36)"/>
+        <ellipse cx="63" cy="45" rx="17" ry="27"
+          transform="rotate(34 63 45)"/>
+        <ellipse cx="43" cy="61" rx="14" ry="20"/>
+      </g>
+      <path d="M51 70L52 30" stroke="#647e60" stroke-width="3"/>
+    ` + end;
+  }
+
+  if(type === "yogurt" || type === "water" ||
+     type === "honey" || type === "dressing") {
+    const color = {
+      yogurt:"#f4f0e7",
+      water:"#9ec8cd",
+      honey:"#d5a661",
+      dressing:"#9caa7b"
+    }[type];
+
+    return start + `
+      <path d="M37 14H64V26H70L73 71Q50 81 29 71L33 26H37Z"
+        fill="#fcfcf7" stroke="#c6c9bd" stroke-width="2"/>
+      <path d="M35 45H70L68 69Q50 75 35 69Z"
+        fill="${color}"/>
+      <path d="M37 14H64" stroke="#b7a88f"
+        stroke-width="7" stroke-linecap="round"/>
+    ` + end;
+  }
+
+  if(type === "granola") {
+    return start + `
+      <ellipse cx="50" cy="61" rx="35" ry="14"
+        fill="#f8f6ef" stroke="#c8c4b6"/>
+      <ellipse cx="50" cy="57" rx="32" ry="12" fill="#dfb677"/>
+      <g fill="#aa8054">
+        <circle cx="31" cy="55" r="5"/>
+        <circle cx="51" cy="52" r="5"/>
+        <circle cx="68" cy="61" r="5"/>
+      </g>
+    ` + end;
+  }
+
+  return start + `
+    <path d="M30 27H70L80 68H20Z"
+      fill="#eedfc0" stroke="#cbbb9d" stroke-width="2"/>
+  ` + end;
+}
+
+/* ======================================================
+   03. 網站一般互動
+====================================================== */
+
+let wheelAngle = 0;
+let wheelBusy = false;
+let activeFilter = "全部";
+const savedRecipes = new Set();
+
+function pageTo(name) {
+  $$(".page").forEach(el => {
+    el.classList.toggle("active",el.id === "page-" + name);
+  });
+
+  $$(".nav-btn").forEach(el => {
+    el.classList.toggle("active",el.dataset.page === name);
+  });
+
+  $("#mobileNav").classList.remove("open");
+  window.scrollTo(0,0);
+}
+
+$$("[data-page]").forEach(el => {
+  el.addEventListener("click",() => pageTo(el.dataset.page));
+});
+
+$("#menuBtn").addEventListener("click",() => {
+  $("#mobileNav").classList.toggle("open");
+});
+
 function buildWheel() {
   const wheel = $("#wheel");
+  const count = recipes.length;
 
-  wheel.innerHTML = recipes.map((r, i) => {
-    const angle = i * 2 * Math.PI / recipes.length;
-
-    const x = 50 + 33 * Math.sin(angle);
-    const y = 50 - 33 * Math.cos(angle);
+  wheel.innerHTML = recipes.map((r,i) => {
+    const a = 2 * Math.PI * i / count;
+    const x = 50 + 33 * Math.sin(a);
+    const y = 50 - 33 * Math.cos(a);
 
     return `
-      <button
-        class="dish"
-        type="button"
+      <button class="dish" type="button"
         data-dish="${r.id}"
-        style="--x:${x}%;--y:${y}%"
-        aria-label="查看${r.name}">
+        style="--x:${x}%;--y:${y}%">
         <span class="dish-inner">
-          <span class="dish-art">
-            ${dishSVG(r.shape)}
-          </span>
+          <span class="dish-art">${dishSVG(r.shape)}</span>
           <span class="dish-name">${r.name}</span>
         </span>
       </button>
     `;
   }).join("");
 
-  setAngle(rotation);
+  setWheelAngle(wheelAngle);
 }
 
-/* 圖片保持正向 */
-function setAngle(a) {
-  rotation = a;
+function setWheelAngle(angle) {
+  wheelAngle = angle;
 
-  $("#wheel").style.transform = `rotate(${a}deg)`;
+  $("#wheel").style.transform = `rotate(${angle}deg)`;
 
-  $("#wheel").querySelectorAll(".dish-inner").forEach(el => {
-    el.style.transform = `rotate(${-a}deg)`;
+  $$("#wheel .dish-inner").forEach(el => {
+    el.style.transform = `rotate(${-angle}deg)`;
   });
 }
 
-/* 順暢旋轉動畫 */
-function animate(to, duration) {
-  return new Promise(resolve => {
-    const start = performance.now();
-    const from = rotation;
+const mod360 = a => ((a % 360) + 360) % 360;
 
-    function step(t) {
-      const p = Math.min(1, (t - start) / duration);
-      const eased = 1 - Math.pow(1 - p, 4);
+function spinWheel() {
+  if(wheelBusy) return;
 
-      setAngle(from + (to - from) * eased);
-
-      if (p < 1) {
-        animationFrame = requestAnimationFrame(step);
-      } else {
-        resolve();
-      }
-    }
-
-    animationFrame = requestAnimationFrame(step);
-  });
-}
-
-/*
-  固定指針抽選邏輯：
-  第一道料理位於正上方。
-  每道料理相隔 60 度。
-  隨機選菜後，精確旋轉到指針位置。
-  資訊卡直接使用這一道料理的 ID。
-*/
-async function spin() {
-  if (spinning) return;
-
-  spinning = true;
+  wheelBusy = true;
   $("#spinStatus").textContent = "轉盤旋轉中…";
 
-  $("#wheel").querySelectorAll(".dish").forEach(el => {
+  $$("#wheel .dish").forEach(el => {
     el.classList.remove("selected");
   });
 
   const index = Math.floor(Math.random() * recipes.length);
+  const step = 360 / recipes.length;
 
-  const targetAngle = norm(-index * STEP);
-  const advance = norm(targetAngle - norm(rotation));
+  const desired = mod360(-index * step);
+  const advance = mod360(desired - mod360(wheelAngle));
+  const start = wheelAngle;
+  const end = start + 360 * 4 + advance;
+  const duration = 2600;
+  const started = performance.now();
 
-  const finalAngle = rotation + 360 * 4 + advance;
+  function frame(now) {
+    const p = Math.min(1,(now - started) / duration);
+    const ease = 1 - Math.pow(1 - p,4);
 
-  await animate(finalAngle, 2600);
+    setWheelAngle(start + (end - start) * ease);
 
-  setAngle(finalAngle);
+    if(p < 1) {
+      requestAnimationFrame(frame);
+      return;
+    }
 
-  const chosen = recipes[index];
-  const selected = $("#wheel").querySelector(
-    `[data-dish="${chosen.id}"]`
-  );
+    setWheelAngle(end);
 
-  if (selected) {
-    selected.classList.add("selected");
+    const r = recipes[index];
+    const el = $$("#wheel .dish").find(x => x.dataset.dish === r.id);
+
+    if(el) el.classList.add("selected");
+
+    $("#spinStatus").textContent = "今天的料理：" + r.name;
+    wheelBusy = false;
+    openRecipe(r.id);
   }
 
-  $("#spinStatus").textContent = `今天的料理：${chosen.name}`;
-
-  spinning = false;
-
-  openRecipe(chosen.id);
+  requestAnimationFrame(frame);
 }
 
-/* 頁面導覽 */
-function switchPage(id) {
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.toggle("active", page.id === "page-" + id);
-  });
+$("#spinButton").addEventListener("click",spinWheel);
 
-  document.querySelectorAll(".nav-btn").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.page === id
-    );
-  });
+$("#wheel").addEventListener("click",e => {
+  if(wheelBusy) return;
+  const dish = e.target.closest("[data-dish]");
+  if(dish) openRecipe(dish.dataset.dish);
+});
 
-  $("#mobileNav").classList.remove("open");
+/* 手機只在右側區域滑動旋轉 */
+const gestureZone = $("#gestureZone");
+let wheelGesture = null;
 
-  window.scrollTo({top:0,behavior:"instant"});
-}
+gestureZone.addEventListener("pointerdown",e => {
+  if(wheelBusy) return;
 
-/* 料理探索列表 */
+  wheelGesture = {
+    id:e.pointerId,
+    x:e.clientX,
+    y:e.clientY,
+    triggered:false
+  };
+
+  try { gestureZone.setPointerCapture(e.pointerId); }
+  catch(err) {}
+});
+
+gestureZone.addEventListener("pointermove",e => {
+  if(!wheelGesture || wheelGesture.id !== e.pointerId) return;
+  if(wheelGesture.triggered || wheelBusy) return;
+
+  const distance = Math.hypot(
+    e.clientX - wheelGesture.x,
+    e.clientY - wheelGesture.y
+  );
+
+  if(distance > 22) {
+    wheelGesture.triggered = true;
+    spinWheel();
+  }
+});
+
+gestureZone.addEventListener("pointerup",e => {
+  if(!wheelGesture || wheelGesture.id !== e.pointerId) return;
+
+  const g = wheelGesture;
+  wheelGesture = null;
+
+  if(!g.triggered && Math.hypot(
+    e.clientX - g.x,
+    e.clientY - g.y
+  ) > 22) spinWheel();
+});
+
+gestureZone.addEventListener("pointercancel",() => {
+  wheelGesture = null;
+});
+
+/* 料理探索 */
 function renderRecipes() {
   const q = $("#recipeSearch").value.trim();
 
-  const result = recipes.filter(r => {
-    const matchCategory =
-      activeFilter === "全部" ||
-      r.category === activeFilter;
-
-    const matchSearch =
-      !q ||
-      (r.name + r.plant + r.part).includes(q);
-
-    return matchCategory && matchSearch;
+  const list = recipes.filter(r => {
+    return (activeFilter === "全部" || r.category === activeFilter) &&
+      (!q || (r.name + r.plant + r.part).includes(q));
   });
 
-  $("#recipeGrid").innerHTML = result.map(r => `
-    <article class="recipe-card"
-      data-recipe="${r.id}"
-      tabindex="0"
-      role="button">
-      <div class="recipe-image">
-        ${dishSVG(r.shape)}
-      </div>
-
+  $("#recipeGrid").innerHTML = list.map(r => `
+    <article class="recipe-card" data-recipe="${r.id}"
+      role="button" tabindex="0">
+      <div class="recipe-image">${dishSVG(r.shape)}</div>
       <div class="recipe-info">
         <div class="recipe-top">
           <h3>${r.name}</h3>
-          <button class="save ${saved.has(r.id) ? "saved" : ""}"
-            data-save="${r.id}"
-            aria-label="收藏">
-            ${saved.has(r.id) ? "♥" : "♡"}
+          <button class="save ${savedRecipes.has(r.id) ? "saved" : ""}"
+            data-save="${r.id}">
+            ${savedRecipes.has(r.id) ? "♥" : "♡"}
           </button>
         </div>
-
         <div class="smalltags">
           <span>${r.plant}</span>
           <span>${r.category}</span>
         </div>
-
         <p>${r.idea}</p>
         <span class="readmore">查看料理資訊 →</span>
       </div>
     </article>
-  `).join("") || "尚無符合的料理";
+  `).join("") || "目前沒有符合的料理";
 }
 
-/* 植物圖鑑 */
+$("#recipeFilters").addEventListener("click",e => {
+  const btn = e.target.closest("[data-filter]");
+  if(!btn) return;
+
+  activeFilter = btn.dataset.filter;
+
+  $$("#recipeFilters .filter").forEach(el => {
+    el.classList.toggle("active",el === btn);
+  });
+
+  renderRecipes();
+});
+
+$("#recipeSearch").addEventListener("input",renderRecipes);
+
+$("#recipeGrid").addEventListener("click",e => {
+  const save = e.target.closest("[data-save]");
+
+  if(save) {
+    e.stopPropagation();
+
+    if(savedRecipes.has(save.dataset.save))
+      savedRecipes.delete(save.dataset.save);
+    else
+      savedRecipes.add(save.dataset.save);
+
+    renderRecipes();
+    return;
+  }
+
+  const card = e.target.closest("[data-recipe]");
+  if(card) openRecipe(card.dataset.recipe);
+});
+
+$("#recipeGrid").addEventListener("keydown",e => {
+  if((e.key === "Enter" || e.key === " ") &&
+     e.target.matches("[data-recipe]")) {
+    e.preventDefault();
+    openRecipe(e.target.dataset.recipe);
+  }
+});
+
 function renderPlants() {
   $("#plantGrid").innerHTML = plants.map(p => `
-    <button type="button"
-      class="plant-card"
-      data-plant="${p.id}">
-      <span class="plant-icon">
-        ${plantSVG(p.shape)}
-      </span>
+    <button class="plant-card" data-plant="${p.id}">
+      <span class="plant-icon">${plantSVG(p.shape)}</span>
       <span>
         <h3>${p.id}</h3>
         <span class="latin">${p.latin}</span>
@@ -1783,13 +2042,15 @@ function renderPlants() {
   `).join("");
 }
 
-/* 實驗日誌 */
-function renderJournals() {
-  $("#journalList").innerHTML = journals.map((j, i) => `
-    <article class="journal-item"
-      data-journal="${i}"
-      tabindex="0"
-      role="button">
+$("#plantGrid").addEventListener("click",e => {
+  const p = e.target.closest("[data-plant]");
+  if(p) openPlant(p.dataset.plant);
+});
+
+function renderJournal() {
+  $("#journalList").innerHTML = journals.map((j,i) => `
+    <article class="journal-item" data-journal="${i}"
+      role="button" tabindex="0">
       <small>${j.date}</small>
       <h3>${j.title}</h3>
       <p>${j.text}</p>
@@ -1798,8 +2059,13 @@ function renderJournals() {
   `).join("");
 }
 
-/* 彈出資訊卡 */
-function showModal(html, art) {
+$("#journalList").addEventListener("click",e => {
+  const j = e.target.closest("[data-journal]");
+  if(j) openJournal(+j.dataset.journal);
+});
+
+/* 資訊卡 */
+function showModal(html,art) {
   $("#modalText").innerHTML = html;
   $("#modalVisual").innerHTML = art;
   $("#modalWrap").classList.add("show");
@@ -1811,315 +2077,1004 @@ function closeModal() {
   document.body.style.overflow = "";
 }
 
-/* 料理資訊 */
+$("#modalClose").addEventListener("click",closeModal);
+
+$("#modalWrap").addEventListener("click",e => {
+  if(e.target === $("#modalWrap")) closeModal();
+});
+
+document.addEventListener("keydown",e => {
+  if(e.key === "Escape") closeModal();
+});
+
 function openRecipe(id) {
-  const r = recipes.find(item => item.id === id);
-  if (!r) return;
+  const r = recipes.find(x => x.id === id);
+  if(!r) return;
+
+  const canPlay = gameRecipes.some(x => x.linked === r.id);
 
   showModal(`
     <div class="eyebrow">HERBAL RECIPE</div>
     <h2>${r.name}</h2>
     <p>${r.idea}</p>
-
-    <h4>使用植物</h4>
-    <p>${r.plant}</p>
-
-    <h4>植物部位</h4>
-    <p>${r.part}</p>
-
-    <h4>風味特色</h4>
-    <p>${r.taste}</p>
-
-    <p class="notice">
-      示意菜色，實際配方與可食性須完成研究後確認。
-    </p>
-
-    <button class="modal-btn"
-      data-open-plant="${r.plant}">
+    <h4>使用植物</h4><p>${r.plant}</p>
+    <h4>使用部位</h4><p>${r.part}</p>
+    <h4>風味特色</h4><p>${r.taste}</p>
+    <p class="notice">示意菜色，正式配方及部位仍需確認。</p>
+    <button class="modal-btn" data-open-plant="${r.plant}">
       查看相關植物 →
     </button>
-  `, dishSVG(r.shape));
+    ${canPlay ? `
+      <button class="modal-btn" data-play="${r.id}">
+        到草本小廚房試做 →
+      </button>
+    ` : ""}
+  `,dishSVG(r.shape));
 }
 
-/* 植物資訊 */
 function openPlant(id) {
-  const p = plants.find(item => item.id === id);
-  if (!p) return;
+  const p = plants.find(x => x.id === id);
+  if(!p) return;
 
-  const related = recipes.filter(item => item.plant === id);
+  const related = recipes.filter(r => r.plant === id);
 
   showModal(`
     <div class="eyebrow">BOTANICAL INDEX</div>
     <h2>${p.id}</h2>
     <p class="latin">${p.latin}</p>
-
-    <h4>部位與用途</h4>
+    <h4>植物部位與用途</h4>
     <p>${p.parts}</p>
-
     <h4>文化研究</h4>
     <p>${p.culture}</p>
-
     <h4>相關料理</h4>
-    <p>${related.map(item => item.name).join("、")}</p>
-
-    <button class="modal-btn"
-      data-recipes-of="${p.id}">
-      看相關料理 →
+    <p>${related.map(x => x.name).join("、")}</p>
+    <button class="modal-btn" data-recipes="${p.id}">
+      查看相關料理 →
     </button>
-  `, plantSVG(p.shape));
+  `,plantSVG(p.shape));
 }
 
-/* 日誌內容 */
 function openJournal(index) {
   const j = journals[index];
-  if (!j) return;
+  if(!j) return;
 
   showModal(`
     <div class="eyebrow">FIELD JOURNAL</div>
     <h2>${j.title}</h2>
     <p>${j.text}</p>
-
     <h4>研究方向</h4>
     <p>${j.detail}</p>
-
-    <p class="notice">
-      此處為內容架構示例，未填入實際試驗結果。
-    </p>
-  `, plantSVG("mulberry"));
+    <p class="notice">尚未加入實際試驗結果。</p>
+  `,plantSVG("mulberry"));
 }
 
-/* 導覽點擊 */
-document.querySelectorAll("[data-page]").forEach(button => {
-  button.addEventListener("click", () => {
-    switchPage(button.dataset.page);
-  });
-});
+$("#modalText").addEventListener("click",e => {
+  const play = e.target.closest("[data-play]");
 
-$("#hamburger").addEventListener("click", () => {
-  $("#mobileNav").classList.toggle("open");
-});
+  if(play) {
+    closeModal();
+    pageTo("kitchen");
+    startGame(play.dataset.play);
+    return;
+  }
 
-$("#startExplore").addEventListener("click", () => {
-  switchPage("recipes");
-});
+  const plant = e.target.closest("[data-open-plant]");
 
-$("#headerSpin").addEventListener("click", () => {
-  switchPage("home");
-  spin();
-});
+  if(plant) {
+    closeModal();
+    pageTo("plants");
+    openPlant(plant.dataset.openPlant);
+    return;
+  }
 
-$("#spinButton").addEventListener("click", spin);
+  const related = e.target.closest("[data-recipes]");
 
-/* 直接點料理顯示資訊 */
-$("#wheel").addEventListener("click", event => {
-  if (spinning) return;
-
-  const dish = event.target.closest("[data-dish]");
-
-  if (dish) {
-    openRecipe(dish.dataset.dish);
+  if(related) {
+    closeModal();
+    pageTo("recipes");
+    $("#recipeSearch").value = related.dataset.recipes;
+    activeFilter = "全部";
+    renderRecipes();
   }
 });
 
-/* 分類篩選 */
-$("#recipeFilters").addEventListener("click", event => {
-  const button = event.target.closest("[data-filter]");
-  if (!button) return;
+/* ======================================================
+   04. 草本小廚房資料
+   之後菜色、食材與圖片可在這一區修改
+====================================================== */
 
-  activeFilter = button.dataset.filter;
+const ingredientBank = [
+  {id:"mulberry",name:"桑葚",kind:"berry",plant:"桑"},
+  {id:"lotus",name:"蓮藕",kind:"lotus",plant:"蓮"},
+  {id:"cinnamon",name:"土肉桂",kind:"cinnamon",plant:"肉桂"},
+  {id:"yogurt",name:"優格",kind:"yogurt"},
+  {id:"granola",name:"燕麥脆片",kind:"granola"},
+  {id:"greens",name:"蔬菜",kind:"greens"},
+  {id:"dressing",name:"調味醬汁",kind:"dressing"},
+  {id:"water",name:"熱水",kind:"water"},
+  {id:"honey",name:"蜂蜜",kind:"honey"},
+  {id:"flour",name:"麵粉",kind:"flour"}
+];
 
-  $("#recipeFilters").querySelectorAll(".filter").forEach(item => {
-    item.classList.toggle("active", item === button);
+const gameRecipes = [
+  {
+    id:"mulberry-game",
+    linked:"sang-berry",
+    name:"桑葚優格盅",
+    plant:"桑",
+    part:"桑葚果實",
+    needs:["mulberry","yogurt","granola"],
+    steps:["pour","stir","serve"],
+    shape:"berry",
+    knowledge:"桑葚是桑樹的果實。本次料理搭配優格與燕麥脆片。"
+  },
+  {
+    id:"cinnamon-game",
+    linked:"cinnamon-tea",
+    name:"土肉桂暖香茶",
+    plant:"肉桂",
+    part:"臺灣土肉桂（選用部位待查核）",
+    needs:["cinnamon","water","honey"],
+    steps:["pour","steep","serve"],
+    shape:"tea",
+    knowledge:"臺灣土肉桂的品種與食用部位仍需查核。此配方為遊戲示意。"
+  },
+  {
+    id:"lotus-game",
+    linked:"lotus-salad",
+    name:"蓮藕清香沙拉",
+    plant:"蓮",
+    part:"蓮藕",
+    needs:["lotus","greens","dressing"],
+    steps:["cut","stir","serve"],
+    shape:"salad",
+    knowledge:"蓮藕是蓮的地下莖，可以從切片觀察植物部位。"
+  }
+];
+
+const stepNames = {
+  pour:"倒入食材",
+  cut:"切片處理",
+  stir:"攪拌食材",
+  steep:"浸泡材料",
+  serve:"裝盤出餐"
+};
+
+const game = {
+  orders:[],
+  orderIndex:0,
+  phase:"welcome",
+  stepIndex:0,
+  chosen:new Set(),
+  cutCount:0,
+  stirAmount:0,
+  poured:false,
+  steeped:false,
+  served:false,
+  scores:[],
+  drag:null,
+  gesture:null,
+  timer:0
+};
+
+function currentOrder() {
+  return game.orders[game.orderIndex];
+}
+
+function shuffle(array) {
+  const a = [...array];
+
+  for(let i=a.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+
+  return a;
+}
+
+function resetRound() {
+  game.chosen = new Set();
+  game.stepIndex = 0;
+  game.cutCount = 0;
+  game.stirAmount = 0;
+  game.poured = false;
+  game.steeped = false;
+  game.served = false;
+  game.gesture = null;
+}
+
+function startGame(preferred=null) {
+  const first = preferred
+    ? gameRecipes.filter(r => r.linked === preferred)
+    : [];
+
+  game.orders = [
+    ...first,
+    ...shuffle(gameRecipes.filter(r => !first.includes(r)))
+  ];
+
+  game.orderIndex = 0;
+  game.scores = [];
+  game.phase = "order";
+  resetRound();
+  renderGame();
+}
+
+function gameFeedback(text,bad=false) {
+  $("#gameFeedback").textContent = text;
+  $("#gameFeedback").style.color = bad ? "#a16b5a" : "#607c59";
+}
+
+function updateTicket() {
+  const r = currentOrder();
+
+  $("#orderCount").textContent = r
+    ? `${game.orderIndex+1} / ${game.orders.length}`
+    : "01 / 03";
+
+  $("#ticketTitle").textContent = r ? r.name : "今日訂單";
+
+  $("#ticketDesc").textContent = r
+    ? `使用植物：${r.plant} · ${r.part}`
+    : "開始營業後會收到隨機訂單。";
+
+  $("#ticketItems").innerHTML = r
+    ? r.needs.map(id => {
+        const i = ingredientBank.find(x => x.id === id);
+        return `<li>${i ? i.name : id}</li>`;
+      }).join("")
+    : "";
+
+  $("#ticketMeta").textContent = r
+    ? `本次料理共有 ${r.steps.length} 個操作步驟`
+    : "草本餐桌 · 示意料理";
+
+  const total = r ? r.steps.length + 2 : 5;
+
+  const completed = game.phase === "select" ? 1
+    : game.phase === "work" ? 2 + game.stepIndex
+    : game.phase === "result" ? total
+    : 0;
+
+  $("#progressDots").innerHTML = Array.from(
+    {length:total},
+    (_,i) => `<i class="${i < completed ? "on" : ""}"></i>`
+  ).join("");
+}
+
+function gameCompleteStep() {
+  if(game.phase !== "work") return;
+
+  const step = currentOrder().steps[game.stepIndex];
+
+  if(step === "cut") game.cutCount = 3;
+  if(step === "stir") game.stirAmount = 540;
+  if(step === "pour") game.poured = true;
+  if(step === "steep") game.steeped = true;
+  if(step === "serve") game.served = true;
+
+  updateGameAction();
+  gameFeedback("操作完成，可以進入下一步。");
+}
+
+function isStepComplete() {
+  if(game.phase !== "work") return false;
+
+  const step = currentOrder().steps[game.stepIndex];
+
+  if(step === "cut") return game.cutCount >= 3;
+  if(step === "stir") return game.stirAmount >= 540;
+  if(step === "pour") return game.poured;
+  if(step === "steep") return game.steeped;
+  if(step === "serve") return game.served;
+
+  return false;
+}
+
+function updateGameAction() {
+  if(game.phase === "work")
+    $("#gameNext").disabled = !isStepComplete();
+}
+
+function gameArt(recipe) {
+  if(recipe.image) {
+    return `<img src="${recipe.image}" alt="${recipe.name}"
+      style="width:100%;max-width:220px;object-fit:contain">`;
+  }
+
+  return dishSVG(recipe.shape);
+}
+
+function itemArt(item) {
+  if(item.image) {
+    return `<img src="${item.image}" alt="${item.name}"
+      style="width:65px;height:55px;object-fit:contain">`;
+  }
+
+  return ingredientSVG(item.kind);
+}
+
+function renderGame() {
+  updateTicket();
+
+  const stage = $("#gameStage");
+  const shelf = $("#ingredientShelf");
+  const action = $("#gameNext");
+  const assist = $("#assistBtn");
+  const r = currentOrder();
+
+  shelf.hidden = true;
+  assist.hidden = true;
+  action.disabled = false;
+  gameFeedback("");
+
+  if(game.phase === "welcome") {
+    $("#stepLabel").textContent = "WELCOME";
+    $("#gameTitle").textContent = "今天，換你掌廚";
+    $("#gameInstruction").textContent =
+      "隨機接收三張訂單，選材並親手完成料理。";
+
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="stage-art">${dishSVG("salad")}</div>
+        <div class="stage-note">
+          從植物與食材開始，完成一道料理
+        </div>
+      </div>
+    `;
+
+    action.textContent = "開始營業";
+    return;
+  }
+
+  if(game.phase === "order") {
+    $("#stepLabel").textContent = "ORDER / 訂單";
+    $("#gameTitle").textContent = "新訂單送達";
+    $("#gameInstruction").textContent = "閱讀左側訂單後開始備料。";
+
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="stage-art">${gameArt(r)}</div>
+        <div class="stage-note">${r.name}</div>
+      </div>
+    `;
+
+    action.textContent = "接受訂單";
+    return;
+  }
+
+  if(game.phase === "select") {
+    $("#stepLabel").textContent = "01 / CHOOSE INGREDIENTS";
+    $("#gameTitle").textContent = "選擇食材";
+    $("#gameInstruction").textContent =
+      "把需要的材料從食材架拖到備料盤。選錯可移除。";
+
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="drop-tray" id="dropTray">
+          <strong>備料盤</strong>
+          <div class="tray-items" id="trayItems"></div>
+          <span class="stage-note">拖曳食材放在這裡</span>
+        </div>
+      </div>
+    `;
+
+    shelf.hidden = false;
+
+    $("#ingredientGrid").innerHTML = shuffle(ingredientBank)
+      .map(i => `
+        <button class="ingredient" data-ingredient="${i.id}">
+          ${itemArt(i)}
+          <span>${i.name}</span>
+          <small>${i.plant || "常備食材"}</small>
+        </button>
+      `).join("");
+
+    updateChosen();
+    action.textContent = "開始製作";
+    return;
+  }
+
+  if(game.phase === "work") {
+    const step = r.steps[game.stepIndex];
+
+    $("#stepLabel").textContent =
+      `STEP ${game.stepIndex+1} / ${r.steps.length}`;
+
+    $("#gameTitle").textContent = stepNames[step];
+
+    $("#gameInstruction").textContent = {
+      pour:"將材料壺拖到容器中，完成倒入。",
+      cut:"在砧板上橫向滑動三次，將蓮藕切片。",
+      stir:"沿碗畫圈攪拌，直到進度完成。",
+      steep:"按住茶杯約 1.5 秒，讓材料浸泡。",
+      serve:"把料理拖到右側餐盤上完成裝盤。"
+    }[step];
+
+    drawGameStep(step);
+
+    action.textContent =
+      game.stepIndex === r.steps.length-1
+        ? "檢查並出餐"
+        : "下一步";
+
+    assist.hidden = false;
+    updateGameAction();
+    return;
+  }
+
+  if(game.phase === "result") {
+    const needs = new Set(r.needs);
+
+    const missing = [...needs].filter(id => !game.chosen.has(id));
+    const extras = [...game.chosen].filter(id => !needs.has(id));
+
+    const score = Math.max(
+      0,
+      100 - missing.length * 22 - extras.length * 12
+    );
+
+    game.scores.push(score);
+
+    const nameOf = id =>
+      ingredientBank.find(i => i.id === id)?.name || id;
+
+    $("#stepLabel").textContent = "ORDER COMPLETE";
+    $("#gameTitle").textContent = "料理完成";
+    $("#gameInstruction").textContent =
+      "一起看看料理與植物部位的連結。";
+
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="result-panel">
+          ${gameArt(r)}
+          <div class="score">${score}<small> / 100</small></div>
+          <h3>${r.name}</h3>
+          <p>
+            ${missing.length
+              ? "缺少：" + missing.map(nameOf).join("、")
+              : "食材已備齊。"}
+            ${extras.length
+              ? "多放：" + extras.map(nameOf).join("、")
+              : ""}
+          </p>
+          <p><strong>植物小知識：</strong>${r.knowledge}</p>
+        </div>
+      </div>
+    `;
+
+    action.textContent =
+      game.orderIndex === game.orders.length-1
+        ? "查看本次成績"
+        : "接下一張訂單";
+
+    gameFeedback("本遊戲是示意配方，不代表食用安全已驗證。");
+    return;
+  }
+
+  if(game.phase === "summary") {
+    const average = Math.round(
+      game.scores.reduce((a,b) => a+b,0) / game.scores.length
+    );
+
+    $("#stepLabel").textContent = "KITCHEN CLOSED";
+    $("#gameTitle").textContent = "今日營業結束";
+    $("#gameInstruction").textContent = "三張訂單已完成。";
+
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="result-panel">
+          <div class="eyebrow">TODAY'S RECORD</div>
+          <div class="score">${average}</div>
+          <h3>平均分數</h3>
+          <ul>
+            ${game.orders.map((r,i) =>
+              `<li>${r.name}：${game.scores[i]} 分</li>`
+            ).join("")}
+          </ul>
+          <p>可以重新營業，挑戰不同訂單順序。</p>
+        </div>
+      </div>
+    `;
+
+    action.textContent = "重新營業";
+  }
+}
+
+function updateChosen() {
+  if(game.phase !== "select") return;
+
+  $("#trayItems").innerHTML = [...game.chosen].map(id => {
+    const item = ingredientBank.find(i => i.id === id);
+
+    return `
+      <button data-remove="${id}">
+        ${item ? item.name : id} ×
+      </button>
+    `;
+  }).join("");
+
+  $("#ingredientCount").textContent =
+    game.chosen.size + " 項";
+
+  $$("#ingredientGrid .ingredient").forEach(el => {
+    el.classList.toggle(
+      "selected",
+      game.chosen.has(el.dataset.ingredient)
+    );
   });
 
-  renderRecipes();
-});
+  $("#gameNext").disabled = game.chosen.size === 0;
+}
 
-$("#recipeSearch").addEventListener("input", renderRecipes);
+function drawGameStep(step) {
+  const r = currentOrder();
+  const stage = $("#gameStage");
 
-/* 料理探索與收藏 */
-$("#recipeGrid").addEventListener("click", event => {
-  const saveButton = event.target.closest("[data-save]");
+  if(step === "cut") {
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="work-area">
+          <div class="chopboard" id="chopboard">
+            ${ingredientSVG("lotus")}
+            <div class="slices" id="cutSlices"></div>
+          </div>
+          <div class="stage-note" id="workProgress">
+            已切 ${game.cutCount} / 3 片
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
-  if (saveButton) {
-    event.stopPropagation();
+  if(step === "stir") {
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="work-area">
+          <div class="stir-bowl ${r.plant === "桑" ? "" : "green"}"
+            id="stirBowl">
+            <div class="stir-ring" id="stirRing"></div>
+            <div class="spoon"></div>
+          </div>
+          <div class="stage-note" id="workProgress">
+            沿著碗畫圈攪拌
+          </div>
+        </div>
+      </div>
+    `;
+  }
 
-    const id = saveButton.dataset.save;
+  if(step === "pour") {
+    const type = r.plant === "肉桂" ? "water" : "yogurt";
 
-    if (saved.has(id)) {
-      saved.delete(id);
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="work-area">
+          <div class="pour-layout">
+            <button class="draggable-tool" data-tool="pour">
+              ${ingredientSVG(type)}
+              <span>拖曳材料壺</span>
+            </button>
+            <div class="drop-target" id="pourTarget">
+              倒入這個容器
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if(step === "steep") {
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="work-area">
+          <button class="tea-cup" id="teaCup">
+            <div class="tea-progress" id="teaRing"></div>
+            <span id="teaText">按住杯子<br>開始浸泡</span>
+          </button>
+          <div class="stage-note" id="workProgress">
+            持續按住約 1.5 秒
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if(step === "serve") {
+    stage.innerHTML = `
+      <div class="stage-content">
+        <div class="work-area">
+          <div class="serve-layout">
+            <button class="serve-food" data-tool="serve">
+              ${gameArt(r)}
+            </button>
+            <div class="serve-plate" id="serveTarget">
+              <span>拖曳料理到這裡</span>
+            </div>
+          </div>
+          <div class="stage-note">
+            把料理從左側拖到右側餐盤
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function nextGame() {
+  if(game.phase === "welcome" || game.phase === "summary") {
+    startGame();
+    return;
+  }
+
+  if(game.phase === "order") {
+    game.phase = "select";
+    renderGame();
+    return;
+  }
+
+  if(game.phase === "select") {
+    if(!game.chosen.size) return;
+
+    game.phase = "work";
+    game.stepIndex = 0;
+    renderGame();
+    return;
+  }
+
+  if(game.phase === "work") {
+    if(!isStepComplete()) return;
+
+    if(game.stepIndex < currentOrder().steps.length-1) {
+      game.stepIndex++;
+      renderGame();
     } else {
-      saved.add(id);
+      game.phase = "result";
+      renderGame();
     }
 
-    renderRecipes();
     return;
   }
 
-  const card = event.target.closest("[data-recipe]");
+  if(game.phase === "result") {
+    if(game.orderIndex < game.orders.length-1) {
+      game.orderIndex++;
+      resetRound();
+      game.phase = "order";
+    } else {
+      game.phase = "summary";
+    }
 
-  if (card) {
-    openRecipe(card.dataset.recipe);
+    renderGame();
   }
-});
+}
 
-$("#recipeGrid").addEventListener("keydown", event => {
-  if (
-    (event.key === "Enter" || event.key === " ") &&
-    event.target.matches("[data-recipe]")
-  ) {
-    event.preventDefault();
-    openRecipe(event.target.dataset.recipe);
-  }
-});
+/* ======================================================
+   05. 真實手勢與拖曳操作
+====================================================== */
 
-/* 植物圖鑑點擊 */
-$("#plantGrid").addEventListener("click", event => {
-  const plant = event.target.closest("[data-plant]");
+function inside(el,x,y) {
+  if(!el) return false;
 
-  if (plant) {
-    openPlant(plant.dataset.plant);
-  }
-});
+  const r = el.getBoundingClientRect();
 
-/* 實驗日誌點擊 */
-$("#journalList").addEventListener("click", event => {
-  const journal = event.target.closest("[data-journal]");
+  return x >= r.left && x <= r.right &&
+    y >= r.top && y <= r.bottom;
+}
 
-  if (journal) {
-    openJournal(Number(journal.dataset.journal));
-  }
-});
+function beginDrag(e,id,type) {
+  const old = $("#dragGhost");
+  if(old) old.remove();
 
-$("#journalList").addEventListener("keydown", event => {
-  if (
-    (event.key === "Enter" || event.key === " ") &&
-    event.target.matches("[data-journal]")
-  ) {
-    openJournal(Number(event.target.dataset.journal));
-  }
-});
+  const item = ingredientBank.find(i => i.id === id);
 
-/* 關閉資訊卡 */
-$("#modalClose").addEventListener("click", closeModal);
+  const art = type === "ingredient"
+    ? itemArt(item)
+    : type === "pour"
+      ? ingredientSVG(currentOrder().plant === "肉桂"
+          ? "water" : "yogurt")
+      : gameArt(currentOrder());
 
-$("#modalWrap").addEventListener("click", event => {
-  if (event.target === $("#modalWrap")) {
-    closeModal();
-  }
-});
+  const ghost = document.createElement("div");
+  ghost.className = "drag-ghost";
+  ghost.id = "dragGhost";
+  ghost.innerHTML = art;
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") {
-    closeModal();
-  }
-});
+  document.body.appendChild(ghost);
 
-/* 資訊卡跨頁查詢 */
-$("#modalText").addEventListener("click", event => {
-  const plantButton = event.target.closest("[data-open-plant]");
+  ghost.style.left = e.clientX + "px";
+  ghost.style.top = e.clientY + "px";
 
-  if (plantButton) {
-    const id = plantButton.dataset.openPlant;
-
-    closeModal();
-    switchPage("plants");
-    openPlant(id);
-    return;
-  }
-
-  const recipeButton = event.target.closest("[data-recipes-of]");
-
-  if (recipeButton) {
-    const id = recipeButton.dataset.recipesOf;
-
-    closeModal();
-    switchPage("recipes");
-
-    $("#recipeSearch").value = id;
-    activeFilter = "全部";
-
-    $("#recipeFilters").querySelectorAll(".filter").forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.filter === "全部"
-      );
-    });
-
-    renderRecipes();
-  }
-});
-
-/*
-  手機轉盤手勢：
-  只在右側金色滑動區偵測。
-  超過 22px 即啟動旋轉。
-  不需要一路拖動整個轉盤，降低卡頓。
-*/
-const zone = $("#gestureZone");
-
-zone.addEventListener("pointerdown", event => {
-  if (spinning || event.isPrimary === false) return;
-
-  gesture = {
-    id:event.pointerId,
-    x:event.clientX,
-    y:event.clientY,
-    triggered:false
+  game.drag = {
+    id,
+    type,
+    pointerId:e.pointerId,
+    startX:e.clientX,
+    startY:e.clientY,
+    ghost
   };
+}
 
-  try {
-    zone.setPointerCapture(event.pointerId);
-  } catch (_) {}
-});
+function endDrag(e) {
+  const d = game.drag;
 
-zone.addEventListener("pointermove", event => {
-  if (!gesture || gesture.id !== event.pointerId) return;
-  if (gesture.triggered || spinning) return;
+  if(!d || d.pointerId !== e.pointerId) return;
 
-  const distance = Math.hypot(
-    event.clientX - gesture.x,
-    event.clientY - gesture.y
-  );
+  const destination = d.type === "ingredient"
+    ? $("#dropTray")
+    : d.type === "pour"
+      ? $("#pourTarget")
+      : $("#serveTarget");
 
-  if (distance > 22) {
-    gesture.triggered = true;
-    spin();
-  }
-});
-
-zone.addEventListener("pointerup", event => {
-  if (!gesture || gesture.id !== event.pointerId) return;
-
-  const previous = gesture;
-  gesture = null;
+  const hit = inside(destination,e.clientX,e.clientY);
 
   const distance = Math.hypot(
-    event.clientX - previous.x,
-    event.clientY - previous.y
+    e.clientX - d.startX,
+    e.clientY - d.startY
   );
 
-  if (!previous.triggered && distance > 22) {
-    spin();
+  d.ghost.remove();
+  game.drag = null;
+
+  if(d.type === "ingredient" && game.phase === "select") {
+    if(hit || distance < 8) {
+      game.chosen.add(d.id);
+      updateChosen();
+      gameFeedback("食材已加入備料盤。");
+    } else {
+      gameFeedback("請把食材拖到備料盤。",true);
+    }
+  }
+
+  if(d.type === "pour" && hit && game.phase === "work") {
+    $("#pourTarget").textContent = "材料已倒入";
+    $("#pourTarget").classList.add("filled");
+    gameCompleteStep();
+  }
+
+  if(d.type === "serve" && hit && game.phase === "work") {
+    $("#serveTarget").innerHTML = gameArt(currentOrder());
+    $("#serveTarget").style.pointerEvents = "none";
+    gameCompleteStep();
+  }
+}
+
+function startGesture(e) {
+  if(game.phase !== "work") return;
+  const step = currentOrder().steps[game.stepIndex];
+
+  if(step === "cut" && e.target.closest("#chopboard")) {
+    game.gesture = {
+      type:"cut",
+      id:e.pointerId,
+      x:e.clientX,
+      y:e.clientY
+    };
+  }
+
+  if(step === "stir" && e.target.closest("#stirBowl")) {
+    const r = $("#stirBowl").getBoundingClientRect();
+
+    const cx = r.left + r.width/2;
+    const cy = r.top + r.height/2;
+
+    game.gesture = {
+      type:"stir",
+      id:e.pointerId,
+      cx,cy,
+      prev:Math.atan2(e.clientY-cy,e.clientX-cx)
+    };
+  }
+
+  if(step === "steep" && e.target.closest("#teaCup")) {
+    game.gesture = {
+      type:"steep",
+      id:e.pointerId,
+      started:performance.now()
+    };
+
+    function tick(now) {
+      const g = game.gesture;
+
+      if(!g || g.type !== "steep") return;
+
+      const progress = Math.min(1,(now-g.started)/1500);
+
+      $("#teaRing").style.setProperty(
+        "--opacity",
+        (.2 + .8*progress).toString()
+      );
+
+      $("#teaText").innerHTML =
+        "浸泡中<br>" + Math.round(progress*100) + "%";
+
+      if(progress >= 1) {
+        game.steeped = true;
+        game.gesture = null;
+        $("#teaText").textContent = "浸泡完成";
+        gameCompleteStep();
+      } else {
+        game.timer = requestAnimationFrame(tick);
+      }
+    }
+
+    game.timer = requestAnimationFrame(tick);
+  }
+}
+
+function moveGesture(e) {
+  const g = game.gesture;
+
+  if(!g || g.id !== e.pointerId) return;
+
+  if(g.type === "stir") {
+    let a = Math.atan2(
+      e.clientY-g.cy,
+      e.clientX-g.cx
+    );
+
+    let delta = a - g.prev;
+
+    if(delta > Math.PI) delta -= Math.PI*2;
+    if(delta < -Math.PI) delta += Math.PI*2;
+
+    if(Math.abs(delta) < 1.4) {
+      game.stirAmount += Math.abs(delta)*180/Math.PI;
+      g.prev = a;
+    }
+
+    const percent = Math.min(
+      100,Math.round(game.stirAmount/540*100)
+    );
+
+    $("#stirBowl").style.setProperty("--fill",percent+"%");
+    $("#stirBowl").style.setProperty(
+      "--spoon",
+      Math.round(a*180/Math.PI)+"deg"
+    );
+
+    $("#workProgress").textContent =
+      "攪拌進度 " + percent + "%";
+
+    if(game.stirAmount >= 540) gameCompleteStep();
+  }
+}
+
+function endGesture(e) {
+  const g = game.gesture;
+
+  if(!g || g.id !== e.pointerId) return;
+
+  game.gesture = null;
+
+  if(g.type === "cut") {
+    const dx = Math.abs(e.clientX-g.x);
+    const dy = Math.abs(e.clientY-g.y);
+
+    if(dx > 45 && dx > dy) {
+      game.cutCount = Math.min(3,game.cutCount+1);
+
+      $("#cutSlices").innerHTML = Array.from(
+        {length:game.cutCount},
+        () => "<i></i>"
+      ).join("");
+
+      $("#workProgress").textContent =
+        `已切 ${game.cutCount} / 3 片`;
+
+      if(game.cutCount >= 3) gameCompleteStep();
+    }
+  }
+
+  if(g.type === "steep") {
+    cancelAnimationFrame(game.timer);
+
+    if(!game.steeped) {
+      $("#teaText").innerHTML =
+        "按住杯子<br>開始浸泡";
+
+      gameFeedback("請持續按住直到浸泡完成。",true);
+    }
+  }
+}
+
+/* ======================================================
+   06. 遊戲事件綁定
+====================================================== */
+
+$("#gameNext").addEventListener("click",nextGame);
+
+$("#assistBtn").addEventListener("click",() => {
+  gameCompleteStep();
+  $("#assistBtn").disabled = true;
+});
+
+$("#restartGame").addEventListener("click",() => startGame());
+
+$("#gameStage").addEventListener("click",e => {
+  const remove = e.target.closest("[data-remove]");
+
+  if(remove && game.phase === "select") {
+    game.chosen.delete(remove.dataset.remove);
+    updateChosen();
   }
 });
 
-zone.addEventListener("pointercancel", () => {
-  gesture = null;
+$("#ingredientGrid").addEventListener("pointerdown",e => {
+  const el = e.target.closest("[data-ingredient]");
+
+  if(!el || game.phase !== "select" || e.isPrimary === false)
+    return;
+
+  e.preventDefault();
+  beginDrag(e,el.dataset.ingredient,"ingredient");
 });
 
-zone.addEventListener("keydown", event => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    spin();
+$("#gameStage").addEventListener("pointerdown",e => {
+  if(e.isPrimary === false) return;
+
+  const tool = e.target.closest("[data-tool]");
+
+  if(tool && game.phase === "work" && !isStepComplete()) {
+    e.preventDefault();
+    beginDrag(e,tool.dataset.tool,tool.dataset.tool);
+    return;
+  }
+
+  startGesture(e);
+});
+
+document.addEventListener("pointermove",e => {
+  if(game.drag && game.drag.pointerId === e.pointerId) {
+    e.preventDefault();
+
+    game.drag.ghost.style.left = e.clientX + "px";
+    game.drag.ghost.style.top = e.clientY + "px";
+
+    const dest = game.drag.type === "ingredient"
+      ? $("#dropTray")
+      : game.drag.type === "pour"
+        ? $("#pourTarget")
+        : $("#serveTarget");
+
+    if(dest) {
+      dest.classList.toggle(
+        "hover",
+        inside(dest,e.clientX,e.clientY)
+      );
+    }
+  }
+
+  moveGesture(e);
+},{passive:false});
+
+document.addEventListener("pointerup",e => {
+  endDrag(e);
+  endGesture(e);
+});
+
+document.addEventListener("pointercancel",e => {
+  if(game.drag) {
+    game.drag.ghost.remove();
+    game.drag = null;
+  }
+
+  if(game.gesture) {
+    cancelAnimationFrame(game.timer);
+    game.gesture = null;
   }
 });
 
-/* 初始化網站 */
+/* ======================================================
+   07. 網站啟動
+====================================================== */
+
 buildWheel();
 renderRecipes();
 renderPlants();
-renderJournals();
+renderJournal();
+renderGame();
+
 </script>
 </body>
 </html>
