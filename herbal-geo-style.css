@@ -1,0 +1,385 @@
+/* =====================================================
+   草本餐桌計畫｜幾何 × 遊戲感 全站樣式
+   配色取自簡報：奶油底、深綠、草綠、萊姆黃、枸杞橘紅
+   載入順序：放在 kitchen-comic-style.css 之後
+   ===================================================== */
+
+:root{
+  --paper:#fbf8e4;
+  --cream:#fffdf0;
+  --green:#0a7a3c;
+  --deep:#0b4a2b;
+  --muted:#5d7a5a;
+  --line:#cfd69a;
+  --gold:#c8d41f;
+  --serif:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+
+  --g-deep:#0a7a3c;
+  --g-dark:#0b5d33;
+  --g-mid:#2ea44f;
+  --g-olive:#8fbf2a;
+  --g-lime:#c8d41f;
+  --g-pop:#e8452c;
+  --g-ink:#0b3d24;
+}
+
+body{
+  background:var(--paper);
+  color:var(--deep);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+
+h1,h2,h3{font-weight:900}
+
+/* ---------- 導覽列：頂端三色條 ---------- */
+
+.site-header{
+  background:#fffdf0f2;
+  border-bottom:3px solid var(--g-ink);
+}
+.site-header:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:8px;
+  background:linear-gradient(90deg,
+    var(--g-dark) 0 33.3%,
+    var(--g-olive) 33.3% 66.6%,
+    var(--g-lime) 66.6%);
+}
+
+.nav button,
+.mobile-menu button{
+  font-weight:700;
+  color:var(--g-ink);
+  padding:6px 14px;
+  border-radius:30px;
+}
+.nav button.active{
+  color:#fff;
+  background:var(--g-deep);
+  border:0;
+  box-shadow:0 3px 0 var(--g-ink);
+}
+.menu-button{color:var(--g-ink)}
+
+/* ---------- 共用：小標籤、標題底線 ---------- */
+
+.eyebrow{
+  display:inline-block;
+  padding:3px 12px;
+  font-weight:700;
+  color:#fff;
+  background:var(--g-deep);
+  border:2px solid var(--g-ink);
+  border-radius:30px;
+}
+
+/* 條紋裝飾（呼應簡報左側的橫條紋） */
+.hero h1:after,
+.page-head h1:after{
+  content:"";
+  display:block;
+  width:120px;
+  height:20px;
+  margin:16px 0 0;
+  background:repeating-linear-gradient(
+    var(--g-mid) 0 5px, transparent 5px 10px);
+}
+
+.page-head h1{color:var(--g-deep)}
+.page-head p{color:var(--muted);font-weight:500}
+
+/* ---------- 首頁背景：幾何葉形 ---------- */
+
+.hero-section{background:var(--paper)}
+
+.ambient .leaf{display:none}
+
+.ambient .shape{opacity:1}
+
+.ambient .shape.one{
+  left:-50px;
+  top:10%;
+  width:190px;
+  height:190px;
+  background:var(--g-deep);
+  border-radius:0 100% 0 100%;
+  transform:none;
+}
+.ambient .shape.two{
+  right:-40px;
+  bottom:8%;
+  width:170px;
+  height:170px;
+  background:var(--g-lime);
+  border-radius:100% 0 100% 0;
+  transform:none;
+}
+
+.hero h1{color:var(--g-deep);font-weight:900}
+.hero-copy p{color:var(--muted);font-weight:500}
+
+.primary{
+  background:var(--g-deep);
+  color:#fff;
+  font-weight:900;
+  border:3px solid var(--g-ink);
+  box-shadow:0 5px 0 var(--g-ink);
+  transition:transform .08s,box-shadow .08s;
+}
+.primary:hover{background:var(--g-mid)}
+.primary:active{transform:translateY(4px);box-shadow:0 1px 0 var(--g-ink)}
+
+.plant-tags button{
+  background:#fff;
+  color:var(--g-ink);
+  font-weight:700;
+  border:2px solid var(--g-ink);
+  box-shadow:0 3px 0 var(--g-ink);
+}
+.plant-tags button:before{color:var(--g-pop)}
+
+/* ---------- 圓桌 ---------- */
+
+.table-scene{filter:none}
+.table-scene:before{display:none}
+
+.table-board{
+  border:4px solid var(--g-ink);
+  background:var(--g-lime);
+  box-shadow:
+    inset 0 0 0 10px var(--paper),
+    inset 0 0 0 14px var(--g-olive),
+    0 9px 0 var(--g-ink);
+}
+.wheel{
+  border:3px solid var(--g-ink);
+  background:radial-gradient(circle at 27% 23%,#fffef2,#f6f3d6 75%,#e9e8bb);
+  box-shadow:0 0 0 4px var(--g-lime);
+}
+.wheel:after{border:2px dashed var(--g-olive)}
+
+.dish-face{filter:drop-shadow(0 5px 0 #0b3d2433)}
+.dish.selected .dish-face{filter:drop-shadow(0 0 10px var(--g-pop))}
+
+.pointer{border-top-color:var(--g-pop);filter:drop-shadow(0 2px 0 var(--g-ink))}
+
+.table-center{
+  background:var(--g-deep);
+  border:4px solid var(--g-ink);
+  box-shadow:0 5px 0 var(--g-ink);
+}
+.spin-button{color:#fff;font-weight:900}
+
+.result-text{color:var(--g-ink);font-weight:700}
+.touch-hint{color:var(--muted)}
+
+/* ---------- 首頁入口：三色方塊卡片 ---------- */
+
+.entries{
+  background:var(--cream);
+  border-top:4px solid var(--g-ink);
+}
+
+.entry-card{
+  border:3px solid var(--g-ink);
+  border-radius:28px 0 28px 0;
+  box-shadow:0 6px 0 var(--g-ink);
+  color:var(--g-ink);
+  transition:transform .1s,box-shadow .1s;
+}
+.entry-card:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--g-ink)}
+.entry-card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--g-ink)}
+
+.entry-card:nth-child(1){background:var(--g-lime)}
+.entry-card:nth-child(2){background:var(--g-olive)}
+.entry-card:nth-child(3){background:var(--g-deep);color:#fff}
+
+.entry-card:before{
+  background:#fff;
+  opacity:.35;
+  border-radius:50%;
+  width:90px;
+  height:90px;
+  left:auto;
+  right:-28px;
+  top:-34px;
+  transform:none;
+}
+.entry-icon{color:inherit}
+.entry-card strong{font-weight:900}
+
+.more-links button{color:var(--g-deep);font-weight:700}
+
+/* ---------- 內頁卡片：葉形對角圓角＋硬陰影 ---------- */
+
+.recipe-card,
+.plant-card,
+.culture-card{
+  background:var(--cream);
+  border:3px solid var(--g-ink);
+  border-radius:28px 0 28px 0;
+  box-shadow:0 6px 0 var(--g-ink);
+  transition:transform .1s,box-shadow .1s;
+}
+.recipe-card:hover,
+.plant-card:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--g-ink)}
+
+/* 圖片底色輪流變換，像簡報左側的方格拼貼 */
+.recipe-img{border-bottom:3px solid var(--g-ink)}
+.recipe-card:nth-child(3n+1) .recipe-img{background:var(--g-lime)}
+.recipe-card:nth-child(3n+2) .recipe-img{background:var(--g-olive)}
+.recipe-card:nth-child(3n) .recipe-img{background:var(--g-mid)}
+
+.recipe-body h3,
+.plant-card h3{color:var(--g-ink)}
+.recipe-body p,
+.plant-card p{color:var(--muted);font-weight:500}
+
+.mini-tags span{
+  background:var(--g-lime);
+  color:var(--g-ink);
+  font-weight:700;
+  border:2px solid var(--g-ink);
+}
+.readmore{color:var(--g-deep);font-weight:900}
+.latin{color:var(--muted)}
+
+.plant-card:nth-child(1) .plant-icon{background:var(--g-lime)}
+.plant-card:nth-child(2) .plant-icon{background:#f5b9a8}
+.plant-card:nth-child(3) .plant-icon{background:var(--g-olive)}
+.plant-icon{
+  border:3px solid var(--g-ink);
+  border-radius:50% 0 50% 0;
+  padding:6px;
+}
+
+/* 篩選與搜尋 */
+.filter{
+  background:#fff;
+  color:var(--g-ink);
+  font-weight:700;
+  border:2px solid var(--g-ink);
+  box-shadow:0 3px 0 var(--g-ink);
+}
+.filter.active{background:var(--g-deep);color:#fff}
+.search{border:2px solid var(--g-ink);font-weight:700}
+
+.notice{
+  background:#eef3c4;
+  color:var(--g-ink);
+  border-left:5px solid var(--g-deep);
+  border-radius:0 12px 12px 0;
+}
+
+/* 日誌與文化 */
+.journal-intro{
+  background:var(--g-lime);
+  border:3px solid var(--g-ink);
+  border-radius:28px 0 28px 0;
+  box-shadow:0 6px 0 var(--g-ink);
+}
+.journal-intro p{color:var(--g-ink)}
+.timeline{border-left:3px solid var(--g-ink)}
+.journal-item:before{
+  left:-31px;
+  width:13px;
+  height:13px;
+  background:var(--g-pop);
+  border:2px solid var(--g-ink);
+}
+.journal-item h3{color:var(--g-ink)}
+
+.culture-card:nth-child(1){background:#f4f7cf}
+.culture-card:nth-child(2){background:#e3f0c8}
+.culture-mark{
+  color:#fff;
+  background:var(--g-deep);
+  border:3px solid var(--g-ink);
+  border-radius:50% 0 50% 0;
+  font-weight:900;
+}
+
+/* ---------- 頁尾 ---------- */
+
+.site-footer{
+  background:var(--g-deep);
+  color:#e5f0b8;
+  border-top:8px solid;
+  border-image:linear-gradient(90deg,
+    var(--g-dark) 0 33.3%,
+    var(--g-olive) 33.3% 66.6%,
+    var(--g-lime) 66.6%) 1;
+}
+.site-footer strong{color:#fff}
+
+/* ---------- 彈出卡片 ---------- */
+
+.modal-backdrop{background:#0b3d24cc}
+.modal{
+  background:var(--cream);
+  border:4px solid var(--g-ink);
+  border-radius:28px 0 28px 0;
+  box-shadow:0 9px 0 var(--g-ink);
+}
+.modal-art{background:var(--g-lime);border-right:4px solid var(--g-ink)}
+.modal-text h4{color:var(--g-deep);font-weight:900}
+.modal-text p{color:var(--muted);font-weight:500}
+.modal-close{
+  background:var(--g-lime);
+  border:3px solid var(--g-ink);
+  color:var(--g-ink);
+  font-weight:900;
+  box-shadow:0 3px 0 var(--g-ink);
+}
+.small-btn{
+  background:#fff;
+  color:var(--g-ink);
+  font-weight:900;
+  border:3px solid var(--g-ink);
+  box-shadow:0 3px 0 var(--g-ink);
+}
+.small-btn:hover{background:var(--g-lime)}
+
+.plant-detail .modal-text p{color:#3f6a4c}
+.plant-detail .modal-text h4{color:var(--g-deep)}
+.plant-detail .plant-subtitle{color:var(--g-mid)}
+.plant-story{background:#f1f3c8;border:2px solid var(--g-ink)}
+.plant-fact,.plant-part{border-bottom:2px dashed var(--line)}
+.plant-fact strong,.plant-part strong{color:var(--g-deep)}
+.plant-discovery{border-left-color:var(--g-olive)}
+.plant-safety{background:#fdf0cf;border:2px solid var(--g-ink)}
+.plant-source a{color:var(--g-deep);font-weight:700}
+
+/* ---------- 草本小廚房：改用簡報配色 ---------- */
+
+#page-kitchen{
+  --lime:#2ea44f;      /* 放射光芒：草綠 */
+  --lime-d:#24913f;
+  --ink:#0b3d24;       /* 描邊：墨綠 */
+  --pop:#e8452c;       /* 按鈕／標籤：枸杞橘紅 */
+  --pop-d:#c63418;
+  --sun:#c8d41f;       /* 標題字：萊姆黃 */
+}
+
+#page-kitchen .ingredient.selected{
+  background:#f1f6b8;
+  border-color:var(--g-lime);
+  box-shadow:0 0 0 3px #fff,0 0 0 6px var(--g-lime),0 7px 0 6px var(--ink);
+}
+#page-kitchen .drop-area.hover{background:#f1f6b8}
+
+/* ---------- 手機 ---------- */
+
+@media(max-width:760px){
+  .ambient .shape{width:110px;height:110px}
+  .ambient .shape.one{left:-40px;top:70px}
+  .entry-card{border-radius:22px 0 22px 0}
+  .recipe-card,.plant-card,.culture-card{box-shadow:0 4px 0 var(--g-ink)}
+  .modal-art{border-right:0;border-bottom:4px solid var(--g-ink)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
