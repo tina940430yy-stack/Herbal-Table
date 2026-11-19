@@ -104,7 +104,7 @@ h1,h2,h3{font-weight:900}
   border-radius:30px;
 }
 
-/* 條紋裝飾（呼應簡報左側的橫條紋） */
+/* 條紋裝飾 */
 
 .hero h1:after,
 .page-head h1:after{
@@ -329,7 +329,7 @@ h1,h2,h3{font-weight:900}
   box-shadow:0 9px 0 var(--g-ink);
 }
 
-/* 圖片底色輪流變換，像簡報左側的方格拼貼 */
+/* 圖片底色輪流變換 */
 
 .recipe-img{
   border-bottom:3px solid var(--g-ink);
@@ -390,7 +390,7 @@ h1,h2,h3{font-weight:900}
   padding:6px;
 }
 
-/* 篩選與搜尋 */
+/* ---------- 篩選與搜尋 ---------- */
 
 .filter{
   background:#fff;
@@ -417,7 +417,7 @@ h1,h2,h3{font-weight:900}
   border-radius:0 12px 12px 0;
 }
 
-/* 日誌與文化 */
+/* ---------- 日誌與文化 ---------- */
 
 .journal-intro{
   background:var(--g-lime);
@@ -502,12 +502,43 @@ h1,h2,h3{font-weight:900}
   font-weight:500;
 }
 
+/* 全站資訊卡共用的關閉按鈕 */
+
 .modal-close{
   background:var(--g-lime);
   border:3px solid var(--g-ink);
   color:var(--g-ink);
   font-weight:900;
   box-shadow:0 3px 0 var(--g-ink);
+  display:grid;
+  place-items:center;
+  padding:0;
+  line-height:1;
+  font-size:0;
+  appearance:none;
+}
+
+/* 以兩條線繪製叉叉，避免字型與行高造成視覺偏移 */
+
+.modal-close::before,
+.modal-close::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:18px;
+  height:3px;
+  border-radius:2px;
+  background:currentColor;
+  pointer-events:none;
+}
+
+.modal-close::before{
+  transform:translate(-50%,-50%) rotate(45deg);
+}
+
+.modal-close::after{
+  transform:translate(-50%,-50%) rotate(-45deg);
 }
 
 .small-btn{
@@ -566,12 +597,12 @@ h1,h2,h3{font-weight:900}
 /* ---------- 草本小廚房：改用簡報配色 ---------- */
 
 #page-kitchen{
-  --lime:#2ea44f;      /* 放射光芒：草綠 */
+  --lime:#2ea44f;
   --lime-d:#24913f;
-  --ink:#0b3d24;       /* 描邊：墨綠 */
-  --pop:#e8452c;       /* 按鈕／標籤：枸杞橘紅 */
+  --ink:#0b3d24;
+  --pop:#e8452c;
   --pop-d:#c63418;
-  --sun:#c8d41f;       /* 標題字：萊姆黃 */
+  --sun:#c8d41f;
 }
 
 #page-kitchen .ingredient.selected{
